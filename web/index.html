@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="noir">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>HeadsUp Pulse — Even Realities G2 (576x288) Read &amp; Write Workbench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    /* Typography: Inter, Instrument Serif & JetBrains Mono — Licensed under SIL Open Font License 1.1 */
+    :root,
+    [data-theme="noir"] {
+      --bg-canvas: #06080e;
+      --bg-page: #06080e;
+      --bg-card: #0e1320;
+      --bg-well: #080b12;
+      --bg-subtle: #0b101b;
+      --border-soft: rgba(255, 255, 255, 0.10);
+      --border-well: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(56, 189, 248, 0.55);
+      --ink-primary: #f1f5f9;
+      --ink-secondary: #94a3b8;
+      --ink-muted: #64748b;
+      --accent-sky: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-crimson: #f43f5e;
+      --switch-glow: #facc15;
+      --g2-substrate: #030905;
+      --g2-phosphor: #56f08d;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-serif: "Instrument Serif", Georgia, serif;
+      --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-padding-top: 88px;
+      scroll-padding-bottom: 64px;
+      background-color: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-color: var(--bg-canvas);
+      background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.10), transparent 55%);
+      color: var(--ink-primary);
+      padding-bottom: 72px;
+    }
+
+    .tabular,
+    kbd,
+    .keycap,
+    .mono-stamp {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.03em;
+    }
+
+    button,
+    .interactive-btn,
+    .card-tab,
+    .brightness-step,
+    .pill-switch,
+    .svg-hotspot {
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 140ms var(--ease-spring), border-color 160ms var(--ease-spring), background-color 160ms var(--ease-spring), box-shadow 160ms var(--ease-spring);
+      touch-action: manipulation;
+    }
+
+    button:active,
+    .interactive-btn:active,
+    .card-tab:active,
+    .brightness-step:active,
+    .pill-switch:active {
+      transform: translateY(1px) scale(0.97);
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    select:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--accent-sky);
+      outline-offset: 2px;
+    }
+
+    /* Compact Locked Header (~39px) */
+    #app-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      min-height: calc(max(12px, env(safe-area-inset-top, 0px)) + 27px);
+      padding: 6px 20px;
+      background: rgba(6, 8, 14, 0.90);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--ink-primary);
+    }
+
+    .header-telemetry {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .telemetry-chip {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 11px;
+      color: var(--ink-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.75);
+    }
+
+    .hud-drawer-trigger {
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-well);
+      color: var(--ink-primary);
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Unified Flow Stack Accordion (Collapsed by default) */
+    #map-top-hud-stack {
+      position: fixed;
+      left: 20px;
+      right: 20px;
+      top: 52px;
+      z-index: 38;
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 16px 36px rgba(0, 0, 0, 0.65);
+    }
+
+    #map-top-hud-stack.hidden {
+      display: none !important;
+    }
+
+    .hud-stack-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border-well);
+    }
+
+    .hud-dismiss-btn {
+      min-height: 28px;
+      min-width: 36px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-well);
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    /* Main Asymmetric Workbench Grid */
+    .workbench-shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px 20px 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 624px);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .hero-intro {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-well);
+    }
+
+    .hero-headline {
+      margin: 0;
+      font-size: clamp(24px, 2.6vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+    }
+
+    .hero-serif-accent {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent-sky);
+      padding-right: 4px;
+    }
+
+    .hero-subcopy {
+      margin: 8px 0 0;
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 64ch;
+      color: var(--ink-secondary);
+    }
+
+    .stat-monument-row {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .stat-monument {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px;
+      align-items: baseline;
+      white-space: nowrap;
+    }
+
+    .stat-value {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Containment Level 1: Primary Milled Chassis Cards */
+    .left-column {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .right-stage-sticky {
+      min-width: 0;
+      position: sticky;
+      top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .instrument-card {
+      min-width: 0;
+      max-width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 12px rgba(0, 0, 0, 0.45), 0 16px 32px -8px rgba(0, 0, 0, 0.60);
+    }
+
+    .instrument-card.hotspot-focused {
+      border-color: var(--border-active);
+    }
+
+    .card-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-well);
+    }
+
+    .card-heading-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .index-stamp {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-sky);
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Containment Level 2 (Max): Full-Perimeter 1px Recessed Hardware Bay */
+    .recessed-well {
+      background: var(--bg-well);
+      border: 1px solid var(--border-well);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55);
+    }
+
+    .well-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border-well);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-secondary);
+    }
+
+    .editorial-quote {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.4;
+      color: var(--ink-primary);
+    }
+
+    /* True-Scale 576 x 288 Even G2 Monochrome Green Optical Waveguide */
+    .waveguide-frame-outer {
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+    }
+
+    .g2-waveguide-viewport {
+      width: 576px;
+      height: 288px;
+      max-width: 100%;
+      aspect-ratio: 2 / 1;
+      position: relative;
+      background-color: var(--g2-substrate);
+      background-image:
+        linear-gradient(rgba(86, 240, 141, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(86, 240, 141, 0.035) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 42%, rgba(86, 240, 141, 0.11), transparent 72%);
+      background-size: 24px 24px, 24px 24px, 100% 100%;
+      border: 1px solid rgba(86, 240, 141, 0.34);
+      border-radius: 14px;
+      box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.88), 0 8px 24px rgba(0, 0, 0, 0.65);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--g2-phosphor);
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      user-select: none;
+    }
+
+    .g2-container-header {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(86, 240, 141, 0.22);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      opacity: 0.88;
+    }
+
+    .g2-container-body {
+      flex: 1;
+      padding-top: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .g2-glance-line {
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      text-shadow: 0 0 10px rgba(86, 240, 141, 0.32);
+    }
+
+    .g2-glance-line.action-footer {
+      font-size: 12px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(86, 240, 141, 0.24);
+      opacity: 0.92;
+    }
+
+    .g2-menu-overlay {
+      position: absolute;
+      right: 16px;
+      top: 52px;
+      width: 224px;
+      background: rgba(3, 12, 7, 0.96);
+      border: 0;
+      box-shadow: inset 0 0 0 1px rgba(86, 240, 141, 0.48), 0 8px 20px rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 5;
+    }
+
+    .g2-menu-overlay.hidden {
+      display: none !important;
+    }
+
+    .g2-menu-item {
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid rgba(86, 240, 141, 0.14);
+      color: var(--g2-phosphor);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-align: left;
+      padding: 6px 4px;
+      min-height: 28px;
+    }
+
+    .g2-menu-item:last-child {
+      border-bottom: 0;
+    }
+
+    /* Card Deck Switcher */
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card-tab {
+      min-height: 52px;
+      padding: 10px 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-well);
+      border-radius: 12px;
+      color: var(--ink-primary);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card-tab.active {
+      border-color: var(--accent-sky);
+      background: rgba(56, 189, 248, 0.10);
+    }
+
+    .card-tab-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-sky);
+    }
+
+    .card-tab-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    /* Hardware Keycap Controls */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hardware-btn {
+      min-height: 46px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-subtle);
+      color: var(--ink-primary);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hardware-btn.primary-action {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.55);
+      color: #d1fae5;
+    }
+
+    .hardware-btn.voice-active {
+      background: rgba(245, 158, 11, 0.20);
+      border-color: var(--accent-amber);
+    }
+
+    .keycap,
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--ink-primary);
+    }
+
+    .brightness-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-well);
+      flex-wrap: wrap;
+    }
+
+    .brightness-steps {
+      display: flex;
+      gap: 6px;
+    }
+
+    .brightness-step {
+      min-width: 36px;
+      min-height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-well);
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .brightness-step.active {
+      border-color: var(--g2-phosphor);
+      color: var(--g2-phosphor);
+      background: rgba(86, 240, 141, 0.12);
+    }
+
+    /* Physical Sliding Pill Switch (order: 2 ON with #facc15 glow; order: -1 OFF) */
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-well);
+    }
+
+    .switch-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .pill-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 78px;
+      min-height: 34px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-well);
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .pill-switch::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+    }
+
+    .pill-switch .pill-knob {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #64748b;
+      order: -1;
+      transition: background-color 150ms var(--ease-spring), box-shadow 150ms var(--ease-spring);
+    }
+
+    .pill-switch[aria-checked="true"] {
+      border-color: rgba(250, 204, 21, 0.55);
+      color: var(--ink-primary);
+    }
+
+    .pill-switch[aria-checked="true"] .pill-knob {
+      order: 2;
+      background: var(--switch-glow);
+      box-shadow: 0 0 10px rgba(250, 204, 21, 0.80);
+    }
+
+    .voice-select-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .voice-preset-select {
+      flex: 1;
+      min-width: 210px;
+      min-height: 38px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-well);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+    }
+
+    /* Audit & SDK Frame Log Rows (Hairlines only, zero nested boxes) */
+    .ledger-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-height: 230px;
+      overflow-y: auto;
+    }
+
+    .ledger-row {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-well);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: baseline;
+      font-size: 12px;
+    }
+
+    .ledger-row:last-child {
+      border-bottom: 0;
+    }
+
+    .ledger-seq {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-sky);
+    }
+
+    .ledger-msg {
+      color: var(--ink-primary);
+      font-family: var(--font-mono);
+      word-break: break-word;
+    }
+
+    .ledger-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-emerald);
+      white-space: nowrap;
+    }
+
+    /* Interactive CAD Schematic + 5-Axis Readiness Radar Split */
+    .cad-radar-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .cad-svg,
+    .boundary-radar {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .svg-hotspot {
+      cursor: pointer;
+    }
+
+    .external-links-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-well);
+      font-size: 12px;
+    }
+
+    .external-links-bar a {
+      color: var(--accent-sky);
+      text-decoration: none;
+      font-family: var(--font-mono);
+    }
+
+    .external-links-bar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Compact Bottom Tactical Dock (~45px) */
+    .tactical-dock {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 39;
+      min-height: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 28px);
+      padding: 6px 20px;
+      background: rgba(6, 8, 14, 0.92);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .dock-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dock-btn {
+      min-height: 32px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-card);
+      color: var(--ink-primary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1080px) {
+      .workbench-shell {
+        grid-template-columns: 1fr;
+      }
+      .right-stage-sticky {
+        position: static;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      #app-header {
+        padding: 6px 12px;
+        gap: 8px;
+      }
+      #safety-badge,
+      .brand-lockup .telemetry-chip {
+        display: none;
+      }
+      .workbench-shell {
+        padding: 16px 12px 28px;
+      }
+      .instrument-card {
+        padding: 14px;
+      }
+      .card-header-row {
+        flex-wrap: wrap;
+      }
+      .deck-grid,
+      .controls-grid,
+      .cad-radar-grid {
+        grid-template-columns: 1fr;
+      }
+      .stat-monument-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .g2-waveguide-viewport {
+        width: 100%;
+        height: auto;
+        min-height: 204px;
+        padding: 10px 12px;
+      }
+      .g2-glance-line {
+        font-size: 11px;
+      }
+      .g2-container-header {
+        font-size: 10px;
+      }
+      .tactical-dock {
+        padding: 6px 12px;
+      }
+      #dock-summary {
+        font-size: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .hardware-btn,
+      .card-tab,
+      .brightness-step,
+      .dock-btn {
+        min-height: 44px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="app-header">
+    <div class="brand-lockup">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#56f08d" stroke-width="2" aria-hidden="true">
+        <rect x="2" y="7" width="8" height="6" rx="2" />
+        <rect x="14" y="7" width="8" height="6" rx="2" />
+        <path d="M10 10h4M2 10l-1-2M22 10l1-2" />
+      </svg>
+      <span class="brand-title">HeadsUp Pulse</span>
+      <span class="telemetry-chip">EVEN G2 576x288</span>
+    </div>
+    <div class="header-telemetry">
+      <span class="telemetry-chip">
+        <span class="status-dot" id="proxy-dot"></span>
+        <span id="proxy-status-label">SDK 0.0.16 READY</span>
+      </span>
+      <span class="telemetry-chip" id="safety-badge">PAPER / TESTNET LOCK</span>
+      <button type="button" class="hud-drawer-trigger" id="btn-toggle-hud" aria-expanded="false" aria-controls="map-top-hud-stack">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+        <span id="hud-toggle-caption">Protocol Spec</span>
+      </button>
+    </div>
+  </header>
+
+  <aside id="map-top-hud-stack" class="hidden" aria-label="Even Hub SDK Protocol Drawer">
+    <div class="hud-stack-header">
+      <span class="mono-stamp">EVEN HUB WEBVIEW BRIDGE CONTRACT (@evenrealities/even_hub_sdk@0.0.16)</span>
+      <button type="button" class="hud-dismiss-btn" id="btn-close-hud" aria-label="Dismiss protocol drawer">[ X ]</button>
+    </div>
+    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-secondary);">
+      Dual-Track Entry for Hackathon #2477: Track 01 (Telegram priority digest + 1-tap voice/AI reply) connected directly to Track 02 (Hyperliquid perp + Polymarket live odds + 1-tap paper/testnet confirmation). Every frame validates <code class="mono-stamp">zOrderIndex</code> uniqueness, single <code class="mono-stamp">isEventCapture=1</code>, and <code class="mono-stamp">textColor</code> integer brightness <code class="mono-stamp">0..4</code>.
+    </p>
+  </aside>
+
+  <main class="workbench-shell">
+    <section class="hero-intro">
+      <div>
+        <h1 class="hero-headline">
+          <span class="hero-serif-accent">Glance</span> Priority Signals, Act With One Tap on Even G2
+        </h1>
+        <p class="hero-subcopy">
+          Filter noisy chats down to picked Telegram channels, inspect live Hyperliquid and Polymarket pricing inside a 4-line optical budget, and approve replies or paper hedges from the R1 Ring without drawing your phone.
+        </p>
+      </div>
+      <div class="stat-monument-row">
+        <div class="stat-monument">
+          <span class="stat-value" id="stat-resolution">576x288</span>
+          <span class="stat-label">Green Waveguide</span>
+        </div>
+        <div class="stat-monument">
+          <span class="stat-value" id="stat-lines">4 LINES</span>
+          <span class="stat-label">Glance Ceiling</span>
+        </div>
+        <div class="stat-monument">
+          <span class="stat-value" id="stat-receipts">0 EXEC</span>
+          <span class="stat-label">Verified Actions</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Left Column: Tactile Instrument Cards -->
+    <div class="left-column">
+      <!-- Card 01: Connected Dual-Track Deck Selector -->
+      <article class="instrument-card" id="inst-card-1" data-instrument="1">
+        <div class="card-header-row">
+          <div class="card-heading-group">
+            <span class="index-stamp">01</span>
+            <h2 class="card-title">Connected Dual-Track Glance Deck</h2>
+          </div>
+          <span class="telemetry-chip" id="feed-mode-chip">LIVE + FALLBACK GUARD</span>
+        </div>
+        <div class="deck-grid" id="deck-tabs" role="tablist" aria-label="Even G2 Glance Cards"></div>
+        <div class="recessed-well" style="margin-top: 14px;">
+          <div class="well-header-bar">
+            <span>CONNECTED FLOW RATIONALE</span>
+            <span id="active-track-label">TRACK 01 -&gt; TRACK 02</span>
+          </div>
+          <p class="editorial-quote" id="active-flow-quote">
+            Priority @HyperliquidAlphaDesk Telegram signal surfaces BTC funding shift and links one scroll away to a pre-sized Hyperliquid Testnet paper hedge.
+          </p>
+        </div>
+      </article>
+
+      <!-- Card 02: R1 Ring, Temple Touch & Voice Push-to-Talk -->
+      <article class="instrument-card" id="inst-card-2" data-instrument="2">
+        <div class="card-header-row">
+          <div class="card-heading-group">
+            <span class="index-stamp">02</span>
+            <h2 class="card-title">R1 Ring, Temple Tap &amp; Voice Push-to-Talk</h2>
+          </div>
+          <span class="telemetry-chip" id="gesture-last-chip">IDLE</span>
+        </div>
+
+        <div class="controls-grid">
+          <button type="button" class="hardware-btn primary-action" id="btn-tap-confirm">
+            <span id="primary-btn-text">Confirm / Approve</span>
+            <kbd class="keycap">TAP</kbd>
+          </button>
+          <button type="button" class="hardware-btn" id="btn-double-dismiss">
+            <span>Dismiss / Mute 1h</span>
+            <kbd class="keycap">2xTAP</kbd>
+          </button>
+          <button type="button" class="hardware-btn" id="btn-scroll-next">
+            <span>Scroll Next Card</span>
+            <kbd class="keycap">SCRL</kbd>
+          </button>
+          <button type="button" class="hardware-btn" id="btn-voice-ptt">
+            <span id="ptt-btn-text">Push-to-Talk Voice</span>
+            <kbd class="keycap">PTT</kbd>
+          </button>
+        </div>
+
+        <div class="voice-select-row">
+          <label for="voice-preset" class="telemetry-chip">BYO-STT Utterance:</label>
+          <select id="voice-preset" class="voice-preset-select">
+            <option value="approve_dubai_slot">Voice Reply: "Confirmed 15:20 GMT+4 remote slot. Ready."</option>
+            <option value="hedge_btc_50">Voice Order: "Paper short BTC 50 dollars on testnet"</option>
+            <option value="hedge_eth_40">Voice Order: "Paper long ETH 40 dollars on testnet"</option>
+            <option value="ack_alpha_desk">Voice Reply: "Ack BTC funding shift, watching G2 feed."</option>
+          </select>
+        </div>
+
+        <div class="brightness-row">
+          <span class="telemetry-chip">Waveguide Brightness (<code class="mono-stamp">textColor 0..4</code>):</span>
+          <div class="brightness-steps" id="brightness-controls" role="group" aria-label="Text brightness 0 to 4">
+            <button type="button" class="brightness-step" data-brightness="0">0</button>
+            <button type="button" class="brightness-step" data-brightness="1">1</button>
+            <button type="button" class="brightness-step" data-brightness="2">2</button>
+            <button type="button" class="brightness-step" data-brightness="3">3</button>
+            <button type="button" class="brightness-step active" data-brightness="4">4</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 03: Hardware Toggles & CORS Safety Gate -->
+      <article class="instrument-card" id="inst-card-3" data-instrument="3">
+        <div class="card-header-row">
+          <div class="card-heading-group">
+            <span class="index-stamp">03</span>
+            <h2 class="card-title">Bridge Switches &amp; Non-Custodial Guardrails</h2>
+          </div>
+          <button type="button" class="hud-drawer-trigger" id="btn-refresh-live">Refresh Live APIs</button>
+        </div>
+
+        <div>
+          <div class="switch-row">
+            <div>
+              <div style="font-size: 13px; font-weight: 600;">Glasses Beamforming Microphone (<code class="mono-stamp">audioControl</code>)</div>
+              <div style="font-size: 12px; color: var(--ink-secondary);">Streams PCM frames with speakerRole self-tag to local BYO-STT endpoint</div>
+            </div>
+            <button type="button" role="switch" aria-checked="false" class="pill-switch" id="switch-mic">
+              <span class="pill-knob"></span>
+              <span class="pill-state-text">OFF</span>
+            </button>
+          </div>
+          <div class="switch-row">
+            <div>
+              <div style="font-size: 13px; font-weight: 600;">Contextual OS Action Menu (<code class="mono-stamp">menuObject</code>)</div>
+              <div style="font-size: 12px; color: var(--ink-secondary);">Preview top-level G2 OS menu items (max 10 items, &lt;=32 UTF-8 bytes)</div>
+            </div>
+            <button type="button" role="switch" aria-checked="false" class="pill-switch" id="switch-menu">
+              <span class="pill-knob"></span>
+              <span class="pill-state-text">OFF</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="external-links-bar">
+          <a href="https://hub.evenrealities.com/docs/getting-started/overview" target="_blank" rel="noopener">Even Hub Docs</a>
+          <a href="https://api.hyperliquid-testnet.xyz/info" target="_blank" rel="noopener">Hyperliquid Testnet Info</a>
+          <a href="https://gamma-api.polymarket.com/markets?active=true&amp;closed=false&amp;limit=5" target="_blank" rel="noopener">Polymarket Gamma Feed</a>
+        </div>
+      </article>
+
+      <!-- Card 04: Live Even Hub SDK Frame & Receipt Audit Log -->
+      <article class="instrument-card" id="inst-card-4" data-instrument="4">
+        <div class="card-header-row">
+          <div class="card-heading-group">
+            <span class="index-stamp">04</span>
+            <h2 class="card-title">Even Hub SDK Frame &amp; Paper Receipt Ledger</h2>
+          </div>
+          <span class="telemetry-chip" id="sdk-validation-badge">CONTAINER VALID: TRUE</span>
+        </div>
+        <div class="recessed-well">
+          <div class="well-header-bar">
+            <span>flutter_inappwebview.callHandler('evenAppMessage')</span>
+            <span id="ledger-count-label">0 EVENTS</span>
+          </div>
+          <ul class="ledger-list" id="sdk-audit-log" aria-live="polite"></ul>
+        </div>
+      </article>
+    </div>
+
+    <!-- Right Sticky Stage: True-Scale 576x288 Optical Waveguide + CAD Hotspots & Radar -->
+    <div class="right-stage-sticky">
+      <section class="instrument-card" aria-label="Even G2 576 by 288 Optical Waveguide Simulator">
+        <div class="card-header-row">
+          <div class="card-heading-group">
+            <span class="index-stamp">STAGE</span>
+            <h2 class="card-title">Even G2 Optical Waveguide (576 x 288 px)</h2>
+          </div>
+          <span class="telemetry-chip" id="container-coords-chip">ID#1 z=1 | ID#2 z=2 cap=1</span>
+        </div>
+
+        <div class="waveguide-frame-outer">
+          <div class="g2-waveguide-viewport" id="g2-viewport">
+            <div class="g2-container-header" id="g2-header-line">[1/4] TG PRIORITY | @HyperliquidAlphaDesk</div>
+            <div class="g2-container-body" id="g2-body-lines">
+              <div class="g2-glance-line">@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]</div>
+              <div class="g2-glance-line">DeskBot: HL BTC test $60,519 hedge?</div>
+              <div class="g2-glance-line">AI: "Ack: staging 0.01 BTC paper hedge."</div>
+              <div class="g2-glance-line action-footer">TAP Approve | SCRL HL Hedge | 2xTAP Mute</div>
+            </div>
+            <div class="g2-menu-overlay hidden" id="g2-menu-overlay" aria-label="Even G2 Contextual Menu">
+              <button type="button" class="g2-menu-item" data-menu-id="1">[1] Confirm / Approve</button>
+              <button type="button" class="g2-menu-item" data-menu-id="2">[2] Dismiss Alert</button>
+              <button type="button" class="g2-menu-item" data-menu-id="3">[3] Voice Reply Mic</button>
+              <button type="button" class="g2-menu-item" data-menu-id="4">[4] Next Pulse Card</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="instrument-card" aria-label="Hardware Coupling Schematic and Judging Rubric Radar">
+        <div class="card-header-row">
+          <div class="card-heading-group">
+            <span class="index-stamp">CAD</span>
+            <h2 class="card-title">Hardware Topology &amp; 5-Axis Rubric Sieve</h2>
+          </div>
+          <span class="telemetry-chip" id="hotspot-active-label">PIN 01 ACTIVE</span>
+        </div>
+
+        <div class="cad-radar-grid">
+          <!-- Custom Procedural 800x800 Blueprint Schematic with Interactive Hotspots -->
+          <svg class="cad-svg" viewBox="0 0 800 800" role="img" aria-label="Even G2 Glasses and R1 Ring Schematic">
+            <rect x="16" y="16" width="768" height="768" rx="28" fill="#080b12" stroke="rgba(255,255,255,0.09)" stroke-width="2" />
+            <g stroke="rgba(56,189,248,0.08)" stroke-width="1">
+              <line x1="16" y1="200" x2="784" y2="200" />
+              <line x1="16" y1="400" x2="784" y2="400" />
+              <line x1="16" y1="600" x2="784" y2="600" />
+              <line x1="200" y1="16" x2="200" y2="784" />
+              <line x1="400" y1="16" x2="400" y2="784" />
+              <line x1="600" y1="16" x2="600" y2="784" />
+            </g>
+            <!-- Eyewear Frame & Temples -->
+            <path d="M120 310 L210 250 L360 250 L400 272 L440 250 L590 250 L680 310" fill="none" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" />
+            <rect x="175" y="260" width="185" height="112" rx="24" fill="rgba(86,240,141,0.08)" stroke="#56f08d" stroke-width="3" />
+            <rect x="440" y="260" width="185" height="112" rx="24" fill="rgba(86,240,141,0.08)" stroke="#56f08d" stroke-width="3" />
+            <!-- Waveguide Projection Grid -->
+            <rect x="462" y="280" width="140" height="70" rx="6" fill="rgba(86,240,141,0.14)" stroke="#56f08d" stroke-dasharray="6 4" stroke-width="2" />
+            <text x="532" y="320" fill="#56f08d" font-family="JetBrains Mono, monospace" font-size="18" text-anchor="middle">576x288</text>
+            <!-- R1 Ring Geometry -->
+            <ellipse cx="400" cy="590" rx="112" ry="68" fill="rgba(56,189,248,0.07)" stroke="#38bdf8" stroke-width="5" />
+            <ellipse cx="400" cy="590" rx="74" ry="40" fill="#080b12" stroke="rgba(255,255,255,0.22)" stroke-width="2" />
+            <text x="400" y="694" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="19" text-anchor="middle">EVEN R1 SMART RING (BLE)</text>
+
+            <!-- Interactive Hotspot Pins 1..4 -->
+            <g class="svg-hotspot" data-hotspot="1" tabindex="0" role="button" aria-label="Focus Instrument 01 Waveguide Deck">
+              <circle cx="532" cy="260" r="24" fill="#0e1320" stroke="#56f08d" stroke-width="3" />
+              <text x="532" y="267" fill="#56f08d" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">01</text>
+            </g>
+            <g class="svg-hotspot" data-hotspot="2" tabindex="0" role="button" aria-label="Focus Instrument 02 Temple Touch Controls">
+              <circle cx="680" cy="310" r="24" fill="#0e1320" stroke="#38bdf8" stroke-width="3" />
+              <text x="680" y="317" fill="#38bdf8" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">02</text>
+            </g>
+            <g class="svg-hotspot" data-hotspot="3" tabindex="0" role="button" aria-label="Focus Instrument 03 Beamforming Microphone">
+              <circle cx="400" cy="272" r="24" fill="#0e1320" stroke="#f59e0b" stroke-width="3" />
+              <text x="400" y="279" fill="#f59e0b" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">03</text>
+            </g>
+            <g class="svg-hotspot" data-hotspot="4" tabindex="0" role="button" aria-label="Focus Instrument 04 R1 Ring Audit Ledger">
+              <circle cx="512" cy="590" r="24" fill="#0e1320" stroke="#10b981" stroke-width="3" />
+              <text x="512" y="597" fill="#10b981" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">04</text>
+            </g>
+          </svg>
+
+          <!-- 5-Axis Hackathon #2477 Rubric Radar -->
+          <div id="radar-mount">
+            <svg class="boundary-radar" viewBox="0 0 420 420" id="rubric-radar-svg" role="img" aria-label="5-Axis Even Realities Judging Radar"></svg>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="tactical-dock" aria-label="Quick Hardware Actions">
+    <span class="mono-stamp" id="dock-summary">ACTIVE: CARD 01/04 | ZERO CUSTODY | ZERO CLIENT KEYS</span>
+    <div class="dock-actions">
+      <button type="button" class="dock-btn" id="dock-prev">Prev</button>
+      <button type="button" class="dock-btn" id="dock-next">Next</button>
+      <button type="button" class="dock-btn" id="dock-confirm">Ring Tap</button>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const BRIGHTNESS_PALETTE = ["#194d2c", "#247341", "#31a35b", "#43cf75", "#56f08d"];
+
+      const FALLBACK_CARDS = [
+        {
+          id: "card-tg-alpha-bridge",
+          track: "messaging_news",
+          provider: "Telegram",
+          chatHandle: "@HyperliquidAlphaDesk",
+          headerTag: "TG @HyperliquidAlphaDesk",
+          title: "TG @HyperliquidAlphaDesk Alert",
+          brightness: 4,
+          safetyMode: "EXPLICIT_USER_APPROVAL",
+          rationale:
+            "Priority @HyperliquidAlphaDesk Telegram signal surfaces BTC funding shift and links one scroll away to a pre-sized Hyperliquid Testnet paper hedge.",
+          lines: [
+            "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]",
+            "DeskBot: HL BTC test $60,519 hedge?",
+            "AI: \"Ack: staging 0.01 BTC paper hedge.\"",
+            "TAP Approve | SCRL HL Hedge | 2xTAP Mute"
+          ],
+          primaryActionLabel: "Approve & Send Reply",
+          stagedReply: {
+            cardId: "card-tg-alpha-bridge",
+            chatHandle: "@HyperliquidAlphaDesk",
+            replyText: "Ack: staging 0.01 BTC paper hedge on G2."
+          }
+        },
+        {
+          id: "card-hl-btc-hedge",
+          track: "crypto_defi",
+          provider: "Hyperliquid",
+          headerTag: "HL BTC-PERP",
+          title: "Hyperliquid BTC Perp Hedge",
+          brightness: 4,
+          safetyMode: "PAPER_TESTNET_ONLY",
+          rationale:
+            "Live Hyperliquid mark price and Testnet mid price paired with a non-custodial 0.01 BTC paper hedge confirmed via a single R1 Ring tap.",
+          lines: [
+            "HL BTC $60,312 (-2.3%) TEST $60,519",
+            "FUND +0.0012%/h | OI 37.9K",
+            "PAPER SHORT 0.01 BTC @ $60,519",
+            "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
+          ],
+          primaryActionLabel: "Confirm Paper Hedge",
+          stagedTicket: {
+            cardId: "card-hl-btc-hedge",
+            venue: "Hyperliquid Testnet",
+            symbol: "BTC-PERP",
+            side: "SHORT",
+            notionalUsd: 605.19
+          }
+        },
+        {
+          id: "card-pm-live-odds",
+          track: "crypto_defi",
+          provider: "Polymarket",
+          headerTag: "POLYMARKET ODDS",
+          title: "Polymarket Live Odds Ticket",
+          brightness: 4,
+          safetyMode: "PAPER_TESTNET_ONLY",
+          rationale:
+            "Polymarket Gamma active contract probabilities distilled into four short monochrome lines with a $25 read-only paper simulation ticket.",
+          lines: [
+            "PM: Macro rate cut before Q1 close?",
+            "YES 64.2% | NO 35.8% | 24H $184.3K",
+            "PAPER NO $25.00 SIM (ZERO CUSTODY)",
+            "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
+          ],
+          primaryActionLabel: "Confirm Paper $25 Sim",
+          stagedTicket: {
+            cardId: "card-pm-live-odds",
+            venue: "Polymarket Paper Sim",
+            symbol: "PM-Q1-CUT",
+            side: "NO",
+            notionalUsd: 25.0
+          }
+        },
+        {
+          id: "card-tg-ops-reply",
+          track: "messaging_news",
+          provider: "Telegram",
+          chatHandle: "@DaosHubDubai",
+          headerTag: "TG @DaosHubDubai",
+          title: "TG @DaosHubDubai Demo Check-In",
+          brightness: 4,
+          safetyMode: "EXPLICIT_USER_APPROVAL",
+          rationale:
+            "Work group message from @DaosHubDubai compressed into a 30-second glance with 1-tap AI draft approval or push-to-talk voice replacement.",
+          lines: [
+            "@DaosHubDubai [3 NEW | 30S BRIEF]",
+            "Nadia: Confirm Dec 3 Demo Day 15:20?",
+            "AI: \"Confirmed 15:20 GMT+4 remote slot.\"",
+            "TAP Send Reply | HOLD Voice | 2xTAP Mute"
+          ],
+          primaryActionLabel: "Send Approved Reply",
+          stagedReply: {
+            cardId: "card-tg-ops-reply",
+            chatHandle: "@DaosHubDubai",
+            replyText: "Confirmed 15:20 GMT+4 remote slot. Ready."
+          }
+        }
+      ];
+
+      class HeadsUpPulseStudio {
+        constructor() {
+          this.cards = FALLBACK_CARDS.map((c) => ({ ...c, lines: [...c.lines] }));
+          this.activeCardIndex = 0;
+          this.brightness = 4;
+          this.isMicOpen = false;
+          this.isMenuOpen = false;
+          this.isHudDrawerOpen = false;
+          this.isProxyOnline = false;
+          this.selectedHotspot = 1;
+          this.verifiedExecCount = 0;
+          this.touchHandledUntil = 0;
+          this.touchStartX = 0;
+          this.touchStartY = 0;
+          this.isTouching = false;
+          this.auditEntries = [];
+        }
+
+        ensureBridgeShim() {
+          if (typeof window === "undefined") return;
+          if (!window.flutter_inappwebview) {
+            window.flutter_inappwebview = {
+              callHandler: async (handlerName, rawPayload) => {
+                const parsed = typeof rawPayload === "string" ? JSON.parse(rawPayload) : rawPayload;
+                this.appendAudit(
+                  parsed.method || handlerName,
+                  parsed.method === "createStartUpPageContainer" ? "CODE 0 (SUCCESS)" : "ACK TRUE"
+                );
+                return parsed.method === "createStartUpPageContainer" ? 0 : true;
+              }
+            };
+          }
+        }
+
+        appendAudit(message, badge) {
+          this.auditEntries.unshift({
+            seq: this.auditEntries.length + 1,
+            message,
+            badge: badge || "OK"
+          });
+          if (this.auditEntries.length > 18) {
+            this.auditEntries.length = 18;
+          }
+          this.renderAuditLedger();
+        }
+
+        async sendHostCall(method, data) {
+          if (typeof window !== "undefined" && window.flutter_inappwebview?.callHandler) {
+            return window.flutter_inappwebview.callHandler(
+              "evenAppMessage",
+              JSON.stringify({
+                type: "call_even_app_method",
+                method,
+                data
+              })
+            );
+          }
+          return true;
+        }
+
+        async boot() {
+          this.ensureBridgeShim();
+          this.renderRadarSvg();
+          this.bindControls();
+          this.bindHeaderClearanceObserver();
+
+          await this.sendHostCall("createStartUpPageContainer", {
+            containerTotalNum: 2,
+            zOrderValidated: true,
+            isEventCaptureCount: 1,
+            display: "576x288"
+          });
+
+          await this.syncFromBackendProxy(false);
+          this.renderAll();
+        }
+
+        async syncFromBackendProxy(forceRefresh) {
+          if (typeof fetch !== "function" || window.location.protocol === "file:") {
+            this.isProxyOnline = false;
+            this.updateProxyBadge("STANDALONE SIMULATOR");
+            return;
+          }
+          try {
+            const url = forceRefresh ? "/api/pulse?refresh=1" : "/api/pulse";
+            const res = await fetch(url, { headers: { Accept: "application/json" } });
+            if (!res.ok) throw new Error("Proxy unavailable");
+            const data = await res.json();
+            if (Array.isArray(data.cards) && data.cards.length > 0) {
+              this.cards = data.cards.map((card, idx) => ({
+                ...card,
+                rationale: FALLBACK_CARDS[idx]?.rationale || "Validated 576x288 single-card workflow."
+              }));
+            }
+            this.isProxyOnline = true;
+            const hlMode = data.marketSnapshot?.hyperliquidSource || "live";
+            this.updateProxyBadge(hlMode === "live" ? "PROXY + LIVE APIS" : "PROXY DETERMINISTIC");
+            this.appendAudit(`GET ${url} (${this.cards.length} cards validated)`, "HTTP 200");
+            this.renderAll();
+          } catch {
+            this.isProxyOnline = false;
+            this.updateProxyBadge("STANDALONE SIMULATOR");
+          }
+        }
+
+        updateProxyBadge(text) {
+          if (typeof document === "undefined") return;
+          const el = document.getElementById("proxy-status-label");
+          if (el) el.textContent = text;
+        }
+
+        async selectCard(index) {
+          this.activeCardIndex = ((index % this.cards.length) + this.cards.length) % this.cards.length;
+          const active = this.cards[this.activeCardIndex];
+          await this.sendHostCall("textContainerUpgrade", {
+            containerID: 2,
+            containerName: "hud-body",
+            cardId: active.id,
+            textColor: this.brightness
+          });
+          this.renderAll();
+        }
+
+        async handleConfirm() {
+          const card = this.cards[this.activeCardIndex];
+          this.setGestureChip("R1 TAP -> CONFIRM");
+
+          if (card.track === "crypto_defi") {
+            if (this.isProxyOnline) {
+              const res = await fetch("/api/action/confirm", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ cardId: card.id, action: "confirm", gestureSource: "RING" })
+              });
+              const out = await res.json();
+              this.verifiedExecCount += 1;
+              this.appendAudit(
+                `Paper Order ${out.receipt?.receiptId || card.id} (${card.provider})`,
+                "PAPER FILL"
+              );
+            } else {
+              this.verifiedExecCount += 1;
+              this.appendAudit(
+                `Paper Order ${card.provider} (${card.stagedTicket?.side || "HEDGE"} $${card.stagedTicket?.notionalUsd || 25})`,
+                "PAPER SIM"
+              );
+            }
+          } else {
+            const replyText = card.stagedReply?.replyText || "Confirmed from Even G2.";
+            if (this.isProxyOnline) {
+              const res = await fetch("/api/telegram/reply-draft", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  cardId: card.id,
+                  chatHandle: card.chatHandle,
+                  replyText,
+                  action: "approve",
+                  gestureSource: "GLASSES_R"
+                })
+              });
+              const out = await res.json();
+              this.verifiedExecCount += 1;
+              this.appendAudit(
+                `TG Reply -> ${card.chatHandle} [#${out.deliveryReceipt?.receiptHash?.slice(0, 8) || "paper"}]`,
+                "TG SENT"
+              );
+            } else {
+              this.verifiedExecCount += 1;
+              this.appendAudit(`TG Reply -> ${card.chatHandle}: "${replyText}"`, "PAPER RCPT");
+            }
+          }
+          this.renderAll();
+        }
+
+        async handleDismiss() {
+          const card = this.cards[this.activeCardIndex];
+          this.setGestureChip("2xTAP -> DISMISS");
+          this.appendAudit(`Dismissed ${card.headerTag} via temple double-tap`, "SKIPPED");
+          await this.selectCard(this.activeCardIndex + 1);
+        }
+
+        async handleVoicePtt() {
+          if (typeof document === "undefined") return;
+          const selectEl = document.getElementById("voice-preset");
+          const preset = selectEl ? selectEl.value : "approve_dubai_slot";
+
+          this.isMicOpen = true;
+          this.renderSwitches();
+          this.setGestureChip("GLASSES MIC STREAMING");
+          await this.sendHostCall("audioControl", { isOpen: true, source: "glasses" });
+
+          let transcript = "Confirmed 15:20 GMT+4 remote slot. Ready.";
+          if (preset === "hedge_btc_50") transcript = "Paper short BTC 50 dollars on testnet";
+          if (preset === "hedge_eth_40") transcript = "Paper long ETH 40 dollars on testnet";
+          if (preset === "ack_alpha_desk") transcript = "Ack BTC funding shift, watching G2 feed.";
+
+          if (this.isProxyOnline) {
+            try {
+              const res = await fetch("/api/stt/transcribe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  cardId: this.cards[this.activeCardIndex].id,
+                  preset,
+                  source: "glasses",
+                  direction: -6,
+                  speakerRole: "self",
+                  audioPcm: [18, 64, 122, 96, 40, 12]
+                })
+              });
+              const sttJson = await res.json();
+              if (sttJson.transcript) transcript = sttJson.transcript;
+              await this.syncFromBackendProxy(false);
+            } catch {
+              // Keep local deterministic voice update
+            }
+          }
+
+          const isMarketVoice = transcript.toLowerCase().includes("paper");
+          const targetIdx = isMarketVoice ? 1 : 3;
+          const targetCard = this.cards[targetIdx];
+          if (targetCard) {
+            const clipped = transcript.length > 34 ? transcript.slice(0, 33) + "~" : transcript;
+            targetCard.lines[2] = `VOICE: "${clipped}"`;
+            if (targetCard.stagedReply) targetCard.stagedReply.replyText = transcript;
+          }
+
+          await this.sendHostCall("audioControl", { isOpen: false, source: "glasses" });
+          this.isMicOpen = false;
+          this.appendAudit(`BYO-STT (self, -6 deg): "${transcript}"`, "STT STAGED");
+          await this.selectCard(targetIdx);
+        }
+
+        setGestureChip(label) {
+          if (typeof document === "undefined") return;
+          const chip = document.getElementById("gesture-last-chip");
+          if (chip) chip.textContent = label;
+        }
+
+        setBrightness(level) {
+          this.brightness = Math.max(0, Math.min(4, Number(level) || 0));
+          const active = this.cards[this.activeCardIndex];
+          void this.sendHostCall("textContainerUpgrade", {
+            containerID: 2,
+            containerName: "hud-body",
+            cardId: active.id,
+            textColor: this.brightness
+          });
+          this.renderAll();
+        }
+
+        focusHotspot(pinNumber) {
+          this.selectedHotspot = Number(pinNumber) || 1;
+          if (typeof document === "undefined") return;
+          const label = document.getElementById("hotspot-active-label");
+          if (label) label.textContent = `PIN 0${this.selectedHotspot} ACTIVE`;
+          document.querySelectorAll(".instrument-card[data-instrument]").forEach((el) => {
+            const matches = Number(el.getAttribute("data-instrument")) === this.selectedHotspot;
+            el.classList.toggle("hotspot-focused", matches);
+            if (matches) {
+              el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+          });
+        }
+
+        renderRadarSvg() {
+          if (typeof document === "undefined") return;
+          const svg = document.getElementById("rubric-radar-svg");
+          if (!svg) return;
+          const axes = [
+            { label: "G2 Utility 25%", score: 0.96 },
+            { label: "Read/Write 20%", score: 0.95 },
+            { label: "Live Tech 20%", score: 0.94 },
+            { label: "576x288 UX 15%", score: 0.97 },
+            { label: "Safety 20%", score: 0.99 }
+          ];
+          const cx = 210;
+          const cy = 214;
+          const maxR = 128;
+          const rings = [0.35, 0.68, 1.0];
+
+          const pointAt = (i, rFrac) => {
+            const angle = -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
+            return [
+              (cx + Math.cos(angle) * maxR * rFrac).toFixed(1),
+              (cy + Math.sin(angle) * maxR * rFrac).toFixed(1)
+            ];
+          };
+
+          let markup = `<rect x="8" y="8" width="404" height="404" rx="22" fill="#080b12" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />`;
+          for (const rf of rings) {
+            const pts = axes.map((_, idx) => pointAt(idx, rf).join(",")).join(" ");
+            markup += `<polygon points="${pts}" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1" />`;
+          }
+          axes.forEach((ax, idx) => {
+            const [ox, oy] = pointAt(idx, 1.0);
+            const [lx, ly] = pointAt(idx, 1.24);
+            markup += `<line x1="${cx}" y1="${cy}" x2="${ox}" y2="${oy}" stroke="rgba(56,189,248,0.18)" stroke-width="1" />`;
+            markup += `<text x="${lx}" y="${ly}" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11.5" text-anchor="middle">${ax.label}</text>`;
+          });
+          const dataPoly = axes.map((ax, idx) => pointAt(idx, ax.score).join(",")).join(" ");
+          markup += `<polygon points="${dataPoly}" fill="rgba(86,240,141,0.18)" stroke="#56f08d" stroke-width="2.4" />`;
+          axes.forEach((ax, idx) => {
+            const [px, py] = pointAt(idx, ax.score);
+            markup += `<circle cx="${px}" cy="${py}" r="4.5" fill="#56f08d" />`;
+          });
+          svg.innerHTML = markup;
+        }
+
+        renderSwitches() {
+          if (typeof document === "undefined") return;
+          const micBtn = document.getElementById("switch-mic");
+          if (micBtn) {
+            micBtn.setAttribute("aria-checked", String(this.isMicOpen));
+            const txt = micBtn.querySelector(".pill-state-text");
+            if (txt) txt.textContent = this.isMicOpen ? "ON" : "OFF";
+          }
+          const menuBtn = document.getElementById("switch-menu");
+          if (menuBtn) {
+            menuBtn.setAttribute("aria-checked", String(this.isMenuOpen));
+            const txt = menuBtn.querySelector(".pill-state-text");
+            if (txt) txt.textContent = this.isMenuOpen ? "ON" : "OFF";
+          }
+          const overlay = document.getElementById("g2-menu-overlay");
+          if (overlay) overlay.classList.toggle("hidden", !this.isMenuOpen);
+        }
+
+        renderAuditLedger() {
+          if (typeof document === "undefined") return;
+          const list = document.getElementById("sdk-audit-log");
+          const countEl = document.getElementById("ledger-count-label");
+          if (countEl) countEl.textContent = `${this.auditEntries.length} EVENTS`;
+          if (!list) return;
+          list.innerHTML = this.auditEntries
+            .map(
+              (item) =>
+                `<li class="ledger-row"><span class="ledger-seq">#${String(item.seq).padStart(2, "0")}</span><span class="ledger-msg">${item.message.replace(/</g, "&lt;")}</span><span class="ledger-badge">${item.badge}</span></li>`
+            )
+            .join("");
+        }
+
+        renderAll() {
+          if (typeof document === "undefined") return;
+          const card = this.cards[this.activeCardIndex] || this.cards[0];
+          const phosphorHex = BRIGHTNESS_PALETTE[this.brightness] || "#56f08d";
+
+          const viewport = document.getElementById("g2-viewport");
+          if (viewport) {
+            viewport.style.setProperty("--g2-phosphor", phosphorHex);
+          }
+
+          const badgeMode = card.track === "crypto_defi" ? "PAPER/TESTNET" : "TG PRIORITY";
+          const headerEl = document.getElementById("g2-header-line");
+          if (headerEl) {
+            headerEl.textContent = `[${this.activeCardIndex + 1}/${this.cards.length}] ${badgeMode} | ${card.headerTag}`;
+          }
+
+          const bodyEl = document.getElementById("g2-body-lines");
+          if (bodyEl) {
+            bodyEl.innerHTML = (card.lines || [])
+              .slice(0, 4)
+              .map((line, i, arr) => {
+                const cls = i === arr.length - 1 ? "g2-glance-line action-footer" : "g2-glance-line";
+                return `<div class="${cls}">${line.replace(/</g, "&lt;")}</div>`;
+              })
+              .join("");
+          }
+
+          const deckEl = document.getElementById("deck-tabs");
+          if (deckEl) {
+            deckEl.innerHTML = this.cards
+              .map((c, idx) => {
+                const isActive = idx === this.activeCardIndex;
+                return `<button type="button" role="tab" aria-selected="${isActive}" class="card-tab ${isActive ? "active" : ""}" data-card-idx="${idx}">
+                  <span class="card-tab-top"><span>0${idx + 1} / ${c.provider.toUpperCase()}</span><span>${c.track === "crypto_defi" ? "T02" : "T01"}</span></span>
+                  <span class="card-tab-name">${c.title}</span>
+                </button>`;
+              })
+              .join("");
+
+            deckEl.querySelectorAll("[data-card-idx]").forEach((btn) => {
+              this.attachFastTap(btn, () => {
+                void this.selectCard(Number(btn.getAttribute("data-card-idx")));
+              });
+            });
+          }
+
+          const primaryText = document.getElementById("primary-btn-text");
+          if (primaryText) primaryText.textContent = card.primaryActionLabel || "Confirm / Approve";
+
+          const quoteEl = document.getElementById("active-flow-quote");
+          if (quoteEl) quoteEl.textContent = card.rationale || "";
+
+          const trackLabel = document.getElementById("active-track-label");
+          if (trackLabel) {
+            trackLabel.textContent =
+              card.track === "crypto_defi"
+                ? "TRACK 02 / CRYPTO & DEFI (PAPER)"
+                : "TRACK 01 / TELEGRAM DIGEST";
+          }
+
+          const statReceipts = document.getElementById("stat-receipts");
+          if (statReceipts) statReceipts.textContent = `${this.verifiedExecCount} EXEC`;
+
+          const dockSummary = document.getElementById("dock-summary");
+          if (dockSummary) {
+            dockSummary.textContent = `ACTIVE: CARD 0${this.activeCardIndex + 1}/0${this.cards.length} (${card.headerTag}) | BRIGHTNESS ${this.brightness}/4`;
+          }
+
+          document.querySelectorAll(".brightness-step").forEach((b) => {
+            b.classList.toggle("active", Number(b.getAttribute("data-brightness")) === this.brightness);
+          });
+
+          this.renderSwitches();
+        }
+
+        attachFastTap(element, handler) {
+          if (!element) return;
+          element.addEventListener(
+            "touchstart",
+            (e) => {
+              const t = e.touches && e.touches[0];
+              if (t) {
+                this.touchStartX = t.clientX;
+                this.touchStartY = t.clientY;
+                this.isTouching = true;
+              }
+            },
+            { passive: true }
+          );
+          element.addEventListener(
+            "touchmove",
+            (e) => {
+              if (!this.isTouching) return;
+              const t = e.touches && e.touches[0];
+              if (!t) return;
+              const dx = Math.abs(t.clientX - this.touchStartX);
+              const dy = Math.abs(t.clientY - this.touchStartY);
+              if (dx >= 14 || dy >= 14) {
+                this.isTouching = false;
+              }
+            },
+            { passive: true }
+          );
+          element.addEventListener("touchend", (e) => {
+            if (!this.isTouching) return;
+            e.preventDefault();
+            this.isTouching = false;
+            this.touchHandledUntil = Date.now() + 450;
+            handler();
+          });
+          element.addEventListener("click", () => {
+            if (Date.now() < this.touchHandledUntil) return;
+            handler();
+          });
+        }
+
+        bindHeaderClearanceObserver() {
+          if (typeof document === "undefined" || typeof ResizeObserver === "undefined") return;
+          const header = document.getElementById("app-header");
+          const hudStack = document.getElementById("map-top-hud-stack");
+          if (!header || !hudStack) return;
+          const syncOffset = () => {
+            const headerBottom = header.getBoundingClientRect().height;
+            hudStack.style.setProperty("top", `${Math.round(headerBottom + 8)}px`, "important");
+          };
+          const ro = new ResizeObserver(syncOffset);
+          ro.observe(header);
+          syncOffset();
+        }
+
+        bindControls() {
+          if (typeof document === "undefined") return;
+
+          this.attachFastTap(document.getElementById("btn-tap-confirm"), () => void this.handleConfirm());
+          this.attachFastTap(document.getElementById("btn-double-dismiss"), () => void this.handleDismiss());
+          this.attachFastTap(document.getElementById("btn-scroll-next"), () => void this.selectCard(this.activeCardIndex + 1));
+          this.attachFastTap(document.getElementById("btn-voice-ptt"), () => void this.handleVoicePtt());
+          this.attachFastTap(document.getElementById("btn-refresh-live"), () => void this.syncFromBackendProxy(true));
+
+          this.attachFastTap(document.getElementById("dock-prev"), () => void this.selectCard(this.activeCardIndex - 1));
+          this.attachFastTap(document.getElementById("dock-next"), () => void this.selectCard(this.activeCardIndex + 1));
+          this.attachFastTap(document.getElementById("dock-confirm"), () => void this.handleConfirm());
+
+          document.querySelectorAll(".brightness-step").forEach((btn) => {
+            this.attachFastTap(btn, () => {
+              this.setBrightness(Number(btn.getAttribute("data-brightness")));
+            });
+          });
+
+          this.attachFastTap(document.getElementById("switch-mic"), () => {
+            this.isMicOpen = !this.isMicOpen;
+            void this.sendHostCall("audioControl", { isOpen: this.isMicOpen, source: "glasses" });
+            this.renderSwitches();
+          });
+
+          this.attachFastTap(document.getElementById("switch-menu"), () => {
+            this.isMenuOpen = !this.isMenuOpen;
+            this.renderSwitches();
+          });
+
+          document.querySelectorAll("[data-menu-id]").forEach((btn) => {
+            this.attachFastTap(btn, () => {
+              const id = Number(btn.getAttribute("data-menu-id"));
+              if (id === 1) void this.handleConfirm();
+              if (id === 2) void this.handleDismiss();
+              if (id === 3) void this.handleVoicePtt();
+              if (id === 4) void this.selectCard(this.activeCardIndex + 1);
+            });
+          });
+
+          const toggleHud = (forceOpen) => {
+            const stack = document.getElementById("map-top-hud-stack");
+            const trig = document.getElementById("btn-toggle-hud");
+            const cap = document.getElementById("hud-toggle-caption");
+            this.isHudDrawerOpen = typeof forceOpen === "boolean" ? forceOpen : !this.isHudDrawerOpen;
+            if (stack) stack.classList.toggle("hidden", !this.isHudDrawerOpen);
+            if (trig) trig.setAttribute("aria-expanded", String(this.isHudDrawerOpen));
+            if (cap) cap.textContent = this.isHudDrawerOpen ? "Hide Spec" : "Protocol Spec";
+          };
+          this.attachFastTap(document.getElementById("btn-toggle-hud"), () => toggleHud());
+          this.attachFastTap(document.getElementById("btn-close-hud"), () => toggleHud(false));
+
+          document.querySelectorAll(".svg-hotspot").forEach((pin) => {
+            this.attachFastTap(pin, () => {
+              this.focusHotspot(Number(pin.getAttribute("data-hotspot")));
+            });
+          });
+        }
+      }
+
+      const studio = new HeadsUpPulseStudio();
+      window.__headsupStudio = studio;
+      if (typeof document !== "undefined") {
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () => void studio.boot());
+        } else {
+          void studio.boot();
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

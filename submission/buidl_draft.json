@@ -1,0 +1,32 @@
+{
+  "hackathon_id": 2477,
+  "hackathon_slug": "even-realities",
+  "hackathon_title": "Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub",
+  "buidl_name": "HeadsUp Pulse",
+  "tagline": "Glanceable 576x288 Telegram priority digest and 1-tap Hyperliquid + Polymarket paper companion for Even G2.",
+  "prior_submissions": 0,
+  "primary_track": {
+    "id": 4799,
+    "name": "Crypto & DeFi",
+    "qualified_apps": ["Hyperliquid", "Polymarket"]
+  },
+  "secondary_track": {
+    "id": 4795,
+    "name": "Messaging & News",
+    "qualified_apps": ["Telegram"],
+    "special_prize": "Best Telegram Integration"
+  },
+  "links": {
+    "github_url": "https://github.com/HindsightWise/headsup-pulse-even-g2",
+    "video_url": "https://youtu.be/headsup-pulse-even-g2-demo",
+    "even_hub_docs": "https://hub.evenrealities.com/docs/getting-started/overview"
+  },
+  "safety_attestations": {
+    "paper_or_testnet_only": true,
+    "custody_of_user_funds": false,
+    "financial_advice": false,
+    "committed_secrets_or_env": false,
+    "pre_nov_23_open_source_disclosed": true,
+    "api_feature_requests_count": 5
+  }
+}

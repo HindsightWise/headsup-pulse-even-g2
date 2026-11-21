@@ -1,0 +1,68 @@
+{
+  "appId": "com.hindsightwise.headsup-pulse",
+  "name": "HeadsUp Pulse",
+  "version": "0.1.0",
+  "description": "Glanceable Even G2 (576x288) Telegram priority digest and Hyperliquid + Polymarket 1-tap paper/testnet read-and-write companion.",
+  "sdkPackage": "@evenrealities/even_hub_sdk",
+  "sdkVersion": "0.0.16",
+  "minEvenAppVersion": "2.2.10",
+  "entrypoint": "web/index.html",
+  "display": {
+    "width": 576,
+    "height": 288,
+    "colorMode": "monochrome-green",
+    "brightnessMin": 0,
+    "brightnessMax": 4,
+    "maxVisibleLines": 4,
+    "maxCharsPerLine": 44,
+    "singleActiveCard": true
+  },
+  "backendProxy": {
+    "host": "127.0.0.1",
+    "defaultPort": 8787,
+    "healthPath": "/api/health",
+    "endpoints": [
+      "/api/health",
+      "/api/pulse",
+      "/api/action/confirm",
+      "/api/telegram/reply-draft",
+      "/api/stt/transcribe"
+    ]
+  },
+  "networkWhitelist": [
+    "https://api.hyperliquid-testnet.xyz",
+    "https://api.hyperliquid.xyz",
+    "https://gamma-api.polymarket.com",
+    "https://api.telegram.org"
+  ],
+  "corsAllowedOrigins": [
+    "http://127.0.0.1",
+    "http://localhost",
+    "https://hub.evenrealities.com"
+  ],
+  "permissions": [
+    "microphone",
+    "imu",
+    "localStorage"
+  ],
+  "tracks": [
+    {
+      "id": 4799,
+      "name": "Crypto & DeFi",
+      "qualifiedIntegrations": ["Hyperliquid", "Polymarket"]
+    },
+    {
+      "id": 4795,
+      "name": "Messaging & News",
+      "qualifiedIntegrations": ["Telegram"],
+      "specialPrize": "Best Telegram Integration"
+    }
+  ],
+  "safetyPolicy": {
+    "paperTradingOnly": true,
+    "testnetOrReadOnly": true,
+    "custodyOfUserFunds": false,
+    "financialAdvice": false,
+    "clientEmbeddedSecrets": false
+  }
+}

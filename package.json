@@ -1,0 +1,14 @@
+{
+  "name": "headsup-pulse-even-g2",
+  "version": "0.1.0",
+  "description": "Glanceable Even G2 (576x288) Telegram + Hyperliquid & Polymarket read-and-write companion built on @evenrealities/even_hub_sdk@0.0.16",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/headsup_pulse.test.mjs",
+    "start": "node src/cli.mjs"
+  },
+  "dependencies": {
+    "@evenrealities/even_hub_sdk": "0.0.16"
+  }
+}

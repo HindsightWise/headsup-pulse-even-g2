@@ -1,0 +1,1259 @@
+{
+  "generatedAt": "2026-11-21T15:22:54.814Z",
+  "hackathon": {
+    "id": 2477,
+    "title": "Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub",
+    "tracksEntered": [
+      {
+        "id": 4799,
+        "name": "Crypto & DeFi",
+        "qualifiedIntegrations": [
+          "Hyperliquid",
+          "Polymarket"
+        ]
+      },
+      {
+        "id": 4795,
+        "name": "Messaging & News",
+        "qualifiedIntegrations": [
+          "Telegram"
+        ],
+        "specialPrize": "Best Telegram Integration"
+      }
+    ]
+  },
+  "bridgeMeta": {
+    "sdkVersion": "0.0.16",
+    "ready": true,
+    "isMockHost": true,
+    "user": {
+      "uid": 2477,
+      "name": "headsup_operator",
+      "avatar": "",
+      "country": "US"
+    },
+    "device": {
+      "model": "g2",
+      "sn": "ER-G2-576288",
+      "status": {
+        "sn": "ER-G2-576288",
+        "connectType": "connected",
+        "isWearing": true,
+        "batteryLevel": 94,
+        "isCharging": false,
+        "isInCase": false
+      }
+    }
+  },
+  "launchSource": "glassesMenu",
+  "micOpened": true,
+  "invariants": {
+    "DISPLAY_WIDTH": 576,
+    "DISPLAY_HEIGHT": 288,
+    "MAX_VISIBLE_LINES": 4,
+    "MAX_LINE_CHARS": 44,
+    "MIN_BRIGHTNESS": 0,
+    "MAX_BRIGHTNESS": 4,
+    "DEFAULT_BRIGHTNESS": 4,
+    "MAX_CONTAINERS_PER_PAGE": 12,
+    "MAX_TEXT_CONTAINERS": 8,
+    "MAX_MENU_ITEMS": 10,
+    "MAX_MENU_ITEM_BYTES": 32,
+    "PAPER_TRADING_ONLY": true
+  },
+  "marketSnapshot": {
+    "fetchedAt": "2026-11-21T15:22:54.792Z",
+    "hyperliquidSource": "live",
+    "polymarketSource": "live",
+    "endpoints": {
+      "hyperliquidMainnet": "https://api.hyperliquid.xyz/info",
+      "hyperliquidTestnet": "https://api.hyperliquid-testnet.xyz/info",
+      "polymarketGamma": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=5"
+    },
+    "hyperliquid": [
+      {
+        "coin": "BTC",
+        "markPx": 60208.4,
+        "testnetMidPx": 60390,
+        "prevDayPx": 60357,
+        "change24hPct": -0.25,
+        "fundingHourlyPct": 0.00087,
+        "openInterestCoins": 37218.67
+      },
+      {
+        "coin": "ETH",
+        "markPx": 1685.7,
+        "testnetMidPx": 1688.1,
+        "prevDayPx": 1680.9,
+        "change24hPct": 0.29,
+        "fundingHourlyPct": -0.00079,
+        "openInterestCoins": 587367.94
+      },
+      {
+        "coin": "SOL",
+        "markPx": 70.5,
+        "testnetMidPx": 69.91,
+        "prevDayPx": 69.09,
+        "change24hPct": 2.05,
+        "fundingHourlyPct": -0.00277,
+        "openInterestCoins": 4200531.9
+      }
+    ],
+    "polymarket": [
+      {
+        "id": "559654",
+        "question": "Will Pete Buttigieg win the 2028 Democratic presidential nomination?",
+        "yesPct": 5.3,
+        "noPct": 94.8,
+        "yesPrice": 0.0525,
+        "volume24hrUsd": 40635.593397000004,
+        "slug": "will-pete-buttigieg-win-the-2028-democratic-presidential-nomination-687"
+      },
+      {
+        "id": "559651",
+        "question": "Xi Jinping out before 2027?",
+        "yesPct": 1.7,
+        "noPct": 98.4,
+        "yesPrice": 0.0165,
+        "volume24hrUsd": 29904.924496000003,
+        "slug": "xi-jinping-out-before-2027"
+      },
+      {
+        "id": "559655",
+        "question": "Will Josh Shapiro win the 2028 Democratic presidential nomination?",
+        "yesPct": 6.3,
+        "noPct": 93.8,
+        "yesPrice": 0.0625,
+        "volume24hrUsd": 6658.863115,
+        "slug": "will-josh-shapiro-win-the-2028-democratic-presidential-nomination-977"
+      },
+      {
+        "id": "559652",
+        "question": "Will Gavin Newsom win the 2028 Democratic presidential nomination?",
+        "yesPct": 9.8,
+        "noPct": 90.3,
+        "yesPrice": 0.0975,
+        "volume24hrUsd": 6613.026446,
+        "slug": "will-gavin-newsom-win-the-2028-democratic-presidential-nomination-568"
+      },
+      {
+        "id": "559653",
+        "question": "Will Alexandria Ocasio-Cortez win the 2028 Democratic presidential nomination?",
+        "yesPct": 14.1,
+        "noPct": 85.9,
+        "yesPrice": 0.1415,
+        "volume24hrUsd": 2188.884172,
+        "slug": "will-alexandria-ocasio-cortez-win-the-2028-democratic-presidential-nomination-653"
+      }
+    ]
+  },
+  "cards": [
+    {
+      "id": "card-tg-alpha-bridge",
+      "track": "messaging_news",
+      "trackId": 4795,
+      "specialPrize": "Best Telegram Integration",
+      "provider": "Telegram",
+      "chatId": "-100247701",
+      "chatHandle": "@HyperliquidAlphaDesk",
+      "headerTag": "TG @HyperliquidAlphaDesk",
+      "title": "Telegram @HyperliquidAlphaDesk Priority Digest",
+      "brightness": 4,
+      "safetyMode": "EXPLICIT_USER_APPROVAL",
+      "filteredNoiseChats": 1,
+      "linkedCardId": "card-hl-btc-hedge",
+      "lines": [
+        "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]",
+        "DeskBot: HL BTC test $60,390 hedge?",
+        "AI: \"Ack: staging 0.01 BTC paper hedge.\"",
+        "TAP Approve | SCRL HL Hedge | 2xTAP Mute"
+      ],
+      "primaryActionLabel": "Tap: Approve & Send (AI)",
+      "secondaryActionLabel": "Double-Tap: Mute Thread 1h",
+      "stagedReply": {
+        "cardId": "card-tg-alpha-bridge",
+        "chatId": "-100247701",
+        "chatHandle": "@HyperliquidAlphaDesk",
+        "replyText": "Ack: staging 0.01 BTC paper hedge.",
+        "inputMode": "ai_draft"
+      }
+    },
+    {
+      "id": "card-hl-btc-hedge",
+      "track": "crypto_defi",
+      "trackId": 4799,
+      "provider": "Hyperliquid",
+      "headerTag": "HL BTC-PERP",
+      "title": "Hyperliquid BTC Perp & Testnet Hedge",
+      "brightness": 4,
+      "safetyMode": "PAPER_TESTNET_ONLY",
+      "sourceMode": "live",
+      "lines": [
+        "HL BTC $60,208 (-0.3%) TEST $60,390",
+        "FUND +0.0009%/h | OI 37.2K",
+        "PAPER SHORT 0.01 BTC @ $60,390",
+        "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
+      ],
+      "primaryActionLabel": "Tap: Confirm Paper SHORT 0.01 BTC",
+      "secondaryActionLabel": "Double-Tap: Dismiss Ticket",
+      "stagedTicket": {
+        "cardId": "card-hl-btc-hedge",
+        "venue": "Hyperliquid Testnet",
+        "symbol": "BTC-PERP",
+        "side": "SHORT",
+        "sizeCoins": 0.01,
+        "referencePriceUsd": 60390,
+        "notionalUsd": 603.9,
+        "executionMode": "PAPER_TESTNET_ONLY",
+        "custodyOfUserFunds": false,
+        "financialAdvice": false
+      }
+    },
+    {
+      "id": "card-pm-live-odds",
+      "track": "crypto_defi",
+      "trackId": 4799,
+      "provider": "Polymarket",
+      "headerTag": "POLYMARKET ODDS",
+      "title": "Polymarket Live Odds & Paper Ticket",
+      "brightness": 4,
+      "safetyMode": "PAPER_TESTNET_ONLY",
+      "sourceMode": "live",
+      "lines": [
+        "PM: Will Pete Buttigieg win the~",
+        "YES 5.3% | NO 94.8% | 24H $40.6K",
+        "PAPER YES $25.00 SIM (ZERO CUSTODY)",
+        "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
+      ],
+      "primaryActionLabel": "Tap: Confirm Paper YES $25",
+      "secondaryActionLabel": "Double-Tap: Dismiss Ticket",
+      "stagedTicket": {
+        "cardId": "card-pm-live-odds",
+        "venue": "Polymarket Paper Sim",
+        "marketId": "559654",
+        "question": "Will Pete Buttigieg win the 2028 Democratic presidential nomination?",
+        "side": "YES",
+        "notionalUsd": 25,
+        "referenceProbabilityPct": 5.3,
+        "executionMode": "PAPER_TESTNET_ONLY",
+        "custodyOfUserFunds": false,
+        "financialAdvice": false
+      }
+    },
+    {
+      "id": "card-tg-ops-reply",
+      "track": "messaging_news",
+      "trackId": 4795,
+      "specialPrize": "Best Telegram Integration",
+      "provider": "Telegram",
+      "chatId": "-100247702",
+      "chatHandle": "@DaosHubDubai",
+      "headerTag": "TG @DaosHubDubai",
+      "title": "Telegram @DaosHubDubai Priority Digest",
+      "brightness": 4,
+      "safetyMode": "EXPLICIT_USER_APPROVAL",
+      "filteredNoiseChats": 1,
+      "linkedCardId": null,
+      "lines": [
+        "@DaosHubDubai [3 NEW | 30S BRIEF]",
+        "Nadia: Confirming your Dec 3 Demo Day~",
+        "VOICE: \"Confirmed 15:20 GMT+4 remote slot.~\"",
+        "TAP Send Reply | HOLD Voice | 2xTAP Mute"
+      ],
+      "primaryActionLabel": "Tap: Approve & Send (VOICE)",
+      "secondaryActionLabel": "Double-Tap: Mute Thread 1h",
+      "stagedReply": {
+        "cardId": "card-tg-ops-reply",
+        "chatId": "-100247702",
+        "chatHandle": "@DaosHubDubai",
+        "replyText": "Confirmed 15:20 GMT+4 remote slot.~",
+        "inputMode": "voice_stt"
+      }
+    }
+  ],
+  "cardValidations": [
+    {
+      "cardId": "card-tg-alpha-bridge",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "cardId": "card-hl-btc-hedge",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "cardId": "card-pm-live-odds",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "cardId": "card-tg-ops-reply",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "validatedContainers": [
+    {
+      "cardId": "card-tg-alpha-bridge",
+      "sdkValidation": {
+        "valid": true
+      },
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[1/4] TG PRIORITY | TG @HyperliquidAlphaDesk"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,390 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "cardId": "card-hl-btc-hedge",
+      "sdkValidation": {
+        "valid": true
+      },
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "cardId": "card-pm-live-odds",
+      "sdkValidation": {
+        "valid": true
+      },
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[3/4] PAPER/TESTNET | POLYMARKET ODDS"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "PM: Will Pete Buttigieg win the~\nYES 5.3% | NO 94.8% | 24H $40.6K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "cardId": "card-tg-ops-reply",
+      "sdkValidation": {
+        "valid": true
+      },
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[4/4] TG PRIORITY | TG @DaosHubDubai"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "@DaosHubDubai [3 NEW | 30S BRIEF]\nNadia: Confirming your Dec 3 Demo Day~\nVOICE: \"Confirmed 15:20 GMT+4 remote slot.~\"\nTAP Send Reply | HOLD Voice | 2xTAP Mute"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "renderedFrames": [
+    {
+      "operation": "createStartUpPageContainer",
+      "resultCode": 0,
+      "sdkValidation": {
+        "valid": true
+      },
+      "cardId": "card-tg-alpha-bridge",
+      "brightness": 4,
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[1/4] TG PRIORITY | TG @HyperliquidAlphaDesk"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,390 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "textContainerUpgrade",
+      "resultCode": 0,
+      "sdkValidation": {
+        "valid": true
+      },
+      "cardId": "card-hl-btc-hedge",
+      "brightness": 4,
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "textContainerUpgrade",
+      "resultCode": 0,
+      "sdkValidation": {
+        "valid": true
+      },
+      "cardId": "card-pm-live-odds",
+      "brightness": 4,
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[3/4] PAPER/TESTNET | POLYMARKET ODDS"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "PM: Will Pete Buttigieg win the~\nYES 5.3% | NO 94.8% | 24H $40.6K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "textContainerUpgrade",
+      "resultCode": 0,
+      "sdkValidation": {
+        "valid": true
+      },
+      "cardId": "card-tg-ops-reply",
+      "brightness": 4,
+      "pageContainer": {
+        "containerTotalNum": 2,
+        "textObject": [
+          {
+            "xPosition": 16,
+            "yPosition": 12,
+            "width": 544,
+            "height": 36,
+            "containerID": 1,
+            "containerName": "hud-header",
+            "zOrderIndex": 1,
+            "isEventCapture": 0,
+            "textColor": 3,
+            "content": "[4/4] TG PRIORITY | TG @DaosHubDubai"
+          },
+          {
+            "xPosition": 16,
+            "yPosition": 56,
+            "width": 544,
+            "height": 216,
+            "containerID": 2,
+            "containerName": "hud-body",
+            "zOrderIndex": 2,
+            "isEventCapture": 1,
+            "textColor": 4,
+            "content": "@DaosHubDubai [3 NEW | 30S BRIEF]\nNadia: Confirming your Dec 3 Demo Day~\nAI: \"Confirmed 15:20 GMT+4 remote slot.~\nTAP Send Reply | HOLD Voice | 2xTAP Mute"
+          }
+        ],
+        "menuObject": {
+          "menuItems": [
+            {
+              "itemID": 1,
+              "itemName": "Confirm / Approve"
+            },
+            {
+              "itemID": 2,
+              "itemName": "Dismiss Alert"
+            },
+            {
+              "itemID": 3,
+              "itemName": "Voice Reply Mic"
+            },
+            {
+              "itemID": 4,
+              "itemName": "Next Pulse Card"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "paperOrders": [
+    {
+      "receiptId": "paper-exec-1-hl",
+      "status": "CONFIRMED_PAPER_TESTNET",
+      "cardId": "card-hl-btc-hedge",
+      "venue": "Hyperliquid Testnet",
+      "symbolOrMarket": "BTC-PERP",
+      "side": "SHORT",
+      "notionalUsd": 603.9,
+      "referencePriceUsd": 60390,
+      "gestureSource": "RING",
+      "timestamp": "2026-11-21T15:22:54.813Z",
+      "executionMode": "PAPER_TESTNET_ONLY",
+      "custodyOfUserFunds": false,
+      "financialAdvice": false,
+      "realFundsAtRiskUsd": 0
+    }
+  ],
+  "approvedTelegramReplies": [
+    {
+      "status": "APPROVED_AND_DISPATCHED",
+      "cardId": "card-tg-ops-reply",
+      "chatId": "-100247702",
+      "chatHandle": "@DaosHubDubai",
+      "replyText": "Confirmed 15:20 GMT+4 remote slot.~",
+      "inputMode": "voice_stt",
+      "gestureSource": "GLASSES_R",
+      "deliveryReceipt": {
+        "delivered": true,
+        "deliveryMode": "local_paper_receipt",
+        "chatHandle": "@DaosHubDubai",
+        "replyPreview": "Confirmed 15:20 GMT+4 remote slot. Ready.",
+        "receiptHash": "b9ad1849e19e4e17",
+        "timestamp": "2026-11-21T15:22:54.812Z"
+      },
+      "timestamp": "2026-11-21T15:22:54.812Z"
+    }
+  ],
+  "hostCallCount": 0,
+  "ledgerEventCount": 15,
+  "recentLedger": [
+    {
+      "seq": 1,
+      "timestamp": "2026-11-21T15:22:54.306Z",
+      "topic": "glasses.device.status",
+      "payload": {
+        "kind": "launchSource",
+        "launchSource": "glassesMenu"
+      }
+    },
+    {
+      "seq": 2,
+      "timestamp": "2026-11-21T15:22:54.806Z",
+      "topic": "market.pulse.updated",
+      "payload": {
+        "hyperliquidSource": "live",
+        "polymarketSource": "live",
+        "cardCount": 2,
+        "btcMarkPx": 60208.4,
+        "btcTestnetMidPx": 60390,
+        "topPolymarketQuestion": "Will Pete Buttigieg win the 2028 Democratic presidential nomination?"
+      }
+    },
+    {
+      "seq": 3,
+      "timestamp": "2026-11-21T15:22:54.806Z",
+      "topic": "telegram.digest.updated",
+      "payload": {
+        "priorityCardCount": 2,
+        "droppedNoiseCount": 1,
+        "allowedHandles": [
+          "@HyperliquidAlphaDesk",
+          "@DaosHubDubai",
+          "@EvenBuildersOps"
+        ]
+      }
+    },
+    {
+      "seq": 4,
+      "timestamp": "2026-11-21T15:22:54.810Z",
+      "topic": "glasses.frame.rendered",
+      "payload": {
+        "operation": "createStartUpPageContainer",
+        "resultCode": 0,
+        "sdkValidation": {
+          "valid": true
+        },
+        "cardId": "card-tg-alpha-bridge",
+        "brightness": 4,
+        "pageContainer": {
+          "containerTotalNum": 2,
+          "textObject": [
+            {
+              "xPosition": 16,
+              "yPosition": 12,
+              "width": 544,
+              "height": 36,
+              "containerID": 1,
+              "containerName": "hud-header",
+              "zOrderIndex": 1,
+              "isEventCapture": 0,
+              "textColor": 3,
+              "content": "[1/4] TG PRIORITY | TG @HyperliquidAlphaDesk"
+            },
+            {
+              "xPosition": 16,
+              "yPosition": 56,
+              "width": 544,
+              "height": 216,
+              "containerID": 2,
+              "containerName": "hud-body",
+              "zOrderIndex": 2,
+              "isEventCapture": 1,
+              "textColor": 4,
+              "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,390 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+            }
+          ],
+          "menuObject": {
+            "menuItems": [
+              {
+                "itemID": 1,
+                "itemName": "Confirm / Approve"
+              },
+              {
+                "itemID": 2,
+                "itemName": "Dismiss Alert"
+              },
+              {
+                "itemID": 3,
+                "itemName": "Voice Reply Mic"
+              },
+              {
+                "itemID": 4,
+                "itemName": "Next Pulse Card"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "timestamp": "2026-11-21T15:22:54.811Z",
+      "topic": "glasses.voice.captured",
+      "payload": {
+        "byteLength": 8,
+        "pcmSamplePreview": [
+          18,
+          52,
+          108,
+          140,
+          95,
+          44,
+          16,
+          4
+        ],
+        "source": "glasses",
+        "direction": -8,
+        "speakerRole": "self"
+      }
+    },
+    {
+      "seq": 6,
+      "timestamp": "2026-11-21T15:22:54.811Z",
+      "topic": "telegram.reply.staged",
+      "payload": {
+        "cardId": "card-tg-ops-reply",
+        "replyText": "Confirmed 15:20 GMT+4 remote slot.~",
+        "inputMode": "voice_stt",
+        "stagedAt": "2026-11-21T15:22:54.811Z"
+      }
+    },
+    {
+      "seq": 7,
+      "timestamp": "2026-11-21T15:22:54.811Z",
+      "topic": "glasses.frame.rendered",
+      "payload": {
+        "operation": "textContainerUpgrade",
+        "resultCode": 0,
+        "sdkValidation": {
+          "valid": true
+        },
+        "cardId": "card-hl-btc-hedge",
+        "brightness": 4,
+        "pageContainer": {
+          "containerTotalNum": 2,
+          "textObject": [
+            {
+              "xPosition": 16,
+              "yPosition": 12,
+              "width": 544,
+              "height": 36,
+              "containerID": 1,
+              "containerName": "hud-header",
+              "zOrderIndex": 1,
+              "isEventCapture": 0,
+              "textColor": 3,
+              "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+            },
+            {
+              "xPosition": 16,
+              "yPosition": 56,
+              "width": 544,
+              "height": 216,
+              "containerID": 2,
+              "containerName": "hud-body",
+              "zOrderIndex": 2,
+              "isEventCapture": 1,
+              "textColor": 4,
+              "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            }
+          ],
+          "menuObject": {
+            "menuItems": [
+              {
+                "itemID": 1,
+                "itemName": "Confirm / Approve"
+              },
+              {
+                "itemID": 2,
+                "itemName": "Dismiss Alert"
+              },
+              {
+                "itemID": 3,
+                "itemName": "Voice Reply Mic"
+              },
+              {
+                "itemID": 4,
+                "itemName": "Next Pulse Card"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seq": 8,
+      "timestamp": "2026-11-21T15:22:54.812Z",
+      "topic": "glasses.frame.rendered",
+      "payload": {
+        "operation": "textContainerUpgrade",
+        "resultCode": 0,
+        "sdkValidation": {
+          "valid": true
+        },
+        "cardId": "card-pm-live-odds",
+        "brightness": 4,
+        "pageContainer": {
+          "containerTotalNum": 2,
+          "textObject": [
+            {
+              "xPosition": 16,
+              "yPosition": 12,
+              "width": 544,
+              "height": 36,
+              "containerID": 1,
+              "containerName": "hud-header",
+              "zOrderIndex": 1,
+              "isEventCapture": 0,
+              "textColor": 3,
+              "content": "[3/4] PAPER/TESTNET | POLYMARKET ODDS"
+            },
+            {
+              "xPosition": 16,
+              "yPosition": 56,
+              "width": 544,
+              "height": 216,
+              "containerID": 2,
+              "containerName": "hud-body",
+              "zOrderIndex": 2,
+              "isEventCapture": 1,
+              "textColor": 4,
+              "content": "PM: Will Pete Buttigieg win the~\nYES 5.3% | NO 94.8% | 24H $40.6K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            }
+          ],
+          "menuObject": {
+            "menuItems": [
+              {
+                "itemID": 1,
+                "itemName": "Confirm / Approve"
+              },
+              {
+                "itemID": 2,
+                "itemName": "Dismiss Alert"
+              },
+              {
+                "itemID": 3,
+                "itemName": "Voice Reply Mic"
+              },
+              {
+                "itemID": 4,
+                "itemName": "Next Pulse Card"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seq": 9,
+      "timestamp": "2026-11-21T15:22:54.812Z",
+      "topic": "glasses.frame.rendered",
+      "payload": {
+        "operation": "textContainerUpgrade",
+        "resultCode": 0,
+        "sdkValidation": {
+          "valid": true
+        },
+        "cardId": "card-tg-ops-reply",
+        "brightness": 4,
+        "pageContainer": {
+          "containerTotalNum": 2,
+          "textObject": [
+            {
+              "xPosition": 16,
+              "yPosition": 12,
+              "width": 544,
+              "height": 36,
+              "containerID": 1,
+              "containerName": "hud-header",
+              "zOrderIndex": 1,
+              "isEventCapture": 0,
+              "textColor": 3,
+              "content": "[4/4] TG PRIORITY | TG @DaosHubDubai"
+            },
+            {
+              "xPosition": 16,
+              "yPosition": 56,
+              "width": 544,
+              "height": 216,
+              "containerID": 2,
+              "containerName": "hud-body",
+              "zOrderIndex": 2,
+              "isEventCapture": 1,
+              "textColor": 4,
+              "content": "@DaosHubDubai [3 NEW | 30S BRIEF]\nNadia: Confirming your Dec 3 Demo Day~\nAI: \"Confirmed 15:20 GMT+4 remote slot.~\nTAP Send Reply | HOLD Voice | 2xTAP Mute"
+            }
+          ],
+          "menuObject": {
+            "menuItems": [
+              {
+                "itemID": 1,
+                "itemName": "Confirm / Approve"
+              },
+              {
+                "itemID": 2,
+                "itemName": "Dismiss Alert"
+              },
+              {
+                "itemID": 3,
+                "itemName": "Voice Reply Mic"
+              },
+              {
+                "itemID": 4,
+                "itemName": "Next Pulse Card"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seq": 10,
+      "timestamp": "2026-11-21T15:22:54.812Z",
+      "topic": "telegram.digest.updated",
+      "payload": {
+        "priorityCardCount": 2,
+        "droppedNoiseCount": 1,
+        "allowedHandles": [
+          "@HyperliquidAlphaDesk",
+          "@DaosHubDubai",
+          "@EvenBuildersOps"
+        ]
+      }
+    },
+    {
+      "seq": 11,
+      "timestamp": "2026-11-21T15:22:54.812Z",
+      "topic": "telegram.reply.approved",
+      "payload": {
+        "status": "APPROVED_AND_DISPATCHED",
+        "cardId": "card-tg-ops-reply",
+        "chatId": "-100247702",
+        "chatHandle": "@DaosHubDubai",
+        "replyText": "Confirmed 15:20 GMT+4 remote slot.~",
+        "inputMode": "voice_stt",
+        "gestureSource": "GLASSES_R",
+        "deliveryReceipt": {
+          "delivered": true,
+          "deliveryMode": "local_paper_receipt",
+          "chatHandle": "@DaosHubDubai",
+          "replyPreview": "Confirmed 15:20 GMT+4 remote slot. Ready.",
+          "receiptHash": "b9ad1849e19e4e17",
+          "timestamp": "2026-11-21T15:22:54.812Z"
+        },
+        "timestamp": "2026-11-21T15:22:54.812Z"
+      }
+    },
+    {
+      "seq": 12,
+      "timestamp": "2026-11-21T15:22:54.813Z",
+      "topic": "glasses.frame.rendered",
+      "payload": {
+        "operation": "textContainerUpgrade",
+        "resultCode": 0,
+        "sdkValidation": {
+          "valid": true
+        },
+        "cardId": "card-hl-btc-hedge",
+        "brightness": 4,
+        "pageContainer": {
+          "containerTotalNum": 2,
+          "textObject": [
+            {
+              "xPosition": 16,
+              "yPosition": 12,
+              "width": 544,
+              "height": 36,
+              "containerID": 1,
+              "containerName": "hud-header",
+              "zOrderIndex": 1,
+              "isEventCapture": 0,
+              "textColor": 3,
+              "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+            },
+            {
+              "xPosition": 16,
+              "yPosition": 56,
+              "width": 544,
+              "height": 216,
+              "containerID": 2,
+              "containerName": "hud-body",
+              "zOrderIndex": 2,
+              "isEventCapture": 1,
+              "textColor": 4,
+              "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            }
+          ],
+          "menuObject": {
+            "menuItems": [
+              {
+                "itemID": 1,
+                "itemName": "Confirm / Approve"
+              },
+              {
+                "itemID": 2,
+                "itemName": "Dismiss Alert"
+              },
+              {
+                "itemID": 3,
+                "itemName": "Voice Reply Mic"
+              },
+              {
+                "itemID": 4,
+                "itemName": "Next Pulse Card"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seq": 13,
+      "timestamp": "2026-11-21T15:22:54.813Z",
+      "topic": "glasses.input.gesture",
+      "payload": {
+        "gesture": "TAP_CONFIRM",
+        "eventType": 0,
+        "source": "RING"
+      }
+    },
+    {
+      "seq": 14,
+      "timestamp": "2026-11-21T15:22:54.813Z",
+      "topic": "market.order.confirmed",
+      "payload": {
+        "receiptId": "paper-exec-1-hl",
+        "status": "CONFIRMED_PAPER_TESTNET",
+        "cardId": "card-hl-btc-hedge",
+        "venue": "Hyperliquid Testnet",
+        "symbolOrMarket": "BTC-PERP",
+        "side": "SHORT",
+        "notionalUsd": 603.9,
+        "referencePriceUsd": 60390,
+        "gestureSource": "RING",
+        "timestamp": "2026-11-21T15:22:54.813Z",
+        "executionMode": "PAPER_TESTNET_ONLY",
+        "custodyOfUserFunds": false,
+        "financialAdvice": false,
+        "realFundsAtRiskUsd": 0
+      }
+    },
+    {
+      "seq": 15,
+      "timestamp": "2026-11-21T15:22:54.813Z",
+      "topic": "telegram.digest.updated",
+      "payload": {
+        "priorityCardCount": 2,
+        "droppedNoiseCount": 1,
+        "allowedHandles": [
+          "@HyperliquidAlphaDesk",
+          "@DaosHubDubai",
+          "@EvenBuildersOps"
+        ]
+      }
+    }
+  ]
+}
