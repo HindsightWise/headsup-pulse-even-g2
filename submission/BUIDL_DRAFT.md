@@ -27,6 +27,9 @@ Run the end-to-end verification suite and interactive `576 x 288` Dark Studio wa
 3. Launch the local proxy and interactive Even G2 + R1 Ring simulator at `http://127.0.0.1:8787`: `node src/cli.mjs --serve --port 8787`
 4. Run unit, AST boundary, CORS, safety-lock, and SDK container validation tests: `npm test`
 
+- **Repository:** https://github.com/HindsightWise/headsup-pulse-even-g2
+- **Demo Video (H.264 MP4):** https://github.com/HindsightWise/headsup-pulse-even-g2/raw/main/outputs/demo_walkthrough.mp4
+
 The repository `README.md` includes our full **Pre-Nov-23 Open-Source Disclosure**, **Money-Safety Notice** (paper/testnet/read-only only, zero custody, zero financial advice, zero committed keys), and **5 Concrete API Feature Requests** for Even Realities, Telegram, Hyperliquid, and Polymarket.
 
 ## Roadmap & Milestones

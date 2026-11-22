@@ -21,7 +21,7 @@ python3 /Users/zerbytheboss/.gemini/config/skills/dorahacks-builder/scripts/dora
   --body-file submission/BUIDL_DRAFT.md \
   --prior-submissions 0 \
   --github-url "https://github.com/HindsightWise/headsup-pulse-even-g2" \
-  --video-url "https://youtu.be/headsup-pulse-even-g2-demo" \
+  --video-url "https://github.com/HindsightWise/headsup-pulse-even-g2/raw/main/outputs/demo_walkthrough.mp4" \
   --require-github \
   --require-video \
   --json
