@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T15:22:54.814Z",
+  "generatedAt": "2026-11-23T08:16:33.493Z",
   "hackathon": {
     "id": 2477,
     "title": "Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub",
@@ -62,7 +62,7 @@
     "PAPER_TRADING_ONLY": true
   },
   "marketSnapshot": {
-    "fetchedAt": "2026-11-21T15:22:54.792Z",
+    "fetchedAt": "2026-11-23T08:16:33.458Z",
     "hyperliquidSource": "live",
     "polymarketSource": "live",
     "endpoints": {
@@ -73,49 +73,49 @@
     "hyperliquid": [
       {
         "coin": "BTC",
-        "markPx": 60208.4,
-        "testnetMidPx": 60390,
-        "prevDayPx": 60357,
-        "change24hPct": -0.25,
-        "fundingHourlyPct": 0.00087,
-        "openInterestCoins": 37218.67
+        "markPx": 61178,
+        "testnetMidPx": 61108,
+        "prevDayPx": 59345,
+        "change24hPct": 3.09,
+        "fundingHourlyPct": 0.00125,
+        "openInterestCoins": 37367.42
       },
       {
         "coin": "ETH",
-        "markPx": 1685.7,
-        "testnetMidPx": 1688.1,
-        "prevDayPx": 1680.9,
-        "change24hPct": 0.29,
-        "fundingHourlyPct": -0.00079,
-        "openInterestCoins": 587367.94
+        "markPx": 1716.7,
+        "testnetMidPx": 1718.7,
+        "prevDayPx": 1676.1,
+        "change24hPct": 2.42,
+        "fundingHourlyPct": -0.00027,
+        "openInterestCoins": 612403.9
       },
       {
         "coin": "SOL",
-        "markPx": 70.5,
-        "testnetMidPx": 69.91,
-        "prevDayPx": 69.09,
-        "change24hPct": 2.05,
-        "fundingHourlyPct": -0.00277,
-        "openInterestCoins": 4200531.9
+        "markPx": 71.98,
+        "testnetMidPx": 71.82,
+        "prevDayPx": 69.59,
+        "change24hPct": 3.44,
+        "fundingHourlyPct": 0.0006,
+        "openInterestCoins": 4125764.52
       }
     ],
     "polymarket": [
       {
         "id": "559654",
         "question": "Will Pete Buttigieg win the 2028 Democratic presidential nomination?",
-        "yesPct": 5.3,
-        "noPct": 94.8,
-        "yesPrice": 0.0525,
-        "volume24hrUsd": 40635.593397000004,
+        "yesPct": 5.7,
+        "noPct": 94.3,
+        "yesPrice": 0.0565,
+        "volume24hrUsd": 46061.306067000005,
         "slug": "will-pete-buttigieg-win-the-2028-democratic-presidential-nomination-687"
       },
       {
         "id": "559651",
         "question": "Xi Jinping out before 2027?",
-        "yesPct": 1.7,
-        "noPct": 98.4,
-        "yesPrice": 0.0165,
-        "volume24hrUsd": 29904.924496000003,
+        "yesPct": 1.5,
+        "noPct": 98.6,
+        "yesPrice": 0.0145,
+        "volume24hrUsd": 27622.037286000006,
         "slug": "xi-jinping-out-before-2027"
       },
       {
@@ -124,16 +124,16 @@
         "yesPct": 6.3,
         "noPct": 93.8,
         "yesPrice": 0.0625,
-        "volume24hrUsd": 6658.863115,
+        "volume24hrUsd": 3918.6630160000004,
         "slug": "will-josh-shapiro-win-the-2028-democratic-presidential-nomination-977"
       },
       {
         "id": "559652",
         "question": "Will Gavin Newsom win the 2028 Democratic presidential nomination?",
         "yesPct": 9.8,
-        "noPct": 90.3,
-        "yesPrice": 0.0975,
-        "volume24hrUsd": 6613.026446,
+        "noPct": 90.1,
+        "yesPrice": 0.0985,
+        "volume24hrUsd": 3257.762528,
         "slug": "will-gavin-newsom-win-the-2028-democratic-presidential-nomination-568"
       },
       {
@@ -142,7 +142,7 @@
         "yesPct": 14.1,
         "noPct": 85.9,
         "yesPrice": 0.1415,
-        "volume24hrUsd": 2188.884172,
+        "volume24hrUsd": 2796.0362360000004,
         "slug": "will-alexandria-ocasio-cortez-win-the-2028-democratic-presidential-nomination-653"
       }
     ]
@@ -164,7 +164,7 @@
       "linkedCardId": "card-hl-btc-hedge",
       "lines": [
         "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]",
-        "DeskBot: HL BTC test $60,390 hedge?",
+        "DeskBot: HL BTC test $61,108 hedge?",
         "AI: \"Ack: staging 0.01 BTC paper hedge.\"",
         "TAP Approve | SCRL HL Hedge | 2xTAP Mute"
       ],
@@ -189,9 +189,9 @@
       "safetyMode": "PAPER_TESTNET_ONLY",
       "sourceMode": "live",
       "lines": [
-        "HL BTC $60,208 (-0.3%) TEST $60,390",
-        "FUND +0.0009%/h | OI 37.2K",
-        "PAPER SHORT 0.01 BTC @ $60,390",
+        "HL BTC $61,178 (+3.1%) TEST $61,108",
+        "FUND +0.0013%/h | OI 37.4K",
+        "PAPER SHORT 0.01 BTC @ $61,108",
         "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
       ],
       "primaryActionLabel": "Tap: Confirm Paper SHORT 0.01 BTC",
@@ -202,8 +202,22 @@
         "symbol": "BTC-PERP",
         "side": "SHORT",
         "sizeCoins": 0.01,
-        "referencePriceUsd": 60390,
-        "notionalUsd": 603.9,
+        "referencePriceUsd": 61108,
+        "notionalUsd": 611.08,
+        "l2Preview": {
+          "coin": "BTC",
+          "side": "SHORT",
+          "sizeCoins": 0.01,
+          "midPx": 61108,
+          "vwapFillPx": 61098.83,
+          "slippageBps": 1.5,
+          "top5BookDepthUsd": 45809.61,
+          "fullyFilled": true,
+          "executionMode": "PAPER_TESTNET_ONLY",
+          "custodyOfUserFunds": false,
+          "financialAdvice": false,
+          "realFundsAtRiskUsd": 0
+        },
         "executionMode": "PAPER_TESTNET_ONLY",
         "custodyOfUserFunds": false,
         "financialAdvice": false
@@ -221,7 +235,7 @@
       "sourceMode": "live",
       "lines": [
         "PM: Will Pete Buttigieg win the~",
-        "YES 5.3% | NO 94.8% | 24H $40.6K",
+        "YES 5.7% | NO 94.3% | 24H $46.1K",
         "PAPER YES $25.00 SIM (ZERO CUSTODY)",
         "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
       ],
@@ -234,7 +248,7 @@
         "question": "Will Pete Buttigieg win the 2028 Democratic presidential nomination?",
         "side": "YES",
         "notionalUsd": 25,
-        "referenceProbabilityPct": 5.3,
+        "referenceProbabilityPct": 5.7,
         "executionMode": "PAPER_TESTNET_ONLY",
         "custodyOfUserFunds": false,
         "financialAdvice": false
@@ -324,7 +338,7 @@
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,390 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $61,108 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
           }
         ],
         "menuObject": {
@@ -379,7 +393,7 @@
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "HL BTC $61,178 (+3.1%) TEST $61,108\nFUND +0.0013%/h | OI 37.4K\nPAPER SHORT 0.01 BTC @ $61,108\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -434,7 +448,7 @@
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "PM: Will Pete Buttigieg win the~\nYES 5.3% | NO 94.8% | 24H $40.6K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "PM: Will Pete Buttigieg win the~\nYES 5.7% | NO 94.3% | 24H $46.1K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -549,7 +563,7 @@
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,390 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $61,108 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
           }
         ],
         "menuObject": {
@@ -607,7 +621,7 @@
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "HL BTC $61,178 (+3.1%) TEST $61,108\nFUND +0.0013%/h | OI 37.4K\nPAPER SHORT 0.01 BTC @ $61,108\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -665,7 +679,7 @@
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "PM: Will Pete Buttigieg win the~\nYES 5.3% | NO 94.8% | 24H $40.6K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "PM: Will Pete Buttigieg win the~\nYES 5.7% | NO 94.3% | 24H $46.1K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -757,10 +771,10 @@
       "venue": "Hyperliquid Testnet",
       "symbolOrMarket": "BTC-PERP",
       "side": "SHORT",
-      "notionalUsd": 603.9,
-      "referencePriceUsd": 60390,
+      "notionalUsd": 611.08,
+      "referencePriceUsd": 61108,
       "gestureSource": "RING",
-      "timestamp": "2026-11-21T15:22:54.813Z",
+      "timestamp": "2026-11-23T08:16:33.492Z",
       "executionMode": "PAPER_TESTNET_ONLY",
       "custodyOfUserFunds": false,
       "financialAdvice": false,
@@ -782,9 +796,9 @@
         "chatHandle": "@DaosHubDubai",
         "replyPreview": "Confirmed 15:20 GMT+4 remote slot. Ready.",
         "receiptHash": "b9ad1849e19e4e17",
-        "timestamp": "2026-11-21T15:22:54.812Z"
+        "timestamp": "2026-11-23T08:16:33.491Z"
       },
-      "timestamp": "2026-11-21T15:22:54.812Z"
+      "timestamp": "2026-11-23T08:16:33.492Z"
     }
   ],
   "hostCallCount": 0,
@@ -792,7 +806,7 @@
   "recentLedger": [
     {
       "seq": 1,
-      "timestamp": "2026-11-21T15:22:54.306Z",
+      "timestamp": "2026-11-23T08:16:32.566Z",
       "topic": "glasses.device.status",
       "payload": {
         "kind": "launchSource",
@@ -801,20 +815,20 @@
     },
     {
       "seq": 2,
-      "timestamp": "2026-11-21T15:22:54.806Z",
+      "timestamp": "2026-11-23T08:16:33.485Z",
       "topic": "market.pulse.updated",
       "payload": {
         "hyperliquidSource": "live",
         "polymarketSource": "live",
         "cardCount": 2,
-        "btcMarkPx": 60208.4,
-        "btcTestnetMidPx": 60390,
+        "btcMarkPx": 61178,
+        "btcTestnetMidPx": 61108,
         "topPolymarketQuestion": "Will Pete Buttigieg win the 2028 Democratic presidential nomination?"
       }
     },
     {
       "seq": 3,
-      "timestamp": "2026-11-21T15:22:54.806Z",
+      "timestamp": "2026-11-23T08:16:33.485Z",
       "topic": "telegram.digest.updated",
       "payload": {
         "priorityCardCount": 2,
@@ -828,7 +842,7 @@
     },
     {
       "seq": 4,
-      "timestamp": "2026-11-21T15:22:54.810Z",
+      "timestamp": "2026-11-23T08:16:33.489Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "createStartUpPageContainer",
@@ -863,7 +877,7 @@
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,390 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+              "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $61,108 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
             }
           ],
           "menuObject": {
@@ -891,7 +905,7 @@
     },
     {
       "seq": 5,
-      "timestamp": "2026-11-21T15:22:54.811Z",
+      "timestamp": "2026-11-23T08:16:33.489Z",
       "topic": "glasses.voice.captured",
       "payload": {
         "byteLength": 8,
@@ -912,18 +926,18 @@
     },
     {
       "seq": 6,
-      "timestamp": "2026-11-21T15:22:54.811Z",
+      "timestamp": "2026-11-23T08:16:33.490Z",
       "topic": "telegram.reply.staged",
       "payload": {
         "cardId": "card-tg-ops-reply",
         "replyText": "Confirmed 15:20 GMT+4 remote slot.~",
         "inputMode": "voice_stt",
-        "stagedAt": "2026-11-21T15:22:54.811Z"
+        "stagedAt": "2026-11-23T08:16:33.490Z"
       }
     },
     {
       "seq": 7,
-      "timestamp": "2026-11-21T15:22:54.811Z",
+      "timestamp": "2026-11-23T08:16:33.491Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -958,7 +972,7 @@
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+              "content": "HL BTC $61,178 (+3.1%) TEST $61,108\nFUND +0.0013%/h | OI 37.4K\nPAPER SHORT 0.01 BTC @ $61,108\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
             }
           ],
           "menuObject": {
@@ -986,7 +1000,7 @@
     },
     {
       "seq": 8,
-      "timestamp": "2026-11-21T15:22:54.812Z",
+      "timestamp": "2026-11-23T08:16:33.491Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -1021,7 +1035,7 @@
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "PM: Will Pete Buttigieg win the~\nYES 5.3% | NO 94.8% | 24H $40.6K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+              "content": "PM: Will Pete Buttigieg win the~\nYES 5.7% | NO 94.3% | 24H $46.1K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
             }
           ],
           "menuObject": {
@@ -1049,7 +1063,7 @@
     },
     {
       "seq": 9,
-      "timestamp": "2026-11-21T15:22:54.812Z",
+      "timestamp": "2026-11-23T08:16:33.491Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -1112,7 +1126,7 @@
     },
     {
       "seq": 10,
-      "timestamp": "2026-11-21T15:22:54.812Z",
+      "timestamp": "2026-11-23T08:16:33.492Z",
       "topic": "telegram.digest.updated",
       "payload": {
         "priorityCardCount": 2,
@@ -1126,7 +1140,7 @@
     },
     {
       "seq": 11,
-      "timestamp": "2026-11-21T15:22:54.812Z",
+      "timestamp": "2026-11-23T08:16:33.492Z",
       "topic": "telegram.reply.approved",
       "payload": {
         "status": "APPROVED_AND_DISPATCHED",
@@ -1142,14 +1156,14 @@
           "chatHandle": "@DaosHubDubai",
           "replyPreview": "Confirmed 15:20 GMT+4 remote slot. Ready.",
           "receiptHash": "b9ad1849e19e4e17",
-          "timestamp": "2026-11-21T15:22:54.812Z"
+          "timestamp": "2026-11-23T08:16:33.491Z"
         },
-        "timestamp": "2026-11-21T15:22:54.812Z"
+        "timestamp": "2026-11-23T08:16:33.492Z"
       }
     },
     {
       "seq": 12,
-      "timestamp": "2026-11-21T15:22:54.813Z",
+      "timestamp": "2026-11-23T08:16:33.492Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -1184,7 +1198,7 @@
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "HL BTC $60,208 (-0.3%) TEST $60,390\nFUND +0.0009%/h | OI 37.2K\nPAPER SHORT 0.01 BTC @ $60,390\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+              "content": "HL BTC $61,178 (+3.1%) TEST $61,108\nFUND +0.0013%/h | OI 37.4K\nPAPER SHORT 0.01 BTC @ $61,108\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
             }
           ],
           "menuObject": {
@@ -1212,7 +1226,7 @@
     },
     {
       "seq": 13,
-      "timestamp": "2026-11-21T15:22:54.813Z",
+      "timestamp": "2026-11-23T08:16:33.492Z",
       "topic": "glasses.input.gesture",
       "payload": {
         "gesture": "TAP_CONFIRM",
@@ -1222,7 +1236,7 @@
     },
     {
       "seq": 14,
-      "timestamp": "2026-11-21T15:22:54.813Z",
+      "timestamp": "2026-11-23T08:16:33.492Z",
       "topic": "market.order.confirmed",
       "payload": {
         "receiptId": "paper-exec-1-hl",
@@ -1231,10 +1245,10 @@
         "venue": "Hyperliquid Testnet",
         "symbolOrMarket": "BTC-PERP",
         "side": "SHORT",
-        "notionalUsd": 603.9,
-        "referencePriceUsd": 60390,
+        "notionalUsd": 611.08,
+        "referencePriceUsd": 61108,
         "gestureSource": "RING",
-        "timestamp": "2026-11-21T15:22:54.813Z",
+        "timestamp": "2026-11-23T08:16:33.492Z",
         "executionMode": "PAPER_TESTNET_ONLY",
         "custodyOfUserFunds": false,
         "financialAdvice": false,
@@ -1243,7 +1257,7 @@
     },
     {
       "seq": 15,
-      "timestamp": "2026-11-21T15:22:54.813Z",
+      "timestamp": "2026-11-23T08:16:33.493Z",
       "topic": "telegram.digest.updated",
       "payload": {
         "priorityCardCount": 2,
