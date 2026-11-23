@@ -28,9 +28,9 @@ flowchart LR
 
 1. `src/kernel/event_bus.mjs`: Enforces physical Even G2 optical invariants (`576x288` bounds, `<= 4` lines, `<= 44` chars/line, integer `textColor` brightness `0..4`, `PAPER_TRADING_ONLY = true`) and provides an append-only frozen `EventBus`.
 2. `src/features/sdk_bridge/index.mjs`: Integrates `@evenrealities/even_hub_sdk@0.0.16` (`waitForEvenAppBridge`, `createStartUpPageContainer`, `textContainerUpgrade`, `rebuildPageContainer`, `audioControl`, `imuControl`, `onEvenHubEvent`, and `validateEvenHubPageContainer`), plus a deterministic `flutter_inappwebview` host adapter for Node tests and standalone desktop browsers.
-3. `src/features/market_pulse/index.mjs`: Queries live Hyperliquid perp mark prices, hourly funding rates, Testnet mid prices, and Polymarket active contract probabilities with deterministic offline fallback and 1-tap paper/testnet order receipts.
-4. `src/features/telegram_digest/index.mjs`: Filters incoming updates down to user-selected Telegram handles (`@HyperliquidAlphaDesk`, `@DaosHubDubai`, `@EvenBuildersOps`), drops unselected group noise, and stages 1-tap AI or voice replies.
-5. `src/features/backend_proxy/index.mjs`: Serves `web/index.html`, `app.json`, and CORS-protected JSON endpoints (`/api/health`, `/api/pulse`, `/api/action/confirm`, `/api/telegram/reply-draft`, `/api/stt/transcribe`) while keeping optional credentials strictly in server memory.
+3. `src/features/market_pulse/index.mjs`: Queries live Hyperliquid perp mark prices, hourly funding rates, Testnet mid prices, L2 order-book depth (`l2Book` VWAP slippage preview), and Polymarket active contract probabilities with deterministic offline fallback and 1-tap paper/testnet order receipts.
+4. `src/features/telegram_digest/index.mjs`: Parses live Telegram Bot API `getUpdates` streams (`normalizeTelegramBotUpdates`, offset deduplication) plus local feeds, filters strictly to user-selected Telegram handles (`@HyperliquidAlphaDesk`, `@DaosHubDubai`, `@EvenBuildersOps`), drops unselected group noise, and stages 1-tap AI or voice replies.
+5. `src/features/backend_proxy/index.mjs`: Serves `web/index.html`, `app.json`, and CORS-protected JSON endpoints (`/api/health`, `/api/pulse`, `/api/telegram/poll`, `/api/market/l2-preview`, `/api/action/confirm`, `/api/telegram/reply-draft`, `/api/stt/transcribe`) while keeping optional credentials strictly in server memory.
 
 ---
 

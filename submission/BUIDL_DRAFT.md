@@ -4,9 +4,9 @@
 
 Active crypto operators and builders constantly pull out their phones during meetings or transit just to check whether a Telegram ping matters or whether perpetual funding and prediction odds moved. Full multi-panel mobile dashboards fail on `576 x 288` monochrome eyewear, while passive notification mirrors offer no fast way to act.
 
-**HeadsUp Pulse** solves that everyday moment for **Even Realities G2** across two connected tracks in one continuous flow:
-- **Track 01 — Messaging & News (`4795`) + Best Telegram Integration:** Filters incoming updates strictly to user-picked Telegram channels and work groups (`@HyperliquidAlphaDesk`, `@DaosHubDubai`), compresses unread threads into a 4-line 30-second brief, and dispatches 1-tap AI-drafted or push-to-talk voice replies.
-- **Track 02 — Crypto & DeFi (`4799`):** Streams live **Hyperliquid** perpetual mark prices, hourly funding rates, and Testnet mid prices alongside live **Polymarket** Gamma contract probabilities, staging 1-tap non-custodial paper/testnet hedges confirmed directly from the **Even R1 Ring** or temple touch bar.
+**HeadsUp Pulse** solves that everyday moment for **Even Realities G2** in one continuous workflow submitted to **Track 01 — Messaging & News (`4795`)** + **`Best Telegram Integration`** (bridged directly into Track 02 crypto paper telemetry):
+- **Track 01 — Messaging & News (`4795`) + Best Telegram Integration:** Polls incoming Telegram Bot API `getUpdates` streams (plus deterministic paper feeds), filters strictly to user-picked Telegram channels and work groups (`@HyperliquidAlphaDesk`, `@DaosHubDubai`), deduplicates offsets, compresses unread threads into a 4-line 30-second brief, and dispatches 1-tap AI-drafted or push-to-talk voice replies.
+- **Connected Market Telemetry & L2 Preview:** Streams live **Hyperliquid** perpetual mark prices, hourly funding rates, Testnet mid prices, and live `l2Book` VWAP slippage previews alongside live **Polymarket** Gamma contract probabilities, staging 1-tap non-custodial paper/testnet hedges confirmed directly from the **Even R1 Ring** or temple touch bar.
 
 ## Architecture & Solution
 
@@ -14,9 +14,9 @@ HeadsUp Pulse uses a strict vertical-slice architecture (`Invariants -> Schema -
 
 1. **Even G2 Optical & Safety Kernel (`src/kernel/event_bus.mjs`):** Enforces `576 x 288` bounds, `<= 4` visible lines, `<= 44` characters per line, integer `textColor` brightness `0..4`, and `PAPER_TRADING_ONLY = true` over an immutable append-only `EventBus`.
 2. **Official Even Hub SDK Bridge (`src/features/sdk_bridge/index.mjs`):** Calls `waitForEvenAppBridge()`, `createStartUpPageContainer()`, incremental `textContainerUpgrade()`, `rebuildPageContainer()`, `audioControl(true, AudioInputSource.Glasses)`, and `onEvenHubEvent()`. Every frame enforces unique `zOrderIndex` across containers, a single `isEventCapture: 1` target, `<= 32` UTF-8 byte `menuObject` items, and passes official `validateEvenHubPageContainer()`.
-3. **Live Hyperliquid & Polymarket Slice (`src/features/market_pulse/index.mjs`):** Queries `https://api.hyperliquid.xyz/info`, `https://api.hyperliquid-testnet.xyz/info`, and `https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=5` with deterministic offline fallback and zero custody of user funds.
-4. **Priority Telegram Digest Slice (`src/features/telegram_digest/index.mjs`):** Links `@HyperliquidAlphaDesk` funding alerts one scroll away from the matching Hyperliquid Testnet paper hedge and supports 1-tap AI draft or voice-transcribed replies.
-5. **CORS-Whitelisted Backend Proxy (`src/features/backend_proxy/index.mjs` + `app.json`):** Routes API traffic server-side, blocks unauthorized cross-origin requests, exposes BYO speech-to-text (`/api/stt/transcribe`), and keeps optional `TELEGRAM_BOT_TOKEN` credentials strictly in server memory.
+3. **Priority Telegram Digest Slice (`src/features/telegram_digest/index.mjs`):** Parses Telegram Bot API `getUpdates` payloads (`normalizeTelegramBotUpdates`, `ingestBotApiUpdates`), links `@HyperliquidAlphaDesk` funding alerts one scroll away from the matching Hyperliquid Testnet paper hedge, and supports 1-tap AI draft or voice-transcribed replies.
+4. **Live Hyperliquid & Polymarket Slice (`src/features/market_pulse/index.mjs`):** Queries `https://api.hyperliquid.xyz/info`, `https://api.hyperliquid-testnet.xyz/info` (`metaAndAssetCtxs`, `allMids`, and `l2Book` VWAP slippage preview), and `https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=5` with deterministic offline fallback and zero custody of user funds.
+5. **CORS-Whitelisted Backend Proxy (`src/features/backend_proxy/index.mjs` + `app.json`):** Routes API traffic server-side (`/api/telegram/poll`, `/api/market/l2-preview`, `/api/telegram/reply-draft`, `/api/stt/transcribe`, `/api/action/confirm`), blocks unauthorized cross-origin requests, exposes BYO speech-to-text, and keeps optional `TELEGRAM_BOT_TOKEN` credentials strictly in server memory.
 
 ## Demo Walkthrough & Verification
 
@@ -30,7 +30,7 @@ Run the end-to-end verification suite and interactive `576 x 288` Dark Studio wa
 - **Repository:** https://github.com/HindsightWise/headsup-pulse-even-g2
 - **Demo Video (H.264 MP4):** https://github.com/HindsightWise/headsup-pulse-even-g2/raw/main/outputs/demo_walkthrough.mp4
 
-The repository `README.md` includes our full **Pre-Nov-23 Open-Source Disclosure**, **Money-Safety Notice** (paper/testnet/read-only only, zero custody, zero financial advice, zero committed keys), and **5 Concrete API Feature Requests** for Even Realities, Telegram, Hyperliquid, and Polymarket.
+The repository `README.md` includes our full **Pre-Nov-23 Open-Source, Scaffold & API Disclosure** (`commits b563869..7d7322e` initial repository scaffold plus Nov 23 live Telegram `getUpdates` polling, Hyperliquid L2 slippage simulation, and expanded `7/7` automated test suite), **Money-Safety Notice** (paper/testnet/read-only only, zero custody, zero financial advice, zero committed keys), and **5 Concrete API Feature Requests** for Even Realities, Telegram, Hyperliquid, and Polymarket.
 
 ## Roadmap & Milestones
 
