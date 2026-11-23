@@ -78,9 +78,9 @@ npm test
 
 ---
 
-## Pre-Nov-23 Open-Source & Harness Disclosure
+## Pre-Nov-23 Open-Source, Scaffold & API Disclosure
 
-In compliance with Hackathon `#2477` rules (*"Open-source libraries and existing APIs are allowed; say in your README what existed before Nov 23"*):
+In compliance with Hackathon `#2477` rules (*"has disclosed in the README any code that existed before"* and *"Open-source libraries and existing APIs are allowed; say in your README what existed before Nov 23"*):
 - **Pre-existing external open-source packages & fonts:**
   - `@evenrealities/even_hub_sdk@0.0.16` (MIT License, Even Realities official WebView TypeScript/JavaScript SDK)
   - Node.js standard library (`node:http`, `node:test`, `node:assert`, `node:crypto`, `node:fs`)
@@ -91,7 +91,10 @@ In compliance with Hackathon `#2477` rules (*"Open-source libraries and existing
   - Telegram Bot HTTP API (`https://api.telegram.org`)
 - **Pre-existing local builder quality linters (not part of the runtime app):**
   - Local static CSS/HTML accessibility and DoraHacks Build markdown preflight validators used during development verification.
-- **Fresh Hackathon Build:** 100% of the HeadsUp Pulse codebase (`app.json`, `src/kernel/`, `src/features/`, `src/app.mjs`, `src/cli.mjs`, `web/index.html`, `tests/`, and `submission/`) was built specifically for Even Realities Hackathon `#2477`.
+- **Pre-Nov-23 initial repository scaffold (`commits b563869..7d7322e`, `2026-11-21` to `2026-11-22 UTC`):**
+  - Initial repository layout (`app.json`, `EventBus` optical/safety invariants, Even Hub SDK `0.0.16` WebView host adapter, local `576x288` Dark Studio simulator shell, baseline market/Telegram feeds, and demo walkthrough media) prepared prior to `2026-11-23T08:00:00Z`.
+- **Nov 23 (`2026-11-23 UTC`) Hackathon Feature Engineering:**
+  - Added live Telegram Bot API `getUpdates` priority channel/group ingestion (`normalizeTelegramBotUpdates`, `ingestBotApiUpdates`, `pollTelegramUpdates`, and `POST /api/telegram/poll` with update-offset deduplication and server-only token isolation), Hyperliquid L2 order-book VWAP and slippage preview (`simulateL2OrderBookImpact`, `previewL2OrderImpact`, and `POST /api/market/l2-preview`) attached to Even R1 Ring 1-tap paper hedge tickets, and expanded end-to-end automated tests (`7/7` passing).
 
 ---
 

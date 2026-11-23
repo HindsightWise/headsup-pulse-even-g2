@@ -27,8 +27,14 @@ import {
   buildEvenG2PageContainer,
   loadEvenHubSdk,
 } from "../src/features/sdk_bridge/index.mjs";
-import { MarketPulseEngine } from "../src/features/market_pulse/index.mjs";
-import { TelegramDigestEngine } from "../src/features/telegram_digest/index.mjs";
+import {
+  MarketPulseEngine,
+  simulateL2OrderBookImpact,
+} from "../src/features/market_pulse/index.mjs";
+import {
+  TelegramDigestEngine,
+  normalizeTelegramBotUpdates,
+} from "../src/features/telegram_digest/index.mjs";
 import { dispatchTelegramReply } from "../src/features/backend_proxy/index.mjs";
 import { createHeadsUpPulseRuntime } from "../src/app.mjs";
 
@@ -533,5 +539,184 @@ test("6. Artistry harness (M >= 0.68), DoraHacks preflight (0 errors/0 warnings)
   ]) {
     const content = await fs.readFile(path.join(PROJECT_ROOT, rel), "utf8");
     assert.doesNotMatch(content, bannedRe, `Banned word found in ${rel}`);
+  }
+});
+
+test("7. Nov 23 live Telegram getUpdates polling and Hyperliquid L2 VWAP slippage preview", async () => {
+  const sampleBotUpdates = [
+    {
+      update_id: 7001,
+      channel_post: {
+        chat: { id: -100247701, title: "Hyperliquid Alpha Desk", username: "HyperliquidAlphaDesk", type: "channel" },
+        author_signature: "DeskBot",
+        text: "BTC funding turned +0.0021%/h on Hyperliquid; check testnet hedge spread.",
+      },
+    },
+    {
+      update_id: 7002,
+      message: {
+        chat: { id: -100247702, title: "Daos Hub Dubai", username: "DaosHubDubai", type: "supergroup" },
+        from: { username: "NadiaDubai", first_name: "Nadia" },
+        text: "Remote Demo Day slot confirmed for Dec 3 at 15:20 GMT+4.",
+      },
+    },
+    {
+      update_id: 7003,
+      message: {
+        chat: { id: -100999888, title: "Spam Noise Group", username: "SpamNoiseGroup", type: "group" },
+        from: { first_name: "NoiseBot" },
+        text: "Off-topic meme message that must stay filtered off G2.",
+      },
+    },
+  ];
+
+  const normalized = normalizeTelegramBotUpdates(sampleBotUpdates);
+  assert.equal(normalized.nextUpdateOffset, 7004);
+  assert.equal(normalized.updates.length, 3);
+  assert.equal(normalized.updates[0].linkedCardId, "card-hl-btc-hedge");
+
+  const bus = new EventBus();
+  const tgEngine = new TelegramDigestEngine({ eventBus: bus });
+  const ingested = tgEngine.ingestBotApiUpdates({ ok: true, result: sampleBotUpdates });
+  assert.equal(ingested.nextUpdateOffset, 7004);
+  assert.equal(ingested.droppedNoiseCount, 1);
+  assert.equal(ingested.cards.length, 2);
+  for (const card of ingested.cards) {
+    assert.equal(validateG2CardSpec(card).valid, true);
+  }
+  const duplicatePoll = tgEngine.ingestBotApiUpdates({ ok: true, result: sampleBotUpdates });
+  assert.equal(duplicatePoll.ingestedCount, 0);
+
+  const l2Sim = simulateL2OrderBookImpact({
+    coin: "BTC",
+    side: "SHORT",
+    sizeCoins: 0.15,
+    levels: [
+      [
+        { px: "60500.0", sz: "0.10" },
+        { px: "60480.0", sz: "0.20" },
+      ],
+      [
+        { px: "60520.0", sz: "0.10" },
+        { px: "60540.0", sz: "0.20" },
+      ],
+    ],
+  });
+  assert.equal(l2Sim.executionMode, "PAPER_TESTNET_ONLY");
+  assert.equal(l2Sim.fullyFilled, true);
+  assert.ok(l2Sim.vwapFillPx < 60500);
+  assert.ok(l2Sim.slippageBps > 0);
+  assert.ok(l2Sim.top5BookDepthUsd > 10_000);
+
+  const mockBotToken = "tg_poll_tok_" + "nov23_demo";
+  const pollFetch = async (url, init = {}) => {
+    const target = String(url);
+    const parsedBody = init?.body ? JSON.parse(String(init.body)) : {};
+    if (target.includes("/getUpdates")) {
+      return new Response(
+        JSON.stringify({ ok: true, result: sampleBotUpdates }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    if (target.includes("api.hyperliquid-testnet.xyz/info") && parsedBody.type === "l2Book") {
+      return new Response(
+        JSON.stringify({
+          coin: "BTC",
+          levels: [
+            [
+              { px: "60510.0", sz: "0.08" },
+              { px: "60495.0", sz: "0.25" },
+            ],
+            [
+              { px: "60526.0", sz: "0.08" },
+              { px: "60542.0", sz: "0.25" },
+            ],
+          ],
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    if (target.includes("api.hyperliquid.xyz/info")) {
+      return new Response(
+        JSON.stringify([
+          { universe: [{ name: "BTC" }] },
+          [{ markPx: "60500.0", prevDayPx: "61000.0", funding: "0.000012", openInterest: "38000" }],
+        ]),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    if (target.includes("api.hyperliquid-testnet.xyz/info")) {
+      return new Response(JSON.stringify({ BTC: "60518.0" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    return new Response(
+      JSON.stringify([
+        {
+          id: "559651",
+          question: "Macro rate cut before Q1 close?",
+          outcomePrices: ["0.642", "0.358"],
+          volume24hr: 184250,
+          slug: "macro-rate-cut-q1-close",
+        },
+      ]),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
+  };
+
+  const runtime = await createHeadsUpPulseRuntime({
+    projectRoot: PROJECT_ROOT,
+    fetchImpl: pollFetch,
+    env: { TELEGRAM_BOT_TOKEN: mockBotToken },
+  });
+  await runtime.bridgeController.init();
+  await runtime.marketEngine.refreshFeeds();
+  await runtime.syncActiveCardToGlasses({ startup: true });
+
+  await new Promise((resolve) => runtime.server.listen(0, "127.0.0.1", resolve));
+  const { port } = runtime.server.address();
+  const baseUrl = `http://127.0.0.1:${port}`;
+
+  try {
+    const pollRes = await fetch(`${baseUrl}/api/telegram/poll`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ offset: 7000 }),
+    });
+    assert.equal(pollRes.status, 200);
+    const pollJson = await pollRes.json();
+    assert.equal(pollJson.pollMode, "telegram_bot_api");
+    assert.equal(pollJson.droppedNoiseCount, 1);
+    assert.equal(pollJson.nextUpdateOffset, 7004);
+    assert.equal(JSON.stringify(pollJson).includes(mockBotToken), false);
+
+    const pulseRes = await fetch(`${baseUrl}/api/pulse`);
+    assert.equal(pulseRes.status, 200);
+    const pulseJson = await pulseRes.json();
+    assert.equal(pulseJson.cards[0].id, "card-tg-alpha-bridge");
+    assert.equal(pulseJson.cards[1].stagedTicket.l2Preview.executionMode, "PAPER_TESTNET_ONLY");
+
+    const l2Res = await fetch(`${baseUrl}/api/market/l2-preview`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ coin: "BTC", side: "SHORT", sizeCoins: 0.1 }),
+    });
+    assert.equal(l2Res.status, 200);
+    const l2Json = await l2Res.json();
+    assert.equal(l2Json.preview.bookSource, "hyperliquid_testnet_l2");
+    assert.equal(l2Json.preview.executionMode, "PAPER_TESTNET_ONLY");
+    assert.ok(Number.isFinite(l2Json.preview.vwapFillPx));
+    assert.ok(Number.isFinite(l2Json.preview.slippageBps));
+
+    const blockedL2Res = await fetch(`${baseUrl}/api/market/l2-preview`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ coin: "BTC", side: "SHORT", liveMainnetExecution: true }),
+    });
+    assert.equal(blockedL2Res.status, 403);
+  } finally {
+    runtime.server.close();
+    await runtime.shutdown();
   }
 });
