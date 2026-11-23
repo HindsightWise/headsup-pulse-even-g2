@@ -123,6 +123,92 @@ async function fetchJsonWithTimeout(fetchImpl, url, init = {}, timeoutMs = 6500)
   }
 }
 
+export function simulateL2OrderBookImpact({
+  coin = "BTC",
+  side = "SHORT",
+  sizeCoins = 0.01,
+  levels = null,
+  fallbackMidPx = 60518.5,
+  liveMainnetExecution = false,
+  custodyUserFunds = false,
+} = {}) {
+  const safety = assertPaperTradingSafety({ liveMainnetExecution, custodyUserFunds });
+  const normalizedCoin = String(coin || "BTC").toUpperCase();
+  const normalizedSide = String(side || "SHORT").toUpperCase() === "LONG" ? "LONG" : "SHORT";
+  const qty = Math.max(0.0001, Number(sizeCoins) || 0.01);
+  const safeMid = Math.max(0.01, Number(fallbackMidPx) || 60518.5);
+
+  const parseLevelList = (rawList) =>
+    (Array.isArray(rawList) ? rawList : [])
+      .map((entry) => {
+        const px = Number(Array.isArray(entry) ? entry[0] : entry?.px);
+        const sz = Number(Array.isArray(entry) ? entry[1] : entry?.sz);
+        return { px, sz };
+      })
+      .filter((entry) => Number.isFinite(entry.px) && entry.px > 0 && Number.isFinite(entry.sz) && entry.sz > 0);
+
+  let bids = Array.isArray(levels) ? parseLevelList(levels[0]) : [];
+  let asks = Array.isArray(levels) ? parseLevelList(levels[1]) : [];
+
+  if (bids.length === 0 || asks.length === 0) {
+    const bpsOffsets = [1.5, 4.0, 8.5];
+    bids = bpsOffsets.map((bps) => ({
+      px: Number((safeMid * (1 - bps / 10_000)).toFixed(4)),
+      sz: 0.25,
+    }));
+    asks = bpsOffsets.map((bps) => ({
+      px: Number((safeMid * (1 + bps / 10_000)).toFixed(4)),
+      sz: 0.25,
+    }));
+  }
+
+  bids.sort((a, b) => b.px - a.px);
+  asks.sort((a, b) => a.px - b.px);
+
+  const bestBid = bids[0]?.px;
+  const bestAsk = asks[0]?.px;
+  const midPx =
+    Number.isFinite(bestBid) && Number.isFinite(bestAsk)
+      ? (bestBid + bestAsk) / 2
+      : safeMid;
+
+  const sideLevels = normalizedSide === "SHORT" ? bids : asks;
+  let remaining = qty;
+  let filledCoins = 0;
+  let notionalAccum = 0;
+
+  for (const level of sideLevels) {
+    if (remaining <= 0) {
+      break;
+    }
+    const take = Math.min(remaining, level.sz);
+    notionalAccum += take * level.px;
+    filledCoins += take;
+    remaining -= take;
+  }
+
+  const fullyFilled = filledCoins + 1e-12 >= qty;
+  const vwapFillPx = filledCoins > 0 ? notionalAccum / filledCoins : midPx;
+  const slippageBps = Number(
+    ((Math.abs(vwapFillPx - midPx) / Math.max(1e-9, midPx)) * 10_000).toFixed(2)
+  );
+  const top5BookDepthUsd = sideLevels
+    .slice(0, 5)
+    .reduce((acc, lvl) => acc + lvl.px * lvl.sz, 0);
+
+  return {
+    coin: normalizedCoin,
+    side: normalizedSide,
+    sizeCoins: qty,
+    midPx: Number(midPx.toFixed(2)),
+    vwapFillPx: Number(vwapFillPx.toFixed(2)),
+    slippageBps,
+    top5BookDepthUsd: Number(top5BookDepthUsd.toFixed(2)),
+    fullyFilled,
+    ...safety,
+  };
+}
+
 export class MarketPulseEngine {
   #eventBus;
   #fetchImpl;
@@ -310,6 +396,12 @@ export class MarketPulseEngine {
       sizeCoins: 0.01,
       referencePriceUsd: btc.testnetMidPx,
       notionalUsd: Number((0.01 * btc.testnetMidPx).toFixed(2)),
+      l2Preview: simulateL2OrderBookImpact({
+        coin: btc.coin,
+        side: hedgeSide,
+        sizeCoins: 0.01,
+        fallbackMidPx: btc.testnetMidPx,
+      }),
       executionMode: "PAPER_TESTNET_ONLY",
       custodyOfUserFunds: false,
       financialAdvice: false,
@@ -409,6 +501,76 @@ export class MarketPulseEngine {
     this.#stagedTickets.set(ticket.cardId, ticket);
     this.#eventBus.publish(TOPICS.MARKET_ORDER_STAGED, ticket);
     return ticket;
+  }
+
+  async previewL2OrderImpact({
+    coin = "BTC",
+    side = "SHORT",
+    sizeCoins = 0.01,
+    forceOffline = false,
+    timeoutMs = 4500,
+    liveMainnetExecution = false,
+    custodyUserFunds = false,
+  } = {}) {
+    assertPaperTradingSafety({ liveMainnetExecution, custodyUserFunds });
+    const targetCoin = String(coin || "BTC").toUpperCase();
+    const fallbackAsset =
+      this.#snapshot?.hyperliquid?.find((item) => item.coin === targetCoin) ||
+      DETERMINISTIC_FALLBACK_MARKET.hyperliquid.find((item) => item.coin === targetCoin) ||
+      DETERMINISTIC_FALLBACK_MARKET.hyperliquid[0];
+    const fallbackMidPx = fallbackAsset?.testnetMidPx || fallbackAsset?.markPx || 60518.5;
+
+    let levels = null;
+    let bookSource = "deterministic_l2_fallback";
+
+    if (forceOffline !== true && typeof this.#fetchImpl === "function") {
+      const endpoints = [
+        [HYPERLIQUID_TESTNET_INFO_URL, "hyperliquid_testnet_l2"],
+        [HYPERLIQUID_MAINNET_INFO_URL, "hyperliquid_mainnet_l2"],
+      ];
+      for (const [url, sourceLabel] of endpoints) {
+        try {
+          const payload = await fetchJsonWithTimeout(
+            this.#fetchImpl,
+            url,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ type: "l2Book", coin: targetCoin }),
+            },
+            timeoutMs
+          );
+          if (
+            Array.isArray(payload?.levels) &&
+            Array.isArray(payload.levels[0]) &&
+            Array.isArray(payload.levels[1]) &&
+            payload.levels[0].length > 0 &&
+            payload.levels[1].length > 0
+          ) {
+            levels = payload.levels;
+            bookSource = sourceLabel;
+            break;
+          }
+        } catch {
+          // Fall through to mainnet L2 or deterministic L2 fallback.
+        }
+      }
+    }
+
+    const impact = simulateL2OrderBookImpact({
+      coin: targetCoin,
+      side,
+      sizeCoins,
+      levels,
+      fallbackMidPx,
+      liveMainnetExecution,
+      custodyUserFunds,
+    });
+
+    return {
+      ...impact,
+      bookSource,
+    };
   }
 
   confirmOrDismissOrder({

@@ -56,6 +56,100 @@ const DEFAULT_RAW_TELEGRAM_FEED = Object.freeze([
   }),
 ]);
 
+export function normalizeTelegramBotUpdates(
+  botApiResults = [],
+  { chatHandleOverrides = {} } = {}
+) {
+  if (!Array.isArray(botApiResults) || botApiResults.length === 0) {
+    return { updates: [], nextUpdateOffset: 0 };
+  }
+
+  const groupedByHandle = new Map();
+  let maxUpdateId = 0;
+
+  for (const update of botApiResults) {
+    const rawUpdateId = Number(update?.update_id);
+    const hasUpdateId = Number.isFinite(rawUpdateId);
+    if (hasUpdateId && rawUpdateId > maxUpdateId) {
+      maxUpdateId = rawUpdateId;
+    }
+
+    const post =
+      update?.channel_post ||
+      update?.message ||
+      update?.edited_message ||
+      update?.edited_channel_post;
+    const chat = post?.chat;
+    if (!post || !chat || chat.id === undefined || chat.id === null) {
+      continue;
+    }
+
+    const chatId = String(chat.id);
+    const chatKind = String(chat.type || "channel");
+    const overrideHandle = chatHandleOverrides?.[chatId];
+    const usernameHandle = chat.username ? `@${chat.username}` : null;
+    const sanitizedTitle = String(chat.title || "PriorityChat").replace(/[^A-Za-z0-9_]/g, "");
+    const rawHandle = String(overrideHandle || usernameHandle || `@${sanitizedTitle || "PriorityChat"}`);
+    const chatHandle = rawHandle.startsWith("@") ? rawHandle : `@${rawHandle}`;
+
+    const sender = String(
+      post.from?.username
+        ? `@${post.from.username}`
+        : post.from?.first_name || post.author_signature || chat.title || "Channel"
+    );
+    const text = String(post.text || post.caption || "").trim();
+    if (!text) {
+      continue;
+    }
+
+    const existing = groupedByHandle.get(chatHandle);
+    const updateId = hasUpdateId ? rawUpdateId : existing?.updateId ?? 0;
+    if (existing) {
+      groupedByHandle.set(chatHandle, {
+        ...existing,
+        updateId: Math.max(existing.updateId, updateId),
+        sender,
+        text,
+        unreadCount: existing.unreadCount + 1,
+      });
+    } else {
+      groupedByHandle.set(chatHandle, {
+        updateId,
+        chatId,
+        chatHandle,
+        chatKind,
+        sender,
+        text,
+        unreadCount: 1,
+      });
+    }
+  }
+
+  const updates = [...groupedByHandle.values()].map((entry) => {
+    const isMarketAlert = /(btc|eth|sol|hyperliquid|funding|perp|hedge)/i.test(entry.text);
+    const aiDraftReply = isMarketAlert
+      ? "Ack: staging 0.01 BTC paper hedge."
+      : truncateGlanceLine(`Ack ${entry.sender}: reviewing on G2.`, 36);
+
+    return {
+      updateId: entry.updateId,
+      chatId: entry.chatId,
+      chatHandle: entry.chatHandle,
+      chatKind: entry.chatKind,
+      sender: entry.sender,
+      text: entry.text,
+      unreadCount: entry.unreadCount,
+      aiDraftReply,
+      linkedCardId: isMarketAlert ? "card-hl-btc-hedge" : null,
+    };
+  });
+
+  return {
+    updates,
+    nextUpdateOffset: maxUpdateId > 0 ? maxUpdateId + 1 : 0,
+  };
+}
+
 export class TelegramDigestEngine {
   #eventBus;
   #allowedHandles;
@@ -64,6 +158,7 @@ export class TelegramDigestEngine {
   #customDrafts = new Map();
   #approvedReplies = [];
   #rawUpdates = [...DEFAULT_RAW_TELEGRAM_FEED];
+  #nextUpdateOffset = 0;
   #unsubMarket = null;
 
   constructor({
@@ -107,6 +202,10 @@ export class TelegramDigestEngine {
     return [...this.#approvedReplies];
   }
 
+  getNextUpdateOffset() {
+    return this.#nextUpdateOffset;
+  }
+
   ingestUpdates(updates = []) {
     if (Array.isArray(updates) && updates.length > 0) {
       this.#rawUpdates = updates.map((u, idx) => ({
@@ -122,6 +221,49 @@ export class TelegramDigestEngine {
       }));
     }
     return this.buildDigestCards();
+  }
+
+  ingestBotApiUpdates(
+    botApiPayload = {},
+    { chatHandleOverrides = {}, resetOffset = false } = {}
+  ) {
+    if (resetOffset) {
+      this.#nextUpdateOffset = 0;
+    }
+    const rawArray = Array.isArray(botApiPayload)
+      ? botApiPayload
+      : Array.isArray(botApiPayload?.result)
+      ? botApiPayload.result
+      : [];
+
+    const freshItems = rawArray.filter((item) => {
+      const id = Number(item?.update_id);
+      return Number.isFinite(id) ? id >= this.#nextUpdateOffset : true;
+    });
+
+    const normalized = normalizeTelegramBotUpdates(freshItems, {
+      chatHandleOverrides,
+    });
+    if (normalized.nextUpdateOffset > this.#nextUpdateOffset) {
+      this.#nextUpdateOffset = normalized.nextUpdateOffset;
+    }
+
+    const cards =
+      normalized.updates.length > 0
+        ? this.ingestUpdates(normalized.updates)
+        : this.buildDigestCards();
+
+    const priorityCount = this.#rawUpdates.filter((item) =>
+      this.#allowedHandles.has(item.chatHandle)
+    ).length;
+    const droppedNoiseCount = this.#rawUpdates.length - priorityCount;
+
+    return {
+      cards,
+      ingestedCount: normalized.updates.length,
+      droppedNoiseCount,
+      nextUpdateOffset: this.#nextUpdateOffset,
+    };
   }
 
   buildDigestCards() {

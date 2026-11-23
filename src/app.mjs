@@ -220,6 +220,24 @@ export async function createHeadsUpPulseRuntime({
         await syncActiveCardToGlasses();
         return stagedReply;
       },
+      onTelegramPoll: async ({ updates, chatHandleOverrides, resetOffset }) => {
+        const res = telegramEngine.ingestBotApiUpdates(updates, {
+          chatHandleOverrides,
+          resetOffset,
+        });
+        rebuildUnifiedDeck();
+        await syncActiveCardToGlasses();
+        return res;
+      },
+      onPreviewMarketL2: async (body = {}) =>
+        marketEngine.previewL2OrderImpact({
+          coin: body.coin || "BTC",
+          side: body.side || "SHORT",
+          sizeCoins: Number(body.sizeCoins || 0.01),
+          forceOffline: Boolean(body.forceOffline),
+          liveMainnetExecution: Boolean(body.liveMainnetExecution),
+          custodyUserFunds: Boolean(body.custodyUserFunds),
+        }),
     },
   });
 

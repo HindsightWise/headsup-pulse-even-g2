@@ -158,6 +158,57 @@ export async function dispatchTelegramReply({
   };
 }
 
+export async function pollTelegramUpdates({
+  offset = 0,
+  limit = 20,
+  networkWhitelist,
+  fetchImpl = globalThis.fetch,
+  env = process.env,
+} = {}) {
+  const botToken = String(env?.TELEGRAM_BOT_TOKEN || "").trim();
+  const safeOffset = Number.isFinite(Number(offset)) ? Number(offset) : 0;
+  const safeLimit = Math.min(100, Math.max(1, Number(limit) || 20));
+
+  if (botToken && typeof fetchImpl === "function") {
+    const checkUrl = "https://api.telegram.org/bot_redacted/getUpdates";
+    if (!isUpstreamWhitelisted(checkUrl, networkWhitelist)) {
+      throw new Error("Telegram API origin is not whitelisted in app.json.");
+    }
+    const endpoint = `https://api.telegram.org/bot${botToken}/getUpdates`;
+    let response;
+    try {
+      response = await fetchImpl(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          offset: safeOffset,
+          limit: safeLimit,
+          timeout: 0,
+          allowed_updates: ["message", "channel_post"],
+        }),
+      });
+    } catch (err) {
+      const scrubbed = String(err?.message || err).split(botToken).join("[REDACTED]");
+      throw new Error(scrubbed);
+    }
+    if (!response.ok) {
+      throw new Error(`Telegram Bot API getUpdates returned HTTP ${response.status}`);
+    }
+    const resultJson = await response.json();
+    return {
+      ok: true,
+      pollMode: "telegram_bot_api",
+      updates: Array.isArray(resultJson?.result) ? resultJson.result : [],
+    };
+  }
+
+  return {
+    ok: true,
+    pollMode: "local_paper_feed",
+    updates: [],
+  };
+}
+
 export function createBackendProxyServer({
   projectRoot,
   eventBus,
@@ -358,6 +409,75 @@ export function createBackendProxyServer({
           },
           corsHeaders
         );
+        return;
+      }
+
+      if (req.method === "POST" && pathname === "/api/telegram/poll") {
+        const body = await readJsonBody(req);
+        const pollResult = await pollTelegramUpdates({
+          offset: Number(body.offset || 0),
+          limit: Number(body.limit || 20),
+          networkWhitelist,
+          fetchImpl,
+          env,
+        });
+        const updates =
+          pollResult.pollMode === "local_paper_feed" && Array.isArray(body.mockUpdates)
+            ? body.mockUpdates
+            : pollResult.updates;
+        const digestResult = handlers.onTelegramPoll
+          ? await handlers.onTelegramPoll({
+              updates,
+              chatHandleOverrides: body.chatHandleOverrides || {},
+              resetOffset: Boolean(body.resetOffset),
+            })
+          : { cards: [], ingestedCount: updates.length, droppedNoiseCount: 0, nextUpdateOffset: 0 };
+
+        sendJson(
+          res,
+          200,
+          {
+            ok: true,
+            pollMode: pollResult.pollMode,
+            ...digestResult,
+          },
+          corsHeaders
+        );
+        return;
+      }
+
+      if (req.method === "POST" && pathname === "/api/market/l2-preview") {
+        const body = await readJsonBody(req);
+        try {
+          assertPaperTradingSafety({
+            liveMainnetExecution: Boolean(body.liveMainnetExecution),
+            custodyUserFunds: Boolean(body.custodyUserFunds),
+          });
+        } catch (safetyErr) {
+          sendJson(
+            res,
+            403,
+            { error: "SAFETY_LOCK_REJECTED", message: safetyErr.message },
+            corsHeaders
+          );
+          return;
+        }
+
+        const preview = handlers.onPreviewMarketL2
+          ? await handlers.onPreviewMarketL2(body)
+          : {
+              coin: String(body.coin || "BTC").toUpperCase(),
+              side: String(body.side || "SHORT").toUpperCase() === "LONG" ? "LONG" : "SHORT",
+              sizeCoins: Number(body.sizeCoins || 0.01),
+              midPx: 60518.5,
+              vwapFillPx: 60509.42,
+              slippageBps: 1.5,
+              bookSource: "deterministic_l2_fallback",
+              executionMode: "PAPER_TESTNET_ONLY",
+              custodyOfUserFunds: false,
+            };
+
+        sendJson(res, 200, { ok: true, preview }, corsHeaders);
         return;
       }
 
