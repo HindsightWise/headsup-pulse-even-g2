@@ -18,6 +18,18 @@ Built for **Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub (`#247
 
 ---
 
+## Hackathon #2477 Judging Criteria Alignment
+
+| Judging Criterion | Weight | How HeadsUp Pulse Delivers |
+| :-- | :--: | :-- |
+| **Usefulness on G2** | **30%** | Replaces phone-checking during meetings or transit with a 30-second eyes-up loop uniting priority Telegram alerts, Hyperliquid perps, and Polymarket odds. |
+| **Read and write** | **25%** | Pairs 4-line glanceable reads with 1-tap R1 Ring / temple confirmations, push-to-talk voice replies (`audioControl` + `/api/stt/transcribe`), and `l2Book` VWAP paper hedges. |
+| **Technical execution** | **20%** | Enforces zero-sibling vertical slices (`src/app.mjs`), official `@evenrealities/even_hub_sdk@0.0.16` container validation, CORS/safety proxy gates, and `7/7` passing automated tests. |
+| **UX for display and voice** | **15%** | Respects `576x288` monochrome green optics (`<= 4` lines, `<= 44` chars/line, `textColor` `0..4`, `menuObject` `<= 32` UTF-8 bytes) plus beamforming glasses mic (`speakerRole: "self"`). |
+| **Business potential and safety** | **10%** | Ships a freemium `.ehpk` Even Hub Catalogue path with strict `PAPER_TRADING_ONLY = true`, HTTP `403` safety locks, zero custody, and zero client secrets. |
+
+---
+
 ## Why It Matters on Even G2 (Usefulness & Display/Voice UX)
 
 Active traders and builders constantly pull out their phones during meetings or transit to check Telegram alerts, funding shifts, or prediction odds. Phone dashboards crowd `576 x 288` monochrome eyewear, while passive notification mirrors block fast replies.
