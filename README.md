@@ -1,12 +1,14 @@
-# HeadsUp Pulse — Even Realities G2 Read-and-Write Companion
+# HeadsUp Pulse: Even Realities G2 Read-and-Write Companion
 
 HeadsUp Pulse links priority Telegram channels with live Hyperliquid and Polymarket telemetry inside a `576 x 288` monochrome green optical workflow for Even Realities G2 smart glasses.
 
 Built for **Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub (`#2477`)** across two connected tracks and one special prize:
-- **Track 01 — Messaging & News (`4795`) + Special Prize (`Best Telegram Integration`):** Allowlist-only Telegram digest (`<= 4` short lines) with 1-tap AI draft approval or push-to-talk voice replies.
-- **Track 02 — Crypto & DeFi (`4799`):** Live Hyperliquid perpetual pricing, hourly funding, Testnet mids, `l2Book` VWAP slippage previews, and Polymarket Gamma odds with 1-tap paper hedge confirmations.
+- **Track 01: Messaging & News (`4795`) + Special Prize (`Best Telegram Integration`):** Allowlist-only Telegram digest (`<= 4` short lines) with 1-tap AI draft approval or push-to-talk voice replies.
+- **Track 02: Crypto & DeFi (`4799`):** Live Hyperliquid perpetual pricing, hourly funding, Testnet mids, `l2Book` VWAP slippage previews, and Polymarket Gamma odds with 1-tap paper hedge confirmations.
 
-**Demo Video (`<= 3` min H.264 MP4):** [Watch locally (`outputs/demo_walkthrough.mp4`)](outputs/demo_walkthrough.mp4) | [Direct Raw GitHub Video](https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/demo_walkthrough.mp4)
+- **Live Interactive Demo (0-Install GitHub Pages):** [Launch Standalone Workbench](https://hindsightwise.github.io/headsup-pulse-even-g2/)
+- **Demo Video (`<= 3` min H.264 MP4):** [Watch locally (`outputs/demo_walkthrough.mp4`)](outputs/demo_walkthrough.mp4) | [Direct Raw GitHub Video](https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/demo_walkthrough.mp4)
+- **Even Hub Package (`.ehpk`):** [`outputs/headsup-pulse.ehpk`](outputs/headsup-pulse.ehpk) (`package_id: com.hindsightwise.headsuppulse`, `edition: 202601`)
 
 ---
 
@@ -18,7 +20,7 @@ Built for **Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub (`#247
 
 ### Official `@evenrealities/evenhub-simulator@0.9.5` 576x288 Lens Captures
 
-| Official `@evenrealities/evenhub-simulator` 576x288 Lens — Live Hyperliquid BTC Perp | Official Simulator 576x288 Lens — Contextual `menuObject` Overlay |
+| Official `@evenrealities/evenhub-simulator` 576x288 Lens: Live Hyperliquid BTC Perp | Official Simulator 576x288 Lens: Contextual `menuObject` Overlay |
 | :--: | :--: |
 | ![Official evenhub-simulator 576x288 Lens Live Hyperliquid BTC Perp](outputs/official_evenhub_sim_btc_576x288.png) | ![Official Simulator 576x288 Lens Contextual menuObject Overlay](outputs/official_evenhub_sim_menu_576x288.png) |
 
@@ -124,19 +126,23 @@ node src/cli.mjs
 
 3. **Start the local CORS-whitelisted proxy and `576x288` optical workbench:**
 ```bash
-node src/cli.mjs --serve --port 8787
+npm run serve
 ```
-Open `http://127.0.0.1:8787` in a browser or point `@evenrealities/evenhub-simulator` at `http://127.0.0.1:8787`.
+This runs `node src/cli.mjs --serve --port 8787`. Open `http://127.0.0.1:8787` in a browser, launch the [0-install GitHub Pages demo](https://hindsightwise.github.io/headsup-pulse-even-g2/), or point `@evenrealities/evenhub-simulator` at `http://127.0.0.1:8787`.
 
 To enable live Telegram Bot API polling and outbound message delivery (optional; defaults to deterministic local paper receipts when unset):
 ```bash
-TELEGRAM_BOT_TOKEN="<your_bot_token>" TELEGRAM_DEFAULT_CHAT_ID="<your_chat_id>" node src/cli.mjs --serve --port 8787
+TELEGRAM_BOT_TOKEN="<your_bot_token>" TELEGRAM_DEFAULT_CHAT_ID="<your_chat_id>" npm run serve
 ```
 
 4. **Run the automated test suite (`8/8` passing):**
 ```bash
 npm test
 ```
+
+### Official `.ehpk` Package (`@evenrealities/evenhub-cli@0.2.0`)
+- Packed artifact: [`outputs/headsup-pulse.ehpk`](outputs/headsup-pulse.ehpk) built with official `@evenrealities/evenhub-cli@0.2.0` (`package_id: com.hindsightwise.headsuppulse`, `edition: 202601`).
+- Verify or inspect the package manifest with `app.json` and load it directly in Even Hub tooling.
 
 Verified suite coverage in `tests/headsup_pulse.test.mjs`:
 - Test 1: Kernel optical invariants (`576x288`, `<= 4` lines, `<= 44` chars, brightness `0..4`), paper-only safety lock, and frozen `EventBus` ledger.
@@ -197,8 +203,8 @@ Per organizer `danel` in DoraHacks Q&A `#1562275` (*"Yes, AI-assisted coding is 
 
 ## Five Concrete API Feature Requests for Ecosystem Teams
 
-1. **Even Hub SDK (`@evenrealities/even_hub_sdk`) — Native Glyph Measurement & Monospace Flag:** `@evenrealities/pretext` helps measure `evenroster` widths offline, while `textContainerUpgrade` still lacks firmware-native metrics. Exposing `measureGlassesTextWidth(text, containerWidth)` directly in `@evenrealities/even_hub_sdk` plus a monospace flag on `TextContainerProperty` would keep dense numeric tickers aligned across firmware updates.
-2. **Even Hub SDK (`@evenrealities/even_hub_sdk`) — Optical Confirmation Micro-Pulse:** Even G2 omits speakers, so 1-tap confirmations rely on full text rewrites. Adding a lightweight `flashContainerAck(containerID, durationMs)` primitive would confirm R1 Ring taps in `< 80 ms` with minimal BLE traffic.
-3. **Telegram API — Scoped Read-Only Digest Pairing Token:** Reading followed channels in a WebView currently requires adding a bot per channel or holding a full MTProto user session. A revocable `channels:read_digest` pairing-code token would let wearable companions summarize chosen channels safely without full account privileges.
-4. **Hyperliquid API — Unsigned `/info` Order Impact Endpoint:** Support `{"type": "simulateOrder", "coin": "BTC", "isBuy": false, "sz": "0.01"}` on `/info` without an L1 signature. Returning L2 VWAP fill and fee impact lets smart glasses preview depth before phone signing.
-5. **Polymarket Gamma API — Compact Delta SSE Stream:** Polling `gamma-api.polymarket.com/markets` returns full descriptions and media URLs on every refresh. A lightweight SSE stream emitting `{ id, yesPrice, noPrice, volume24hr }` deltas for watched market IDs would cut mobile WebView bandwidth and BLE wakeups.
+1. **Even Hub SDK (`@evenrealities/even_hub_sdk`): Native Glyph Measurement & Monospace Flag:** `@evenrealities/pretext` helps measure `evenroster` widths offline, while `textContainerUpgrade` still lacks firmware-native metrics. Exposing `measureGlassesTextWidth(text, containerWidth)` directly in `@evenrealities/even_hub_sdk` plus a monospace flag on `TextContainerProperty` would keep dense numeric tickers aligned across firmware updates.
+2. **Even Hub SDK (`@evenrealities/even_hub_sdk`): Optical Confirmation Micro-Pulse:** Even G2 omits speakers, so 1-tap confirmations rely on full text rewrites. Adding a lightweight `flashContainerAck(containerID, durationMs)` primitive would confirm R1 Ring taps in `< 80 ms` with minimal BLE traffic.
+3. **Telegram API: Scoped Read-Only Digest Pairing Token:** Reading followed channels in a WebView currently requires adding a bot per channel or holding a full MTProto user session. A revocable `channels:read_digest` pairing-code token would let wearable companions summarize chosen channels safely without full account privileges.
+4. **Hyperliquid API: Unsigned `/info` Order Impact Endpoint:** Support `{"type": "simulateOrder", "coin": "BTC", "isBuy": false, "sz": "0.01"}` on `/info` without an L1 signature. Returning L2 VWAP fill and fee impact lets smart glasses preview depth before phone signing.
+5. **Polymarket Gamma API: Compact Delta SSE Stream:** Polling `gamma-api.polymarket.com/markets` returns full descriptions and media URLs on every refresh. A lightweight SSE stream emitting `{ id, yesPrice, noPrice, volume24hr }` deltas for watched market IDs would cut mobile WebView bandwidth and BLE wakeups.

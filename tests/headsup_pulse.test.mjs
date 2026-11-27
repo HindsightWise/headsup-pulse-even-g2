@@ -817,6 +817,26 @@ test("8. Pixel-exact Even G2 LVGL font metrics, zero overflow/clip/bleed, and re
   assert.equal(simGestures[0].source, "GLASSES_R");
   assert.equal(simGestures[1].gesture, "SCROLL_NEXT");
 
+  // Verify official Even Hub CLI manifest schema in app.json and valid .ehpk zip package
+  const appManifest = JSON.parse(await fs.readFile(path.join(PROJECT_ROOT, "app.json"), "utf8"));
+  assert.match(appManifest.package_id, /^[a-z0-9]+(\.[a-z0-9]+)+$/);
+  assert.equal(appManifest.package_id.includes("-"), false);
+  assert.equal(appManifest.edition, "202601");
+  assert.equal(typeof appManifest.min_app_version, "string");
+  assert.equal(appManifest.min_sdk_version, "0.0.16");
+  assert.equal(appManifest.entrypoint, "index.html");
+  assert.ok(Array.isArray(appManifest.supported_languages) && appManifest.supported_languages.includes("en"));
+  assert.ok(
+    Array.isArray(appManifest.permissions) &&
+      appManifest.permissions.some((p) => p?.name === "g2-microphone") &&
+      appManifest.permissions.some((p) => p?.name === "network" && Array.isArray(p.whitelist))
+  );
+
+  const ehpkPath = path.join(PROJECT_ROOT, "outputs", "headsup-pulse.ehpk");
+  const ehpkBuf = await fs.readFile(ehpkPath);
+  assert.ok(ehpkBuf.length > 500, `Expected non-empty .ehpk archive, got ${ehpkBuf.length} bytes`);
+  assert.equal(ehpkBuf.subarray(0, 4).toString("ascii"), "EHPK");
+
   await simController.shutdown(0);
   telegram.dispose();
 });

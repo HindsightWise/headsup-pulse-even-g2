@@ -1,12 +1,33 @@
 {
-  "appId": "com.hindsightwise.headsup-pulse",
+  "package_id": "com.hindsightwise.headsuppulse",
+  "edition": "202601",
   "name": "HeadsUp Pulse",
   "version": "0.1.0",
+  "min_app_version": "2.2.10",
+  "min_sdk_version": "0.0.16",
+  "entrypoint": "index.html",
+  "supported_languages": [
+    "en"
+  ],
+  "permissions": [
+    {
+      "name": "g2-microphone",
+      "desc": "Captures push-to-talk voice replies from the Even G2 beamforming microphone for user-approved Telegram replies and paper hedge drafts."
+    },
+    {
+      "name": "network",
+      "desc": "Reads live Hyperliquid and Polymarket market telemetry and dispatches user-approved Telegram replies through the whitelisted local proxy.",
+      "whitelist": [
+        "https://api.hyperliquid-testnet.xyz",
+        "https://api.hyperliquid.xyz",
+        "https://gamma-api.polymarket.com",
+        "https://api.telegram.org"
+      ]
+    }
+  ],
   "description": "Glanceable Even G2 (576x288) Telegram priority digest and Hyperliquid + Polymarket 1-tap paper/testnet read-and-write companion.",
   "sdkPackage": "@evenrealities/even_hub_sdk",
   "sdkVersion": "0.0.16",
-  "minEvenAppVersion": "2.2.10",
-  "entrypoint": "web/index.html",
   "display": {
     "width": 576,
     "height": 288,
@@ -38,23 +59,24 @@
   "corsAllowedOrigins": [
     "http://127.0.0.1",
     "http://localhost",
-    "https://hub.evenrealities.com"
-  ],
-  "permissions": [
-    "microphone",
-    "imu",
-    "localStorage"
+    "https://hub.evenrealities.com",
+    "https://hindsightwise.github.io"
   ],
   "tracks": [
     {
       "id": 4799,
       "name": "Crypto & DeFi",
-      "qualifiedIntegrations": ["Hyperliquid", "Polymarket"]
+      "qualifiedIntegrations": [
+        "Hyperliquid",
+        "Polymarket"
+      ]
     },
     {
       "id": 4795,
       "name": "Messaging & News",
-      "qualifiedIntegrations": ["Telegram"],
+      "qualifiedIntegrations": [
+        "Telegram"
+      ],
       "specialPrize": "Best Telegram Integration"
     }
   ],

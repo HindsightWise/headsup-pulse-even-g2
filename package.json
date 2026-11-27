@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "test": "node --test tests/headsup_pulse.test.mjs",
-    "start": "node src/cli.mjs"
+    "start": "node src/cli.mjs",
+    "serve": "node src/cli.mjs --serve --port 8787"
   },
   "dependencies": {
     "@evenrealities/even_hub_sdk": "0.0.16"
