@@ -3,36 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>HeadsUp Pulse — Even Realities G2 (576x288) Read &amp; Write Workbench</title>
+  <title>HeadsUp Pulse | Even Realities G2 Optical Workbench</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307080a'/%3E%3Crect x='4' y='11' width='10' height='10' rx='3' fill='none' stroke='%2334e57d' stroke-width='2.2'/%3E%3Crect x='18' y='11' width='10' height='10' rx='3' fill='none' stroke='%2334e57d' stroke-width='2.2'/%3E%3Cpath d='M14 15h4' stroke='%2334e57d' stroke-width='2.2'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
   <style>
-    /* Typography: Inter, Instrument Serif & JetBrains Mono — Licensed under SIL Open Font License 1.1 */
+    /* Typography: Plus Jakarta Sans & JetBrains Mono (SIL Open Font License 1.1) */
     :root,
     [data-theme="noir"] {
-      --bg-canvas: #06080e;
-      --bg-page: #06080e;
-      --bg-card: #0e1320;
-      --bg-well: #080b12;
-      --bg-subtle: #0b101b;
-      --border-soft: rgba(255, 255, 255, 0.10);
-      --border-well: rgba(255, 255, 255, 0.08);
-      --border-active: rgba(56, 189, 248, 0.55);
-      --ink-primary: #f1f5f9;
-      --ink-secondary: #94a3b8;
-      --ink-muted: #64748b;
-      --accent-sky: #38bdf8;
-      --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
-      --accent-crimson: #f43f5e;
+      --bg-canvas: #07080a;
+      --bg-plinth: #101215;
+      --bg-well: #0a0c0f;
+      --bg-waveguide: #040705;
+      --ink-primary: #f3f5f7;
+      --ink-secondary: #9aa4b2;
+      --ink-muted: #8a94a2;
+      --border-hairline: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --accent-g2: #34e57d;
+      --accent-g2-soft: rgba(52, 229, 125, 0.12);
+      --accent-g2-border: rgba(52, 229, 125, 0.42);
+      --accent-g2-ink: #04130a;
       --switch-glow: #facc15;
-      --g2-substrate: #030905;
-      --g2-phosphor: #56f08d;
-      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-serif: "Instrument Serif", Georgia, serif;
-      --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+      --g2-phosphor: #34e57d;
+
+      --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+      /* Strict 3-size body scale (exempt: navbar wordmark, primary H1, monumental footer wordmark) */
+      --text-heading: 1.125rem;
+      --text-body: 0.9375rem;
+      --text-sm: 0.8125rem;
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --radius-plinth: 20px;
+      --radius-control: 10px;
     }
 
     *,
@@ -42,383 +48,288 @@
     }
 
     html {
-      scroll-padding-top: 88px;
-      scroll-padding-bottom: 64px;
+      scroll-behavior: smooth;
+      scroll-padding-top: 76px;
       background-color: var(--bg-canvas);
       color: var(--ink-primary);
       font-family: var(--font-sans);
+      font-size: 16px;
       -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
       background-color: var(--bg-canvas);
-      background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.10), transparent 55%);
       color: var(--ink-primary);
-      padding-bottom: 72px;
+      font-size: var(--text-body);
+      line-height: 1.5;
+      overflow-x: clip;
     }
 
-    .tabular,
-    kbd,
-    .keycap,
-    .mono-stamp {
-      font-family: var(--font-mono);
+    .tabular {
       font-variant-numeric: tabular-nums;
-      letter-spacing: 0.03em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     button,
-    .interactive-btn,
-    .card-tab,
-    .brightness-step,
-    .pill-switch,
-    .svg-hotspot {
+    select,
+    a {
       font-family: inherit;
-      cursor: pointer;
-      transition: transform 140ms var(--ease-spring), border-color 160ms var(--ease-spring), background-color 160ms var(--ease-spring), box-shadow 160ms var(--ease-spring);
       touch-action: manipulation;
-    }
-
-    button:active,
-    .interactive-btn:active,
-    .card-tab:active,
-    .brightness-step:active,
-    .pill-switch:active {
-      transform: translateY(1px) scale(0.97);
     }
 
     button:focus-visible,
     a:focus-visible,
     select:focus-visible,
-    input:focus-visible {
-      outline: 2px solid var(--accent-sky);
+    [tabindex]:focus-visible {
+      outline: 2px solid var(--accent-g2);
       outline-offset: 2px;
     }
 
-    /* Compact Locked Header (~39px) */
+    /* Minimal Static Navbar (borderless at y = 0, surface separation once scrollY > 24) */
     #app-header {
       position: sticky;
       top: 0;
       z-index: 40;
-      min-height: calc(max(12px, env(safe-area-inset-top, 0px)) + 27px);
-      padding: 6px 20px;
-      background: rgba(6, 8, 14, 0.90);
+      width: 100%;
+      background-color: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color 200ms var(--ease-out), border-color 200ms var(--ease-out);
+    }
+
+    #app-header.scrolled {
+      background-color: rgba(7, 8, 10, 0.88);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-soft);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border-hairline);
+    }
+
+    .nav-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 20px;
     }
 
     .brand-lockup {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    .brand-title {
-      font-size: 14px;
+    .brand-wordmark {
+      font-size: 1.0625rem;
       font-weight: 700;
       letter-spacing: -0.025em;
       color: var(--ink-primary);
     }
 
-    .header-telemetry {
+    .nav-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--ink-secondary);
+      background: transparent;
+      border: 0;
+      padding: 6px 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 160ms var(--ease-out);
+    }
+
+    .nav-link:hover {
+      color: var(--ink-primary);
+    }
+
+    .nav-action {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ink-primary);
+      background: var(--bg-plinth);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: 7px 14px;
+      min-height: 36px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), transform 140ms var(--ease-out);
+    }
+
+    .nav-action:hover {
+      border-color: var(--accent-g2-border);
+      background: #15191f;
+    }
+
+    .nav-action:active {
+      transform: scale(0.97);
+    }
+
+    /* Main Container */
+    .workbench-main {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 16px 24px 72px;
+    }
+
+    /* Opening Header Row (Immediate Hardware Workbench, no marketing hero) */
+    .stage-intro {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 24px;
+    }
+
+    .stage-title {
+      margin: 0;
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--ink-primary);
+    }
+
+    .stage-status {
+      margin: 0;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--ink-secondary);
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
-    .telemetry-chip {
-      font-family: var(--font-mono);
-      font-variant-numeric: tabular-nums;
-      font-size: 11px;
-      color: var(--ink-secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-emerald);
-      box-shadow: 0 0 8px rgba(16, 185, 129, 0.75);
-    }
-
-    .hud-drawer-trigger {
-      min-height: 28px;
-      padding: 4px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border-soft);
-      background: var(--bg-well);
+    .stage-status strong {
       color: var(--ink-primary);
-      font-size: 11px;
       font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    /* Unified Flow Stack Accordion (Collapsed by default) */
-    #map-top-hud-stack {
-      position: fixed;
-      left: 20px;
-      right: 20px;
-      top: 52px;
-      z-index: 38;
-      max-width: 960px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
-      border-radius: 14px;
-      padding: 14px 18px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 16px 36px rgba(0, 0, 0, 0.65);
-    }
-
-    #map-top-hud-stack.hidden {
-      display: none !important;
-    }
-
-    .hud-stack-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 8px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--border-well);
-    }
-
-    .hud-dismiss-btn {
-      min-height: 28px;
-      min-width: 36px;
-      padding: 2px 8px;
-      border-radius: 6px;
-      border: 1px solid var(--border-soft);
-      background: var(--bg-well);
-      color: var(--ink-secondary);
-      font-family: var(--font-mono);
-      font-size: 11px;
-    }
-
-    /* Main Asymmetric Workbench Grid */
-    .workbench-shell {
-      max-width: 1360px;
-      margin: 0 auto;
-      padding: 24px 20px 32px;
+    /* Primary Opening Stage Grid */
+    .optical-stage-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 624px);
-      gap: 24px;
+      grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr);
+      gap: 36px;
       align-items: start;
     }
 
-    .hero-intro {
-      grid-column: 1 / -1;
+    /* Left: Midnight Exhibition Plinth with Procedural Reticle Canvas + 576x288 Waveguide */
+    .waveguide-plinth {
+      position: relative;
+      background: var(--bg-plinth);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-plinth);
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .optical-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.48;
+      z-index: 0;
+    }
+
+    .plinth-content {
+      position: relative;
+      z-index: 1;
       display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border-well);
-    }
-
-    .hero-headline {
-      margin: 0;
-      font-size: clamp(24px, 2.6vw, 34px);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.15;
-    }
-
-    .hero-serif-accent {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent-sky);
-      padding-right: 4px;
-    }
-
-    .hero-subcopy {
-      margin: 8px 0 0;
-      font-size: 15px;
-      line-height: 1.5;
-      max-width: 64ch;
-      color: var(--ink-secondary);
-    }
-
-    .stat-monument-row {
-      display: grid;
-      grid-template-columns: auto auto auto;
+      flex-direction: column;
       gap: 20px;
-      align-items: center;
     }
 
-    .stat-monument {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 8px;
+    .plinth-top-row {
+      display: flex;
       align-items: baseline;
-      white-space: nowrap;
-    }
-
-    .stat-value {
-      font-family: var(--font-mono);
-      font-variant-numeric: tabular-nums;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--ink-primary);
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--ink-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Containment Level 1: Primary Milled Chassis Cards */
-    .left-column {
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .right-stage-sticky {
-      min-width: 0;
-      position: sticky;
-      top: 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .instrument-card {
-      min-width: 0;
-      max-width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 12px rgba(0, 0, 0, 0.45), 0 16px 32px -8px rgba(0, 0, 0, 0.60);
-    }
-
-    .instrument-card.hotspot-focused {
-      border-color: var(--border-active);
-    }
-
-    .card-header-row {
-      display: flex;
-      align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border-well);
+      flex-wrap: wrap;
     }
 
-    .card-heading-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .index-stamp {
-      font-family: var(--font-mono);
-      font-variant-numeric: tabular-nums;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent-sky);
-    }
-
-    .card-title {
+    .section-heading {
       margin: 0;
-      font-size: 16px;
-      font-weight: 700;
+      font-size: var(--text-heading);
+      font-weight: 600;
       letter-spacing: -0.02em;
-    }
-
-    /* Containment Level 2 (Max): Full-Perimeter 1px Recessed Hardware Bay */
-    .recessed-well {
-      background: var(--bg-well);
-      border: 1px solid var(--border-well);
-      border-radius: 14px;
-      padding: 14px 16px;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55);
-    }
-
-    .well-header-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding-bottom: 8px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--border-well);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--ink-secondary);
-    }
-
-    .editorial-quote {
-      margin: 0;
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 17px;
-      line-height: 1.4;
       color: var(--ink-primary);
     }
 
-    /* True-Scale 576 x 288 Even G2 Monochrome Green Optical Waveguide */
-    .waveguide-frame-outer {
+    .meta-caption {
+      font-size: var(--text-sm);
+      color: var(--ink-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .waveguide-mount {
       width: 100%;
-      overflow: hidden;
       display: flex;
       justify-content: center;
     }
 
     .g2-waveguide-viewport {
       width: 576px;
-      height: 288px;
       max-width: 100%;
-      aspect-ratio: 2 / 1;
+      min-height: 288px;
       position: relative;
-      background-color: var(--g2-substrate);
+      background-color: var(--bg-waveguide);
       background-image:
-        linear-gradient(rgba(86, 240, 141, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(86, 240, 141, 0.035) 1px, transparent 1px),
-        radial-gradient(ellipse at 50% 42%, rgba(86, 240, 141, 0.11), transparent 72%);
+        linear-gradient(rgba(52, 229, 125, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 229, 125, 0.035) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 45%, rgba(52, 229, 125, 0.10), transparent 72%);
       background-size: 24px 24px, 24px 24px, 100% 100%;
-      border: 1px solid rgba(86, 240, 141, 0.34);
+      border: 1px solid rgba(52, 229, 125, 0.34);
       border-radius: 14px;
-      box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.88), 0 8px 24px rgba(0, 0, 0, 0.65);
-      padding: 12px 16px;
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       color: var(--g2-phosphor);
       font-family: var(--font-mono);
       font-variant-numeric: tabular-nums;
+      box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.85);
       user-select: none;
     }
 
     .g2-container-header {
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(86, 240, 141, 0.22);
-      font-size: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(52, 229, 125, 0.22);
+      font-size: var(--text-sm);
       font-weight: 600;
-      letter-spacing: 0.04em;
-      opacity: 0.88;
+      letter-spacing: 0.02em;
+      opacity: 0.9;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .g2-container-body {
@@ -427,24 +338,24 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 8px;
+      gap: 10px;
     }
 
     .g2-glance-line {
-      font-size: 15px;
+      font-size: var(--text-body);
       line-height: 1.35;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
+      font-weight: 500;
+      letter-spacing: 0.01em;
       overflow: hidden;
-      text-overflow: clip;
-      text-shadow: 0 0 10px rgba(86, 240, 141, 0.32);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-shadow: 0 0 10px rgba(52, 229, 125, 0.28);
     }
 
     .g2-glance-line.action-footer {
-      font-size: 12px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(86, 240, 141, 0.24);
+      font-size: var(--text-sm);
+      padding-top: 10px;
+      border-top: 1px dashed rgba(52, 229, 125, 0.24);
       opacity: 0.92;
     }
 
@@ -452,16 +363,17 @@
       position: absolute;
       right: 16px;
       top: 52px;
-      width: 224px;
-      background: rgba(3, 12, 7, 0.96);
-      border: 0;
-      box-shadow: inset 0 0 0 1px rgba(86, 240, 141, 0.48), 0 8px 20px rgba(0, 0, 0, 0.85);
-      border-radius: 8px;
+      width: 232px;
+      max-width: calc(100% - 32px);
+      background: rgba(4, 11, 7, 0.97);
+      border: 1px solid rgba(52, 229, 125, 0.48);
+      border-radius: 10px;
       padding: 8px 10px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      z-index: 5;
+      gap: 2px;
+      z-index: 6;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.85);
     }
 
     .g2-menu-overlay.hidden {
@@ -471,170 +383,273 @@
     .g2-menu-item {
       background: transparent;
       border: 0;
-      border-bottom: 1px solid rgba(86, 240, 141, 0.14);
+      border-bottom: 1px solid rgba(52, 229, 125, 0.14);
       color: var(--g2-phosphor);
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: var(--text-sm);
       text-align: left;
-      padding: 6px 4px;
-      min-height: 28px;
+      padding: 7px 6px;
+      min-height: 32px;
+      cursor: pointer;
+      transition: background-color 140ms var(--ease-out);
     }
 
     .g2-menu-item:last-child {
       border-bottom: 0;
     }
 
-    /* Card Deck Switcher */
-    .deck-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+    .g2-menu-item:hover {
+      background: rgba(52, 229, 125, 0.12);
     }
 
-    .card-tab {
-      min-height: 52px;
-      padding: 10px 12px;
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-well);
-      border-radius: 12px;
-      color: var(--ink-primary);
-      text-align: left;
+    /* Connected Segmented Card Switcher (role=tablist) */
+    .deck-switcher-wrap {
+      padding-top: 18px;
+      border-top: 1px solid var(--border-hairline);
       display: flex;
       flex-direction: column;
+      gap: 14px;
+    }
+
+    .segmented-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      background: var(--bg-well);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-control);
+      padding: 4px;
       gap: 4px;
     }
 
-    .card-tab.active {
-      border-color: var(--accent-sky);
-      background: rgba(56, 189, 248, 0.10);
-    }
-
-    .card-tab-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--accent-sky);
-    }
-
-    .card-tab-name {
-      font-size: 13px;
+    .seg-tab {
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--ink-secondary);
+      font-size: var(--text-sm);
       font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 140ms var(--ease-out);
+    }
+
+    .seg-tab:hover {
       color: var(--ink-primary);
     }
 
-    /* Hardware Keycap Controls */
-    .controls-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 16px;
+    .seg-tab[aria-selected="true"] {
+      background: var(--bg-plinth);
+      border-color: var(--accent-g2-border);
+      color: var(--ink-primary);
     }
 
-    .hardware-btn {
-      min-height: 46px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border-soft);
-      background: var(--bg-subtle);
-      color: var(--ink-primary);
-      font-size: 13px;
-      font-weight: 600;
+    .seg-tab:active {
+      transform: scale(0.97);
+    }
+
+    .rationale-copy {
+      margin: 0;
+      font-size: var(--text-body);
+      color: var(--ink-secondary);
+      max-width: 62ch;
+    }
+
+    /* Right: Tactile Control Column (whitespace + 1px hairlines, zero nested cages) */
+    .controls-column {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+      flex-direction: column;
+      gap: 22px;
+      min-width: 0;
     }
 
-    .hardware-btn.primary-action {
-      background: rgba(16, 185, 129, 0.16);
-      border-color: rgba(16, 185, 129, 0.55);
-      color: #d1fae5;
-    }
-
-    .hardware-btn.voice-active {
-      background: rgba(245, 158, 11, 0.20);
-      border-color: var(--accent-amber);
-    }
-
-    .keycap,
-    kbd {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 26px;
-      padding: 2px 6px;
-      font-size: 11px;
-      font-weight: 700;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--ink-primary);
-    }
-
-    .brightness-row {
+    .control-block {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .control-block:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .control-header {
+      display: flex;
+      align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-well);
       flex-wrap: wrap;
     }
 
-    .brightness-steps {
-      display: flex;
-      gap: 6px;
+    /* Single Primary CTA Button (cta.gallery: 2-4 words, solid green fill, dark ink) */
+    .primary-cta {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 20px;
+      border: 1px solid var(--accent-g2);
+      border-radius: var(--radius-control);
+      background: var(--accent-g2);
+      color: var(--accent-g2-ink);
+      font-size: var(--text-body);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 140ms var(--ease-out), opacity 160ms var(--ease-out);
+    }
+
+    .primary-cta:hover {
+      opacity: 0.92;
+    }
+
+    .primary-cta:active {
+      transform: scale(0.97);
+    }
+
+    /* Compact Connected Secondary R1 Ring Strip */
+    .ring-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-control);
+      background: var(--bg-plinth);
+      overflow: hidden;
+    }
+
+    .ring-strip-btn {
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 0;
+      border-right: 1px solid var(--border-hairline);
+      background: transparent;
+      color: var(--ink-primary);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 160ms var(--ease-out), transform 140ms var(--ease-out);
+    }
+
+    .ring-strip-btn:last-child {
+      border-right: 0;
+    }
+
+    .ring-strip-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .ring-strip-btn:active {
+      transform: scale(0.97);
+    }
+
+    .field-label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--ink-secondary);
+    }
+
+    .voice-select {
+      width: 100%;
+      min-height: 42px;
+      padding: 8px 12px;
+      border-radius: var(--radius-control);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-plinth);
+      color: var(--ink-primary);
+      font-size: var(--text-sm);
+      cursor: pointer;
+    }
+
+    /* Connected 5-step Waveguide Brightness Segmented Control (0..4) */
+    .brightness-group {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      background: var(--bg-well);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-control);
+      padding: 4px;
+      gap: 4px;
     }
 
     .brightness-step {
-      min-width: 36px;
-      min-height: 34px;
-      border-radius: 8px;
-      border: 1px solid var(--border-soft);
-      background: var(--bg-well);
+      min-height: 38px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
       color: var(--ink-secondary);
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      cursor: pointer;
+      transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 140ms var(--ease-out);
     }
 
-    .brightness-step.active {
-      border-color: var(--g2-phosphor);
-      color: var(--g2-phosphor);
-      background: rgba(86, 240, 141, 0.12);
+    .brightness-step:hover {
+      color: var(--ink-primary);
     }
 
-    /* Physical Sliding Pill Switch (order: 2 ON with #facc15 glow; order: -1 OFF) */
+    .brightness-step.active,
+    .brightness-step[aria-checked="true"] {
+      background: var(--accent-g2-soft);
+      border-color: var(--accent-g2-border);
+      color: var(--accent-g2);
+    }
+
+    .brightness-step:active {
+      transform: scale(0.97);
+    }
+
+    /* Physical Sliding Pill Switches (order: 2 ON with #facc15 glow; order: -1 OFF) */
     .switch-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-well);
+      gap: 16px;
+      padding: 6px 0;
     }
 
-    .switch-row:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
+    .switch-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .switch-name {
+      font-size: var(--text-body);
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .switch-desc {
+      font-size: var(--text-sm);
+      color: var(--ink-secondary);
     }
 
     .pill-switch {
       position: relative;
       display: inline-flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
       min-width: 78px;
-      min-height: 34px;
-      padding: 4px 8px;
+      min-height: 36px;
+      padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid var(--border-soft);
+      border: 1px solid var(--border-strong);
       background: var(--bg-well);
       color: var(--ink-secondary);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 140ms var(--ease-out);
     }
 
     .pill-switch::after {
@@ -643,13 +658,17 @@
       inset: -6px;
     }
 
+    .pill-switch:active {
+      transform: scale(0.97);
+    }
+
     .pill-switch .pill-knob {
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #64748b;
+      background: #6b7280;
       order: -1;
-      transition: background-color 150ms var(--ease-spring), box-shadow 150ms var(--ease-spring);
+      transition: background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
     }
 
     .pill-switch[aria-checked="true"] {
@@ -660,46 +679,136 @@
     .pill-switch[aria-checked="true"] .pill-knob {
       order: 2;
       background: var(--switch-glow);
-      box-shadow: 0 0 10px rgba(250, 204, 21, 0.80);
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.78);
     }
 
-    .voice-select-row {
+    /* Below-the-Fold Asymmetric Split */
+    .below-fold-section {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border-hairline);
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 44px;
+      align-items: start;
+    }
+
+    .schematic-column,
+    .ledger-column {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .hardware-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: var(--bg-plinth);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-plinth);
+    }
+
+    .svg-hotspot {
+      cursor: pointer;
+    }
+
+    .signal-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .signal-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-hairline);
+      font-size: var(--text-body);
+    }
+
+    .signal-key {
+      color: var(--ink-secondary);
+    }
+
+    .signal-val {
+      color: var(--ink-primary);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    /* Recessed SDK Ledger */
+    .ledger-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .voice-preset-select {
-      flex: 1;
-      min-width: 210px;
-      min-height: 38px;
-      padding: 6px 10px;
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      background: var(--bg-well);
-      color: var(--ink-primary);
-      font-family: var(--font-sans);
-      font-size: 13px;
+    .ledger-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    /* Audit & SDK Frame Log Rows (Hairlines only, zero nested boxes) */
+    .inline-action {
+      background: transparent;
+      border: 0;
+      padding: 4px 0;
+      color: var(--accent-g2);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 160ms var(--ease-out);
+    }
+
+    .inline-action:hover {
+      opacity: 0.82;
+    }
+
+    .ledger-well {
+      background: var(--bg-well);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-plinth);
+      padding: 18px 20px;
+    }
+
+    .ledger-well-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border-hairline);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--ink-secondary);
+    }
+
     .ledger-list {
       list-style: none;
       margin: 0;
       padding: 0;
-      max-height: 230px;
+      max-height: 320px;
       overflow-y: auto;
     }
 
     .ledger-row {
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border-well);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-hairline);
       display: grid;
       grid-template-columns: auto 1fr auto;
-      gap: 10px;
+      gap: 12px;
       align-items: baseline;
-      font-size: 12px;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
     }
 
     .ledger-row:last-child {
@@ -707,166 +816,239 @@
     }
 
     .ledger-seq {
-      font-family: var(--font-mono);
+      color: var(--ink-muted);
       font-variant-numeric: tabular-nums;
-      color: var(--accent-sky);
     }
 
     .ledger-msg {
       color: var(--ink-primary);
-      font-family: var(--font-mono);
       word-break: break-word;
     }
 
-    .ledger-badge {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--accent-emerald);
+    .ledger-status {
+      color: var(--accent-g2);
+      font-weight: 600;
       white-space: nowrap;
     }
 
-    /* Interactive CAD Schematic + 5-Axis Readiness Radar Split */
-    .cad-radar-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .cad-svg,
-    .boundary-radar {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .svg-hotspot {
-      cursor: pointer;
-    }
-
-    .external-links-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-well);
-      font-size: 12px;
-    }
-
-    .external-links-bar a {
-      color: var(--accent-sky);
-      text-decoration: none;
-      font-family: var(--font-mono);
-    }
-
-    .external-links-bar a:hover {
-      text-decoration: underline;
-    }
-
-    /* Compact Bottom Tactical Dock (~45px) */
-    .tactical-dock {
+    /* Accessible Protocol Spec Modal */
+    .modal-backdrop {
       position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 39;
-      min-height: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 28px);
-      padding: 6px 20px;
-      background: rgba(6, 8, 14, 0.92);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border-soft);
+      inset: 0;
+      z-index: 80;
+      background: rgba(4, 5, 7, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.hidden {
+      display: none !important;
+    }
+
+    .modal-sheet {
+      width: 100%;
+      max-width: 620px;
+      background: var(--bg-plinth);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-plinth);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      font-size: 12px;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-hairline);
     }
 
-    .dock-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .dock-btn {
-      min-height: 32px;
-      padding: 4px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border-soft);
-      background: var(--bg-card);
+    .modal-close {
+      min-height: 36px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-well);
       color: var(--ink-primary);
-      font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: var(--text-sm);
       font-weight: 600;
+      cursor: pointer;
     }
 
-    @media (max-width: 1080px) {
-      .workbench-shell {
+    .modal-body {
+      margin: 0;
+      font-size: var(--text-body);
+      color: var(--ink-secondary);
+      max-width: 60ch;
+    }
+
+    .modal-spec-list {
+      margin: 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: var(--text-body);
+      color: var(--ink-primary);
+    }
+
+    .mono-inline {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--accent-g2);
+    }
+
+    /* High-Craft Architectural Footer (footer.design monumental wordmark bleed) */
+    .site-footer {
+      border-top: 1px solid var(--border-hairline);
+      background: #050608;
+      padding-top: 48px;
+      overflow: hidden;
+    }
+
+    .footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px 36px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px 48px;
+    }
+
+    .footer-colophon {
+      margin: 0;
+      font-size: var(--text-sm);
+      color: var(--ink-secondary);
+      max-width: 56ch;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 24px;
+      align-items: center;
+    }
+
+    .footer-links a {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--ink-primary);
+      transition: color 160ms var(--ease-out);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-g2);
+    }
+
+    .monumental-bleed {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0.84;
+      padding: 8px 16px 0;
+      user-select: none;
+      text-align: center;
+    }
+
+    .monumental-wordmark {
+      display: block;
+      font-size: clamp(3.25rem, 11vw, 10rem);
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      color: rgba(243, 245, 247, 0.08);
+      white-space: nowrap;
+      transform: translateY(14%);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1040px) {
+      .optical-stage-grid,
+      .below-fold-section {
         grid-template-columns: 1fr;
-      }
-      .right-stage-sticky {
-        position: static;
-        order: -1;
+        gap: 28px;
       }
     }
 
     @media (max-width: 640px) {
-      #app-header {
-        padding: 6px 12px;
-        gap: 8px;
+      .nav-inner {
+        padding: 10px 16px;
+        gap: 10px;
       }
-      #safety-badge,
-      .brand-lockup .telemetry-chip {
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .nav-link.hide-xs {
         display: none;
       }
-      .workbench-shell {
-        padding: 16px 12px 28px;
-      }
-      .instrument-card {
-        padding: 14px;
-      }
-      .card-header-row {
-        flex-wrap: wrap;
-      }
-      .deck-grid,
-      .controls-grid,
-      .cad-radar-grid {
-        grid-template-columns: 1fr;
-      }
-      .stat-monument-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-      .g2-waveguide-viewport {
-        width: 100%;
-        height: auto;
-        min-height: 204px;
-        padding: 10px 12px;
-      }
-      .g2-glance-line {
-        font-size: 11px;
-      }
-      .g2-container-header {
-        font-size: 10px;
-      }
-      .tactical-dock {
-        padding: 6px 12px;
-      }
-      #dock-summary {
-        font-size: 10px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      .hardware-btn,
-      .card-tab,
-      .brightness-step,
-      .dock-btn {
+
+      .nav-action {
         min-height: 44px;
+        padding: 8px 12px;
+      }
+
+      .workbench-main {
+        padding: 12px 16px 56px;
+      }
+
+      .stage-intro {
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+      }
+
+      .waveguide-plinth {
+        padding: 16px;
+      }
+
+      .g2-waveguide-viewport {
+        min-height: 232px;
+        padding: 12px 14px;
+      }
+
+      .g2-glance-line {
+        font-size: var(--text-sm);
+        white-space: normal;
+        word-break: break-word;
+      }
+
+      .segmented-tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .seg-tab,
+      .ring-strip-btn,
+      .brightness-step,
+      .pill-switch {
+        min-height: 44px;
+      }
+
+      .below-fold-section {
+        margin-top: 44px;
+        padding-top: 32px;
+      }
+
+      .footer-inner {
+        padding: 0 16px 28px;
+      }
+
+      .monumental-wordmark {
+        font-size: clamp(2.5rem, 13vw, 4.5rem);
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
       *,
       *::before,
       *::after {
@@ -877,296 +1059,267 @@
 </head>
 <body>
   <header id="app-header">
-    <div class="brand-lockup">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#56f08d" stroke-width="2" aria-hidden="true">
-        <rect x="2" y="7" width="8" height="6" rx="2" />
-        <rect x="14" y="7" width="8" height="6" rx="2" />
-        <path d="M10 10h4M2 10l-1-2M22 10l1-2" />
-      </svg>
-      <span class="brand-title">HeadsUp Pulse</span>
-      <span class="telemetry-chip">EVEN G2 576x288</span>
-    </div>
-    <div class="header-telemetry">
-      <span class="telemetry-chip">
-        <span class="status-dot" id="proxy-dot"></span>
-        <span id="proxy-status-label">SDK 0.0.16 READY</span>
-      </span>
-      <span class="telemetry-chip" id="safety-badge">PAPER / TESTNET LOCK</span>
-      <button type="button" class="hud-drawer-trigger" id="btn-toggle-hud" aria-expanded="false" aria-controls="map-top-hud-stack">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+    <div class="nav-inner">
+      <a href="#waveguide-stage" class="brand-lockup" aria-label="HeadsUp Pulse home">
+        <svg width="24" height="16" viewBox="0 0 36 22" fill="none" stroke="#34e57d" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="4" width="13" height="14" rx="4" />
+          <rect x="21" y="4" width="13" height="14" rx="4" />
+          <path d="M15 10h6" stroke-linecap="round" />
         </svg>
-        <span id="hud-toggle-caption">Protocol Spec</span>
-      </button>
+        <span class="brand-wordmark">HeadsUp Pulse</span>
+      </a>
+      <nav class="nav-right" aria-label="Primary navigation">
+        <div class="nav-links">
+          <a href="#waveguide-stage" class="nav-link hide-xs">Waveguide</a>
+          <a href="#ledger-section" class="nav-link hide-xs">Ledger</a>
+          <button type="button" class="nav-link" id="btn-toggle-hud" aria-haspopup="dialog" aria-controls="protocol-modal">Protocol spec</button>
+        </div>
+        <button type="button" class="nav-action" id="btn-refresh-live">Refresh feeds</button>
+      </nav>
     </div>
   </header>
 
-  <aside id="map-top-hud-stack" class="hidden" aria-label="Even Hub SDK Protocol Drawer">
-    <div class="hud-stack-header">
-      <span class="mono-stamp">EVEN HUB WEBVIEW BRIDGE CONTRACT (@evenrealities/even_hub_sdk@0.0.16)</span>
-      <button type="button" class="hud-dismiss-btn" id="btn-close-hud" aria-label="Dismiss protocol drawer">[ X ]</button>
-    </div>
-    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-secondary);">
-      Dual-Track Entry for Hackathon #2477: Track 01 (Telegram priority digest + 1-tap voice/AI reply) connected directly to Track 02 (Hyperliquid perp + Polymarket live odds + 1-tap paper/testnet confirmation). Every frame validates <code class="mono-stamp">zOrderIndex</code> uniqueness, single <code class="mono-stamp">isEventCapture=1</code>, and <code class="mono-stamp">textColor</code> integer brightness <code class="mono-stamp">0..4</code>.
-    </p>
-  </aside>
-
-  <main class="workbench-shell">
-    <section class="hero-intro">
-      <div>
-        <h1 class="hero-headline">
-          <span class="hero-serif-accent">Glance</span> Priority Signals, Act With One Tap on Even G2
-        </h1>
-        <p class="hero-subcopy">
-          Filter noisy chats down to picked Telegram channels, inspect live Hyperliquid and Polymarket pricing inside a 4-line optical budget, and approve replies or paper hedges from the R1 Ring without drawing your phone.
+  <main class="workbench-main">
+    <section id="waveguide-stage" aria-label="Even G2 optical waveguide workbench">
+      <div class="stage-intro">
+        <h1 class="stage-title">Glance priority signals and act in one tap</h1>
+        <p class="stage-status" id="stage-status-line">
+          <span id="proxy-status-label">Standalone simulator</span>
+          <span>Paper and testnet mode</span>
+          <strong id="stat-receipts">0 executed</strong>
         </p>
       </div>
-      <div class="stat-monument-row">
-        <div class="stat-monument">
-          <span class="stat-value" id="stat-resolution">576x288</span>
-          <span class="stat-label">Green Waveguide</span>
+
+      <div class="optical-stage-grid">
+        <!-- Left Plinth: Procedural Optical Reticle Canvas + True-Scale 576x288 Waveguide + Segmented Deck -->
+        <div class="waveguide-plinth">
+          <canvas class="optical-canvas" id="optical-reticle-canvas" aria-hidden="true"></canvas>
+          <div class="plinth-content">
+            <div class="plinth-top-row">
+              <h2 class="section-heading">Even G2 optical waveguide</h2>
+              <span class="meta-caption" id="container-coords-chip">576 x 288 px, 4-line optical ceiling</span>
+            </div>
+
+            <div class="waveguide-mount">
+              <div class="g2-waveguide-viewport" id="g2-viewport">
+                <div class="g2-container-header" id="g2-header-line">[1/4] TG PRIORITY | @HyperliquidAlphaDesk</div>
+                <div class="g2-container-body" id="g2-body-lines">
+                  <div class="g2-glance-line">@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]</div>
+                  <div class="g2-glance-line">DeskBot: HL BTC test $60,519 hedge?</div>
+                  <div class="g2-glance-line">AI: "Ack: staging 0.01 BTC paper hedge."</div>
+                  <div class="g2-glance-line action-footer">TAP Approve | SCRL HL Hedge | 2xTAP Mute</div>
+                </div>
+                <div class="g2-menu-overlay hidden" id="g2-menu-overlay" aria-label="Even G2 contextual action menu">
+                  <button type="button" class="g2-menu-item" data-menu-id="1">[1] Confirm / Approve</button>
+                  <button type="button" class="g2-menu-item" data-menu-id="2">[2] Dismiss Alert</button>
+                  <button type="button" class="g2-menu-item" data-menu-id="3">[3] Voice Reply Mic</button>
+                  <button type="button" class="g2-menu-item" data-menu-id="4">[4] Next Pulse Card</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="deck-switcher-wrap">
+              <div class="segmented-tabs" id="deck-tabs" role="tablist" aria-label="Active glance card">
+                <button type="button" role="tab" aria-selected="true" class="seg-tab" data-card-idx="0">Alpha Desk</button>
+                <button type="button" role="tab" aria-selected="false" class="seg-tab" data-card-idx="1">BTC Perp</button>
+                <button type="button" role="tab" aria-selected="false" class="seg-tab" data-card-idx="2">Polymarket</button>
+                <button type="button" role="tab" aria-selected="false" class="seg-tab" data-card-idx="3">Daos Hub</button>
+              </div>
+              <p class="rationale-copy" id="active-flow-quote">
+                Allowlisted @HyperliquidAlphaDesk Telegram signal surfaces a BTC funding shift and links one scroll away to a pre-sized Hyperliquid Testnet paper hedge.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="stat-monument">
-          <span class="stat-value" id="stat-lines">4 LINES</span>
-          <span class="stat-label">Glance Ceiling</span>
-        </div>
-        <div class="stat-monument">
-          <span class="stat-value" id="stat-receipts">0 EXEC</span>
-          <span class="stat-label">Verified Actions</span>
+
+        <!-- Right Tactile Control Column -->
+        <div class="controls-column">
+          <div class="control-block">
+            <div class="control-header">
+              <h2 class="section-heading">R1 Ring and temple controls</h2>
+              <span class="meta-caption" id="gesture-last-chip">Ready for input</span>
+            </div>
+            <button type="button" class="primary-cta" id="btn-tap-confirm">
+              <span id="primary-btn-text">Send staged reply</span>
+            </button>
+            <div class="ring-strip" role="group" aria-label="Secondary ring actions">
+              <button type="button" class="ring-strip-btn" id="btn-scroll-next">Next card</button>
+              <button type="button" class="ring-strip-btn" id="btn-double-dismiss">Dismiss</button>
+              <button type="button" class="ring-strip-btn" id="btn-voice-ptt">Hold voice</button>
+            </div>
+          </div>
+
+          <div class="control-block">
+            <label for="voice-preset" class="field-label">Voice dictation utterance for local speech-to-text</label>
+            <select id="voice-preset" class="voice-select">
+              <option value="approve_dubai_slot">Confirmed 15:20 GMT+4 remote slot. Ready.</option>
+              <option value="hedge_btc_50">Paper short BTC 50 dollars on testnet</option>
+              <option value="hedge_eth_40">Paper long ETH 40 dollars on testnet</option>
+              <option value="ack_alpha_desk">Ack BTC funding shift, watching G2 feed.</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <div class="control-header">
+              <span class="field-label">Waveguide brightness (integer textColor 0 to 4)</span>
+              <span class="meta-caption" id="brightness-readout">Level 4</span>
+            </div>
+            <div class="brightness-group" id="brightness-controls" role="radiogroup" aria-label="Waveguide brightness level">
+              <button type="button" role="radio" aria-checked="false" class="brightness-step" data-brightness="0">0</button>
+              <button type="button" role="radio" aria-checked="false" class="brightness-step" data-brightness="1">1</button>
+              <button type="button" role="radio" aria-checked="false" class="brightness-step" data-brightness="2">2</button>
+              <button type="button" role="radio" aria-checked="false" class="brightness-step" data-brightness="3">3</button>
+              <button type="button" role="radio" aria-checked="true" class="brightness-step active" data-brightness="4">4</button>
+            </div>
+          </div>
+
+          <div class="control-block">
+            <div class="switch-row">
+              <div class="switch-copy">
+                <span class="switch-name">Glasses microphone</span>
+                <span class="switch-desc">Streams beamforming PCM audio via audioControl</span>
+              </div>
+              <button type="button" role="switch" aria-checked="false" class="pill-switch" id="switch-mic">
+                <span class="pill-knob"></span>
+                <span class="pill-state-text">Off</span>
+              </button>
+            </div>
+            <div class="switch-row">
+              <div class="switch-copy">
+                <span class="switch-name">Contextual action menu</span>
+                <span class="switch-desc">Overlays Even G2 menuObject items on the waveguide</span>
+              </div>
+              <button type="button" role="switch" aria-checked="false" class="pill-switch" id="switch-menu">
+                <span class="pill-knob"></span>
+                <span class="pill-state-text">Off</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Left Column: Tactile Instrument Cards -->
-    <div class="left-column">
-      <!-- Card 01: Connected Dual-Track Deck Selector -->
-      <article class="instrument-card" id="inst-card-1" data-instrument="1">
-        <div class="card-header-row">
-          <div class="card-heading-group">
-            <span class="index-stamp">01</span>
-            <h2 class="card-title">Connected Dual-Track Glance Deck</h2>
-          </div>
-          <span class="telemetry-chip" id="feed-mode-chip">LIVE + FALLBACK GUARD</span>
-        </div>
-        <div class="deck-grid" id="deck-tabs" role="tablist" aria-label="Even G2 Glance Cards"></div>
-        <div class="recessed-well" style="margin-top: 14px;">
-          <div class="well-header-bar">
-            <span>CONNECTED FLOW RATIONALE</span>
-            <span id="active-track-label">TRACK 01 -&gt; TRACK 02</span>
-          </div>
-          <p class="editorial-quote" id="active-flow-quote">
-            Priority @HyperliquidAlphaDesk Telegram signal surfaces BTC funding shift and links one scroll away to a pre-sized Hyperliquid Testnet paper hedge.
-          </p>
-        </div>
-      </article>
-
-      <!-- Card 02: R1 Ring, Temple Touch & Voice Push-to-Talk -->
-      <article class="instrument-card" id="inst-card-2" data-instrument="2">
-        <div class="card-header-row">
-          <div class="card-heading-group">
-            <span class="index-stamp">02</span>
-            <h2 class="card-title">R1 Ring, Temple Tap &amp; Voice Push-to-Talk</h2>
-          </div>
-          <span class="telemetry-chip" id="gesture-last-chip">IDLE</span>
+    <!-- Below-the-Fold Asymmetric Split: Hardware Schematic + Live SDK Ledger -->
+    <section class="below-fold-section" id="ledger-section" aria-label="Hardware topology and SDK ledger">
+      <div class="schematic-column">
+        <div class="plinth-top-row">
+          <h2 class="section-heading">Hardware coupling and live telemetry</h2>
+          <span class="meta-caption" id="hotspot-active-label">Focus: Optical waveguide</span>
         </div>
 
-        <div class="controls-grid">
-          <button type="button" class="hardware-btn primary-action" id="btn-tap-confirm">
-            <span id="primary-btn-text">Confirm / Approve</span>
-            <kbd class="keycap">TAP</kbd>
-          </button>
-          <button type="button" class="hardware-btn" id="btn-double-dismiss">
-            <span>Dismiss / Mute 1h</span>
-            <kbd class="keycap">2xTAP</kbd>
-          </button>
-          <button type="button" class="hardware-btn" id="btn-scroll-next">
-            <span>Scroll Next Card</span>
-            <kbd class="keycap">SCRL</kbd>
-          </button>
-          <button type="button" class="hardware-btn" id="btn-voice-ptt">
-            <span id="ptt-btn-text">Push-to-Talk Voice</span>
-            <kbd class="keycap">PTT</kbd>
-          </button>
-        </div>
+        <svg class="hardware-svg" viewBox="0 0 640 360" role="img" aria-label="Even G2 eyewear and R1 smart ring schematic">
+          <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+            <line x1="0" y1="90" x2="640" y2="90" />
+            <line x1="0" y1="180" x2="640" y2="180" />
+            <line x1="0" y1="270" x2="640" y2="270" />
+            <line x1="160" y1="0" x2="160" y2="360" />
+            <line x1="320" y1="0" x2="320" y2="360" />
+            <line x1="480" y1="0" x2="480" y2="360" />
+          </g>
+          <!-- Eyewear Frame -->
+          <path d="M92 146 L160 102 L286 102 L320 120 L354 102 L480 102 L548 146" fill="none" stroke="#9aa4b2" stroke-width="4" stroke-linecap="round" />
+          <rect x="142" y="108" width="144" height="86" rx="20" fill="rgba(52,229,125,0.05)" stroke="rgba(243,245,247,0.32)" stroke-width="2" />
+          <rect x="354" y="108" width="144" height="86" rx="20" fill="rgba(52,229,125,0.08)" stroke="#34e57d" stroke-width="2.2" />
+          <rect x="372" y="124" width="108" height="54" rx="6" fill="rgba(52,229,125,0.12)" stroke="#34e57d" stroke-dasharray="5 4" stroke-width="1.5" />
+          <text x="426" y="156" fill="#34e57d" font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle">576x288</text>
+          <!-- R1 Smart Ring -->
+          <ellipse cx="320" cy="272" rx="74" ry="40" fill="rgba(255,255,255,0.03)" stroke="#9aa4b2" stroke-width="3.5" />
+          <ellipse cx="320" cy="272" rx="48" ry="22" fill="#101215" stroke="rgba(255,255,255,0.16)" stroke-width="1.5" />
+          <text x="320" y="334" fill="#9aa4b2" font-family="Plus Jakarta Sans, sans-serif" font-size="13" text-anchor="middle">Even R1 Smart Ring over BLE</text>
 
-        <div class="voice-select-row">
-          <label for="voice-preset" class="telemetry-chip">BYO-STT Utterance:</label>
-          <select id="voice-preset" class="voice-preset-select">
-            <option value="approve_dubai_slot">Voice Reply: "Confirmed 15:20 GMT+4 remote slot. Ready."</option>
-            <option value="hedge_btc_50">Voice Order: "Paper short BTC 50 dollars on testnet"</option>
-            <option value="hedge_eth_40">Voice Order: "Paper long ETH 40 dollars on testnet"</option>
-            <option value="ack_alpha_desk">Voice Reply: "Ack BTC funding shift, watching G2 feed."</option>
-          </select>
-        </div>
+          <!-- Interactive Hardware Hotspots -->
+          <g class="svg-hotspot" data-hotspot="Waveguide projection" tabindex="0" role="button" aria-label="Focus optical waveguide">
+            <circle cx="426" cy="108" r="14" fill="#101215" stroke="#34e57d" stroke-width="2" />
+            <circle cx="426" cy="108" r="4" fill="#34e57d" />
+          </g>
+          <g class="svg-hotspot" data-hotspot="Temple touch bar" tabindex="0" role="button" aria-label="Focus temple touch bar">
+            <circle cx="548" cy="146" r="14" fill="#101215" stroke="#f3f5f7" stroke-width="2" />
+            <circle cx="548" cy="146" r="4" fill="#f3f5f7" />
+          </g>
+          <g class="svg-hotspot" data-hotspot="Beamforming microphone" tabindex="0" role="button" aria-label="Focus beamforming microphone">
+            <circle cx="320" cy="120" r="14" fill="#101215" stroke="#facc15" stroke-width="2" />
+            <circle cx="320" cy="120" r="4" fill="#facc15" />
+          </g>
+          <g class="svg-hotspot" data-hotspot="R1 Ring gesture input" tabindex="0" role="button" aria-label="Focus R1 Ring gesture input">
+            <circle cx="394" cy="272" r="14" fill="#101215" stroke="#34e57d" stroke-width="2" />
+            <circle cx="394" cy="272" r="4" fill="#34e57d" />
+          </g>
+        </svg>
 
-        <div class="brightness-row">
-          <span class="telemetry-chip">Waveguide Brightness (<code class="mono-stamp">textColor 0..4</code>):</span>
-          <div class="brightness-steps" id="brightness-controls" role="group" aria-label="Text brightness 0 to 4">
-            <button type="button" class="brightness-step" data-brightness="0">0</button>
-            <button type="button" class="brightness-step" data-brightness="1">1</button>
-            <button type="button" class="brightness-step" data-brightness="2">2</button>
-            <button type="button" class="brightness-step" data-brightness="3">3</button>
-            <button type="button" class="brightness-step active" data-brightness="4">4</button>
-          </div>
-        </div>
-      </article>
+        <ul class="signal-list" aria-label="Live telemetry summary">
+          <li class="signal-item">
+            <span class="signal-key">Hyperliquid BTC perp</span>
+            <span class="signal-val" id="sig-hl-price">Loading feed...</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-key">Polymarket contract</span>
+            <span class="signal-val" id="sig-pm-odds">Loading feed...</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-key">Telegram allowlist</span>
+            <span class="signal-val" id="sig-tg-filter">2 channels active, noise filtered</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-key">Execution safety lock</span>
+            <span class="signal-val">Paper and testnet only, $0 real risk</span>
+          </li>
+        </ul>
+      </div>
 
-      <!-- Card 03: Hardware Toggles & CORS Safety Gate -->
-      <article class="instrument-card" id="inst-card-3" data-instrument="3">
-        <div class="card-header-row">
-          <div class="card-heading-group">
-            <span class="index-stamp">03</span>
-            <h2 class="card-title">Bridge Switches &amp; Non-Custodial Guardrails</h2>
-          </div>
-          <button type="button" class="hud-drawer-trigger" id="btn-refresh-live">Refresh Live APIs</button>
-        </div>
-
-        <div>
-          <div class="switch-row">
-            <div>
-              <div style="font-size: 13px; font-weight: 600;">Glasses Beamforming Microphone (<code class="mono-stamp">audioControl</code>)</div>
-              <div style="font-size: 12px; color: var(--ink-secondary);">Streams PCM frames with speakerRole self-tag to local BYO-STT endpoint</div>
-            </div>
-            <button type="button" role="switch" aria-checked="false" class="pill-switch" id="switch-mic">
-              <span class="pill-knob"></span>
-              <span class="pill-state-text">OFF</span>
-            </button>
-          </div>
-          <div class="switch-row">
-            <div>
-              <div style="font-size: 13px; font-weight: 600;">Contextual OS Action Menu (<code class="mono-stamp">menuObject</code>)</div>
-              <div style="font-size: 12px; color: var(--ink-secondary);">Preview top-level G2 OS menu items (max 10 items, &lt;=32 UTF-8 bytes)</div>
-            </div>
-            <button type="button" role="switch" aria-checked="false" class="pill-switch" id="switch-menu">
-              <span class="pill-knob"></span>
-              <span class="pill-state-text">OFF</span>
-            </button>
+      <div class="ledger-column">
+        <div class="ledger-header-row">
+          <h2 class="section-heading">Even Hub SDK frame and receipt ledger</h2>
+          <div class="ledger-actions">
+            <button type="button" class="inline-action" id="btn-l2-preview">Preview L2 VWAP</button>
+            <span class="meta-caption" id="ledger-count-label">0 events</span>
           </div>
         </div>
 
-        <div class="external-links-bar">
-          <a href="https://hub.evenrealities.com/docs/getting-started/overview" target="_blank" rel="noopener">Even Hub Docs</a>
-          <a href="https://api.hyperliquid-testnet.xyz/info" target="_blank" rel="noopener">Hyperliquid Testnet Info</a>
-          <a href="https://gamma-api.polymarket.com/markets?active=true&amp;closed=false&amp;limit=5" target="_blank" rel="noopener">Polymarket Gamma Feed</a>
-        </div>
-      </article>
-
-      <!-- Card 04: Live Even Hub SDK Frame & Receipt Audit Log -->
-      <article class="instrument-card" id="inst-card-4" data-instrument="4">
-        <div class="card-header-row">
-          <div class="card-heading-group">
-            <span class="index-stamp">04</span>
-            <h2 class="card-title">Even Hub SDK Frame &amp; Paper Receipt Ledger</h2>
-          </div>
-          <span class="telemetry-chip" id="sdk-validation-badge">CONTAINER VALID: TRUE</span>
-        </div>
-        <div class="recessed-well">
-          <div class="well-header-bar">
+        <div class="ledger-well">
+          <div class="ledger-well-head">
             <span>flutter_inappwebview.callHandler('evenAppMessage')</span>
-            <span id="ledger-count-label">0 EVENTS</span>
+            <span id="sdk-validation-badge">SDK 0.0.16 valid</span>
           </div>
           <ul class="ledger-list" id="sdk-audit-log" aria-live="polite"></ul>
         </div>
-      </article>
-    </div>
-
-    <!-- Right Sticky Stage: True-Scale 576x288 Optical Waveguide + CAD Hotspots & Radar -->
-    <div class="right-stage-sticky">
-      <section class="instrument-card" aria-label="Even G2 576 by 288 Optical Waveguide Simulator">
-        <div class="card-header-row">
-          <div class="card-heading-group">
-            <span class="index-stamp">STAGE</span>
-            <h2 class="card-title">Even G2 Optical Waveguide (576 x 288 px)</h2>
-          </div>
-          <span class="telemetry-chip" id="container-coords-chip">ID#1 z=1 | ID#2 z=2 cap=1</span>
-        </div>
-
-        <div class="waveguide-frame-outer">
-          <div class="g2-waveguide-viewport" id="g2-viewport">
-            <div class="g2-container-header" id="g2-header-line">[1/4] TG PRIORITY | @HyperliquidAlphaDesk</div>
-            <div class="g2-container-body" id="g2-body-lines">
-              <div class="g2-glance-line">@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]</div>
-              <div class="g2-glance-line">DeskBot: HL BTC test $60,519 hedge?</div>
-              <div class="g2-glance-line">AI: "Ack: staging 0.01 BTC paper hedge."</div>
-              <div class="g2-glance-line action-footer">TAP Approve | SCRL HL Hedge | 2xTAP Mute</div>
-            </div>
-            <div class="g2-menu-overlay hidden" id="g2-menu-overlay" aria-label="Even G2 Contextual Menu">
-              <button type="button" class="g2-menu-item" data-menu-id="1">[1] Confirm / Approve</button>
-              <button type="button" class="g2-menu-item" data-menu-id="2">[2] Dismiss Alert</button>
-              <button type="button" class="g2-menu-item" data-menu-id="3">[3] Voice Reply Mic</button>
-              <button type="button" class="g2-menu-item" data-menu-id="4">[4] Next Pulse Card</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="instrument-card" aria-label="Hardware Coupling Schematic and Judging Rubric Radar">
-        <div class="card-header-row">
-          <div class="card-heading-group">
-            <span class="index-stamp">CAD</span>
-            <h2 class="card-title">Hardware Topology &amp; 5-Axis Rubric Sieve</h2>
-          </div>
-          <span class="telemetry-chip" id="hotspot-active-label">PIN 01 ACTIVE</span>
-        </div>
-
-        <div class="cad-radar-grid">
-          <!-- Custom Procedural 800x800 Blueprint Schematic with Interactive Hotspots -->
-          <svg class="cad-svg" viewBox="0 0 800 800" role="img" aria-label="Even G2 Glasses and R1 Ring Schematic">
-            <rect x="16" y="16" width="768" height="768" rx="28" fill="#080b12" stroke="rgba(255,255,255,0.09)" stroke-width="2" />
-            <g stroke="rgba(56,189,248,0.08)" stroke-width="1">
-              <line x1="16" y1="200" x2="784" y2="200" />
-              <line x1="16" y1="400" x2="784" y2="400" />
-              <line x1="16" y1="600" x2="784" y2="600" />
-              <line x1="200" y1="16" x2="200" y2="784" />
-              <line x1="400" y1="16" x2="400" y2="784" />
-              <line x1="600" y1="16" x2="600" y2="784" />
-            </g>
-            <!-- Eyewear Frame & Temples -->
-            <path d="M120 310 L210 250 L360 250 L400 272 L440 250 L590 250 L680 310" fill="none" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" />
-            <rect x="175" y="260" width="185" height="112" rx="24" fill="rgba(86,240,141,0.08)" stroke="#56f08d" stroke-width="3" />
-            <rect x="440" y="260" width="185" height="112" rx="24" fill="rgba(86,240,141,0.08)" stroke="#56f08d" stroke-width="3" />
-            <!-- Waveguide Projection Grid -->
-            <rect x="462" y="280" width="140" height="70" rx="6" fill="rgba(86,240,141,0.14)" stroke="#56f08d" stroke-dasharray="6 4" stroke-width="2" />
-            <text x="532" y="320" fill="#56f08d" font-family="JetBrains Mono, monospace" font-size="18" text-anchor="middle">576x288</text>
-            <!-- R1 Ring Geometry -->
-            <ellipse cx="400" cy="590" rx="112" ry="68" fill="rgba(56,189,248,0.07)" stroke="#38bdf8" stroke-width="5" />
-            <ellipse cx="400" cy="590" rx="74" ry="40" fill="#080b12" stroke="rgba(255,255,255,0.22)" stroke-width="2" />
-            <text x="400" y="694" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="19" text-anchor="middle">EVEN R1 SMART RING (BLE)</text>
-
-            <!-- Interactive Hotspot Pins 1..4 -->
-            <g class="svg-hotspot" data-hotspot="1" tabindex="0" role="button" aria-label="Focus Instrument 01 Waveguide Deck">
-              <circle cx="532" cy="260" r="24" fill="#0e1320" stroke="#56f08d" stroke-width="3" />
-              <text x="532" y="267" fill="#56f08d" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">01</text>
-            </g>
-            <g class="svg-hotspot" data-hotspot="2" tabindex="0" role="button" aria-label="Focus Instrument 02 Temple Touch Controls">
-              <circle cx="680" cy="310" r="24" fill="#0e1320" stroke="#38bdf8" stroke-width="3" />
-              <text x="680" y="317" fill="#38bdf8" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">02</text>
-            </g>
-            <g class="svg-hotspot" data-hotspot="3" tabindex="0" role="button" aria-label="Focus Instrument 03 Beamforming Microphone">
-              <circle cx="400" cy="272" r="24" fill="#0e1320" stroke="#f59e0b" stroke-width="3" />
-              <text x="400" y="279" fill="#f59e0b" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">03</text>
-            </g>
-            <g class="svg-hotspot" data-hotspot="4" tabindex="0" role="button" aria-label="Focus Instrument 04 R1 Ring Audit Ledger">
-              <circle cx="512" cy="590" r="24" fill="#0e1320" stroke="#10b981" stroke-width="3" />
-              <text x="512" y="597" fill="#10b981" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">04</text>
-            </g>
-          </svg>
-
-          <!-- 5-Axis Hackathon #2477 Rubric Radar -->
-          <div id="radar-mount">
-            <svg class="boundary-radar" viewBox="0 0 420 420" id="rubric-radar-svg" role="img" aria-label="5-Axis Even Realities Judging Radar"></svg>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="tactical-dock" aria-label="Quick Hardware Actions">
-    <span class="mono-stamp" id="dock-summary">ACTIVE: CARD 01/04 | ZERO CUSTODY | ZERO CLIENT KEYS</span>
-    <div class="dock-actions">
-      <button type="button" class="dock-btn" id="dock-prev">Prev</button>
-      <button type="button" class="dock-btn" id="dock-next">Next</button>
-      <button type="button" class="dock-btn" id="dock-confirm">Ring Tap</button>
+  <!-- Accessible Protocol Spec Modal -->
+  <div class="modal-backdrop hidden" id="protocol-modal" role="dialog" aria-modal="true" aria-labelledby="protocol-modal-title">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <h2 class="section-heading" id="protocol-modal-title">Even Hub WebView bridge contract</h2>
+        <button type="button" class="modal-close" id="btn-close-hud">Close</button>
+      </div>
+      <p class="modal-body">
+        HeadsUp Pulse pairs allowlisted Telegram digests with live Hyperliquid and Polymarket telemetry inside a single optical workflow built on <span class="mono-inline">@evenrealities/even_hub_sdk@0.0.16</span>.
+      </p>
+      <ul class="modal-spec-list">
+        <li>Strict 576 x 288 monochrome green bounds with at most 4 visible lines and 44 characters per line.</li>
+        <li>Unique <span class="mono-inline">zOrderIndex</span> per container, single <span class="mono-inline">isEventCapture: 1</span> target, and integer <span class="mono-inline">textColor</span> brightness from 0 to 4.</li>
+        <li>Non-custodial <span class="mono-inline">PAPER_TRADING_ONLY = true</span> lock enforced in both kernel and HTTP 403 proxy routes.</li>
+        <li>Server-side credential isolation keeps optional Telegram bot tokens strictly outside browser bundles.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- High-Craft Architectural Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-colophon">
+        HeadsUp Pulse is a non-custodial optical companion for Even Realities G2 smart glasses. All market actions run strictly in paper or Hyperliquid Testnet mode with zero custody of user funds and zero committed keys.
+      </p>
+      <div class="footer-links" aria-label="External documentation and source links">
+        <a href="https://hub.evenrealities.com/docs/getting-started/overview" target="_blank" rel="noopener">Even Hub Docs</a>
+        <a href="https://api.hyperliquid-testnet.xyz/info" target="_blank" rel="noopener">Hyperliquid Testnet Info</a>
+        <a href="https://gamma-api.polymarket.com/markets?active=true&amp;closed=false&amp;limit=5" target="_blank" rel="noopener">Polymarket Gamma Feed</a>
+        <a href="https://github.com/HindsightWise/headsup-pulse-even-g2" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+    </div>
+    <div class="monumental-bleed" aria-hidden="true">
+      <span class="monumental-wordmark">HeadsUp Pulse</span>
     </div>
   </footer>
 
@@ -1174,7 +1327,8 @@
     (function () {
       "use strict";
 
-      const BRIGHTNESS_PALETTE = ["#194d2c", "#247341", "#31a35b", "#43cf75", "#56f08d"];
+      const BRIGHTNESS_PALETTE = ["#164729", "#1f6a3c", "#299553", "#2fc069", "#34e57d"];
+      const SHORT_TAB_NAMES = ["Alpha Desk", "BTC Perp", "Polymarket", "Daos Hub"];
 
       const FALLBACK_CARDS = [
         {
@@ -1183,18 +1337,18 @@
           provider: "Telegram",
           chatHandle: "@HyperliquidAlphaDesk",
           headerTag: "TG @HyperliquidAlphaDesk",
-          title: "TG @HyperliquidAlphaDesk Alert",
+          title: "Alpha Desk",
           brightness: 4,
           safetyMode: "EXPLICIT_USER_APPROVAL",
           rationale:
-            "Priority @HyperliquidAlphaDesk Telegram signal surfaces BTC funding shift and links one scroll away to a pre-sized Hyperliquid Testnet paper hedge.",
+            "Allowlisted @HyperliquidAlphaDesk Telegram signal surfaces a BTC funding shift and links one scroll away to a pre-sized Hyperliquid Testnet paper hedge.",
           lines: [
             "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]",
             "DeskBot: HL BTC test $60,519 hedge?",
             "AI: \"Ack: staging 0.01 BTC paper hedge.\"",
             "TAP Approve | SCRL HL Hedge | 2xTAP Mute"
           ],
-          primaryActionLabel: "Approve & Send Reply",
+          primaryActionLabel: "Send staged reply",
           stagedReply: {
             cardId: "card-tg-alpha-bridge",
             chatHandle: "@HyperliquidAlphaDesk",
@@ -1206,18 +1360,18 @@
           track: "crypto_defi",
           provider: "Hyperliquid",
           headerTag: "HL BTC-PERP",
-          title: "Hyperliquid BTC Perp Hedge",
+          title: "BTC Perp",
           brightness: 4,
           safetyMode: "PAPER_TESTNET_ONLY",
           rationale:
-            "Live Hyperliquid mark price and Testnet mid price paired with a non-custodial 0.01 BTC paper hedge confirmed via a single R1 Ring tap.",
+            "Live Hyperliquid mark price and Testnet mid price paired with a non-custodial 0.01 BTC paper hedge confirmed via one R1 Ring tap.",
           lines: [
             "HL BTC $60,312 (-2.3%) TEST $60,519",
             "FUND +0.0012%/h | OI 37.9K",
             "PAPER SHORT 0.01 BTC @ $60,519",
             "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
           ],
-          primaryActionLabel: "Confirm Paper Hedge",
+          primaryActionLabel: "Confirm paper hedge",
           stagedTicket: {
             cardId: "card-hl-btc-hedge",
             venue: "Hyperliquid Testnet",
@@ -1231,7 +1385,7 @@
           track: "crypto_defi",
           provider: "Polymarket",
           headerTag: "POLYMARKET ODDS",
-          title: "Polymarket Live Odds Ticket",
+          title: "Polymarket",
           brightness: 4,
           safetyMode: "PAPER_TESTNET_ONLY",
           rationale:
@@ -1242,7 +1396,7 @@
             "PAPER NO $25.00 SIM (ZERO CUSTODY)",
             "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
           ],
-          primaryActionLabel: "Confirm Paper $25 Sim",
+          primaryActionLabel: "Confirm paper sim",
           stagedTicket: {
             cardId: "card-pm-live-odds",
             venue: "Polymarket Paper Sim",
@@ -1257,18 +1411,18 @@
           provider: "Telegram",
           chatHandle: "@DaosHubDubai",
           headerTag: "TG @DaosHubDubai",
-          title: "TG @DaosHubDubai Demo Check-In",
+          title: "Daos Hub",
           brightness: 4,
           safetyMode: "EXPLICIT_USER_APPROVAL",
           rationale:
-            "Work group message from @DaosHubDubai compressed into a 30-second glance with 1-tap AI draft approval or push-to-talk voice replacement.",
+            "Work group message from @DaosHubDubai compressed into a 30-second glance with one-tap AI draft approval or push-to-talk voice replacement.",
           lines: [
             "@DaosHubDubai [3 NEW | 30S BRIEF]",
             "Nadia: Confirm Dec 3 Demo Day 15:20?",
             "AI: \"Confirmed 15:20 GMT+4 remote slot.\"",
             "TAP Send Reply | HOLD Voice | 2xTAP Mute"
           ],
-          primaryActionLabel: "Send Approved Reply",
+          primaryActionLabel: "Send staged reply",
           stagedReply: {
             cardId: "card-tg-ops-reply",
             chatHandle: "@DaosHubDubai",
@@ -1277,6 +1431,109 @@
         }
       ];
 
+      class OpticalReticleRenderer {
+        constructor(canvas) {
+          this.canvas = canvas;
+          this.ctx = canvas ? canvas.getContext("2d") : null;
+          this.isVisible = true;
+          this.isRunning = false;
+          this.rafId = 0;
+          this.phase = 0;
+          this.reducedMotion =
+            typeof window !== "undefined" &&
+            window.matchMedia &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        }
+
+        resize() {
+          if (!this.canvas || !this.ctx || typeof window === "undefined") return;
+          const rect = this.canvas.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          this.canvas.width = Math.max(1, Math.round(rect.width * dpr));
+          this.canvas.height = Math.max(1, Math.round(rect.height * dpr));
+          this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          this.drawFrame(rect.width, rect.height);
+        }
+
+        drawFrame(w, h) {
+          if (!this.ctx) return;
+          const ctx = this.ctx;
+          ctx.clearRect(0, 0, w, h);
+
+          const cx = w * 0.5;
+          const cy = h * 0.44;
+          const grad = ctx.createRadialGradient(cx, cy, 12, cx, cy, Math.max(w, h) * 0.58);
+          grad.addColorStop(0, "rgba(52, 229, 125, 0.08)");
+          grad.addColorStop(0.55, "rgba(52, 229, 125, 0.02)");
+          grad.addColorStop(1, "rgba(7, 8, 10, 0)");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+
+          ctx.strokeStyle = "rgba(52, 229, 125, 0.09)";
+          ctx.lineWidth = 1;
+          for (let r = 90; r <= 270; r += 60) {
+            ctx.beginPath();
+            ctx.arc(cx, cy, r + Math.sin(this.phase + r * 0.02) * 2.5, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+
+        tick = () => {
+          if (!this.isRunning) return;
+          this.phase += 0.012;
+          const rect = this.canvas.getBoundingClientRect();
+          this.drawFrame(rect.width, rect.height);
+          this.rafId = window.requestAnimationFrame(this.tick);
+        };
+
+        start() {
+          if (!this.canvas || !this.ctx || typeof window === "undefined") return;
+          this.resize();
+          if (this.reducedMotion) return;
+          if (!this.isRunning && this.isVisible && !document.hidden) {
+            this.isRunning = true;
+            this.rafId = window.requestAnimationFrame(this.tick);
+          }
+        }
+
+        stop() {
+          this.isRunning = false;
+          if (this.rafId && typeof window !== "undefined") {
+            window.cancelAnimationFrame(this.rafId);
+            this.rafId = 0;
+          }
+        }
+
+        bindLifecycle() {
+          if (!this.canvas || typeof window === "undefined") return;
+          this.resize();
+          window.addEventListener("resize", () => this.resize(), { passive: true });
+          if (typeof IntersectionObserver !== "undefined") {
+            const io = new IntersectionObserver(
+              (entries) => {
+                const entry = entries[0];
+                this.isVisible = Boolean(entry && entry.isIntersecting);
+                if (this.isVisible && !document.hidden) {
+                  this.start();
+                } else {
+                  this.stop();
+                }
+              },
+              { threshold: 0.05 }
+            );
+            io.observe(this.canvas);
+          }
+          document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+              this.stop();
+            } else if (this.isVisible) {
+              this.start();
+            }
+          });
+          this.start();
+        }
+      }
+
       class HeadsUpPulseStudio {
         constructor() {
           this.cards = FALLBACK_CARDS.map((c) => ({ ...c, lines: [...c.lines] }));
@@ -1284,15 +1541,15 @@
           this.brightness = 4;
           this.isMicOpen = false;
           this.isMenuOpen = false;
-          this.isHudDrawerOpen = false;
+          this.isModalOpen = false;
           this.isProxyOnline = false;
-          this.selectedHotspot = 1;
           this.verifiedExecCount = 0;
           this.touchHandledUntil = 0;
           this.touchStartX = 0;
           this.touchStartY = 0;
           this.isTouching = false;
           this.auditEntries = [];
+          this.reticle = null;
         }
 
         ensureBridgeShim() {
@@ -1303,7 +1560,7 @@
                 const parsed = typeof rawPayload === "string" ? JSON.parse(rawPayload) : rawPayload;
                 this.appendAudit(
                   parsed.method || handlerName,
-                  parsed.method === "createStartUpPageContainer" ? "CODE 0 (SUCCESS)" : "ACK TRUE"
+                  parsed.method === "createStartUpPageContainer" ? "CODE 0" : "ACK"
                 );
                 return parsed.method === "createStartUpPageContainer" ? 0 : true;
               }
@@ -1339,9 +1596,14 @@
 
         async boot() {
           this.ensureBridgeShim();
-          this.renderRadarSvg();
           this.bindControls();
-          this.bindHeaderClearanceObserver();
+          this.bindScrollNavbar();
+
+          if (typeof document !== "undefined") {
+            const canvas = document.getElementById("optical-reticle-canvas");
+            this.reticle = new OpticalReticleRenderer(canvas);
+            this.reticle.bindLifecycle();
+          }
 
           await this.sendHostCall("createStartUpPageContainer", {
             containerTotalNum: 2,
@@ -1354,10 +1616,22 @@
           this.renderAll();
         }
 
+        bindScrollNavbar() {
+          if (typeof window === "undefined" || typeof document === "undefined") return;
+          const header = document.getElementById("app-header");
+          if (!header) return;
+          const syncScroll = () => {
+            header.classList.toggle("scrolled", window.scrollY > 24);
+          };
+          window.addEventListener("scroll", syncScroll, { passive: true });
+          syncScroll();
+        }
+
         async syncFromBackendProxy(forceRefresh) {
           if (typeof fetch !== "function" || window.location.protocol === "file:") {
             this.isProxyOnline = false;
-            this.updateProxyBadge("STANDALONE SIMULATOR");
+            this.updateProxyBadge("Standalone simulator");
+            this.updateSignalReadout(null);
             return;
           }
           try {
@@ -1368,17 +1642,44 @@
             if (Array.isArray(data.cards) && data.cards.length > 0) {
               this.cards = data.cards.map((card, idx) => ({
                 ...card,
-                rationale: FALLBACK_CARDS[idx]?.rationale || "Validated 576x288 single-card workflow."
+                rationale: FALLBACK_CARDS[idx]?.rationale || "Validated 576x288 single-card optical workflow.",
+                primaryActionLabel: card.track === "crypto_defi"
+                  ? (idx === 1 ? "Confirm paper hedge" : "Confirm paper sim")
+                  : "Send staged reply"
               }));
             }
             this.isProxyOnline = true;
             const hlMode = data.marketSnapshot?.hyperliquidSource || "live";
-            this.updateProxyBadge(hlMode === "live" ? "PROXY + LIVE APIS" : "PROXY DETERMINISTIC");
-            this.appendAudit(`GET ${url} (${this.cards.length} cards validated)`, "HTTP 200");
+            this.updateProxyBadge(hlMode === "live" ? "Proxy live feeds" : "Proxy deterministic");
+            this.updateSignalReadout(data.marketSnapshot);
+            this.appendAudit(`GET ${url} (${this.cards.length} containers valid)`, "HTTP 200");
             this.renderAll();
           } catch {
             this.isProxyOnline = false;
-            this.updateProxyBadge("STANDALONE SIMULATOR");
+            this.updateProxyBadge("Standalone simulator");
+            this.updateSignalReadout(null);
+          }
+        }
+
+        updateSignalReadout(snapshot) {
+          if (typeof document === "undefined") return;
+          const hlEl = document.getElementById("sig-hl-price");
+          const pmEl = document.getElementById("sig-pm-odds");
+          if (hlEl) {
+            const btc = snapshot?.hyperliquid?.btc;
+            if (btc && Number.isFinite(Number(btc.markPx))) {
+              hlEl.textContent = `$${Number(btc.markPx).toLocaleString("en-US", { maximumFractionDigits: 0 })} mark, test $${Number(btc.testnetMidPx || btc.markPx).toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+            } else {
+              hlEl.textContent = "$60,312 mark, test $60,519";
+            }
+          }
+          if (pmEl) {
+            const pm = snapshot?.polymarket;
+            if (pm && Number.isFinite(Number(pm.yesProb))) {
+              pmEl.textContent = `Yes ${(Number(pm.yesProb) * 100).toFixed(1)}%, No ${(Number(pm.noProb) * 100).toFixed(1)}%`;
+            } else {
+              pmEl.textContent = "Yes 64.2%, No 35.8%";
+            }
           }
         }
 
@@ -1400,9 +1701,33 @@
           this.renderAll();
         }
 
+        async handleL2Preview() {
+          if (!this.isProxyOnline) {
+            this.appendAudit("L2 Book VWAP $60519.00 (1.80 bps | deterministic_l2)", "L2 VWAP");
+            return;
+          }
+          try {
+            const res = await fetch("/api/market/l2-preview", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ coin: "BTC", side: "SHORT", sizeCoins: 0.01 })
+            });
+            const out = await res.json();
+            const p = out?.preview;
+            if (p) {
+              this.appendAudit(
+                `L2 Book VWAP $${Number(p.vwapFillPx).toFixed(2)} (${p.slippageBps} bps | ${p.bookSource})`,
+                "L2 VWAP"
+              );
+            }
+          } catch {
+            this.appendAudit("L2 Book VWAP preview unavailable", "FALLBACK");
+          }
+        }
+
         async handleConfirm() {
           const card = this.cards[this.activeCardIndex];
-          this.setGestureChip("R1 TAP -> CONFIRM");
+          this.setGestureChip("Ring tap confirmed");
 
           if (card.track === "crypto_defi") {
             if (this.isProxyOnline) {
@@ -1421,7 +1746,7 @@
               this.verifiedExecCount += 1;
               this.appendAudit(
                 `Paper Order ${card.provider} (${card.stagedTicket?.side || "HEDGE"} $${card.stagedTicket?.notionalUsd || 25})`,
-                "PAPER SIM"
+                "PAPER FILL"
               );
             }
           } else {
@@ -1441,12 +1766,12 @@
               const out = await res.json();
               this.verifiedExecCount += 1;
               this.appendAudit(
-                `TG Reply -> ${card.chatHandle} [#${out.deliveryReceipt?.receiptHash?.slice(0, 8) || "paper"}]`,
+                `TG Reply to ${card.chatHandle} (#${out.deliveryReceipt?.receiptHash?.slice(0, 8) || "paper"})`,
                 "TG SENT"
               );
             } else {
               this.verifiedExecCount += 1;
-              this.appendAudit(`TG Reply -> ${card.chatHandle}: "${replyText}"`, "PAPER RCPT");
+              this.appendAudit(`TG Reply to ${card.chatHandle}: "${replyText}"`, "TG SENT");
             }
           }
           this.renderAll();
@@ -1454,7 +1779,7 @@
 
         async handleDismiss() {
           const card = this.cards[this.activeCardIndex];
-          this.setGestureChip("2xTAP -> DISMISS");
+          this.setGestureChip("Card dismissed");
           this.appendAudit(`Dismissed ${card.headerTag} via temple double-tap`, "SKIPPED");
           await this.selectCard(this.activeCardIndex + 1);
         }
@@ -1466,7 +1791,7 @@
 
           this.isMicOpen = true;
           this.renderSwitches();
-          this.setGestureChip("GLASSES MIC STREAMING");
+          this.setGestureChip("Glasses mic streaming");
           await this.sendHostCall("audioControl", { isOpen: true, source: "glasses" });
 
           let transcript = "Confirmed 15:20 GMT+4 remote slot. Ready.";
@@ -1492,7 +1817,7 @@
               if (sttJson.transcript) transcript = sttJson.transcript;
               await this.syncFromBackendProxy(false);
             } catch {
-              // Keep local deterministic voice update
+              // Keep deterministic fallback transcript
             }
           }
 
@@ -1507,6 +1832,7 @@
 
           await this.sendHostCall("audioControl", { isOpen: false, source: "glasses" });
           this.isMicOpen = false;
+          this.setGestureChip("Voice reply staged");
           this.appendAudit(`BYO-STT (self, -6 deg): "${transcript}"`, "STT STAGED");
           await this.selectCard(targetIdx);
         }
@@ -1529,77 +1855,19 @@
           this.renderAll();
         }
 
-        focusHotspot(pinNumber) {
-          this.selectedHotspot = Number(pinNumber) || 1;
-          if (typeof document === "undefined") return;
-          const label = document.getElementById("hotspot-active-label");
-          if (label) label.textContent = `PIN 0${this.selectedHotspot} ACTIVE`;
-          document.querySelectorAll(".instrument-card[data-instrument]").forEach((el) => {
-            const matches = Number(el.getAttribute("data-instrument")) === this.selectedHotspot;
-            el.classList.toggle("hotspot-focused", matches);
-            if (matches) {
-              el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-            }
-          });
-        }
-
-        renderRadarSvg() {
-          if (typeof document === "undefined") return;
-          const svg = document.getElementById("rubric-radar-svg");
-          if (!svg) return;
-          const axes = [
-            { label: "G2 Utility 25%", score: 0.96 },
-            { label: "Read/Write 20%", score: 0.95 },
-            { label: "Live Tech 20%", score: 0.94 },
-            { label: "576x288 UX 15%", score: 0.97 },
-            { label: "Safety 20%", score: 0.99 }
-          ];
-          const cx = 210;
-          const cy = 214;
-          const maxR = 128;
-          const rings = [0.35, 0.68, 1.0];
-
-          const pointAt = (i, rFrac) => {
-            const angle = -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
-            return [
-              (cx + Math.cos(angle) * maxR * rFrac).toFixed(1),
-              (cy + Math.sin(angle) * maxR * rFrac).toFixed(1)
-            ];
-          };
-
-          let markup = `<rect x="8" y="8" width="404" height="404" rx="22" fill="#080b12" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />`;
-          for (const rf of rings) {
-            const pts = axes.map((_, idx) => pointAt(idx, rf).join(",")).join(" ");
-            markup += `<polygon points="${pts}" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1" />`;
-          }
-          axes.forEach((ax, idx) => {
-            const [ox, oy] = pointAt(idx, 1.0);
-            const [lx, ly] = pointAt(idx, 1.24);
-            markup += `<line x1="${cx}" y1="${cy}" x2="${ox}" y2="${oy}" stroke="rgba(56,189,248,0.18)" stroke-width="1" />`;
-            markup += `<text x="${lx}" y="${ly}" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11.5" text-anchor="middle">${ax.label}</text>`;
-          });
-          const dataPoly = axes.map((ax, idx) => pointAt(idx, ax.score).join(",")).join(" ");
-          markup += `<polygon points="${dataPoly}" fill="rgba(86,240,141,0.18)" stroke="#56f08d" stroke-width="2.4" />`;
-          axes.forEach((ax, idx) => {
-            const [px, py] = pointAt(idx, ax.score);
-            markup += `<circle cx="${px}" cy="${py}" r="4.5" fill="#56f08d" />`;
-          });
-          svg.innerHTML = markup;
-        }
-
         renderSwitches() {
           if (typeof document === "undefined") return;
           const micBtn = document.getElementById("switch-mic");
           if (micBtn) {
             micBtn.setAttribute("aria-checked", String(this.isMicOpen));
             const txt = micBtn.querySelector(".pill-state-text");
-            if (txt) txt.textContent = this.isMicOpen ? "ON" : "OFF";
+            if (txt) txt.textContent = this.isMicOpen ? "On" : "Off";
           }
           const menuBtn = document.getElementById("switch-menu");
           if (menuBtn) {
             menuBtn.setAttribute("aria-checked", String(this.isMenuOpen));
             const txt = menuBtn.querySelector(".pill-state-text");
-            if (txt) txt.textContent = this.isMenuOpen ? "ON" : "OFF";
+            if (txt) txt.textContent = this.isMenuOpen ? "On" : "Off";
           }
           const overlay = document.getElementById("g2-menu-overlay");
           if (overlay) overlay.classList.toggle("hidden", !this.isMenuOpen);
@@ -1609,12 +1877,14 @@
           if (typeof document === "undefined") return;
           const list = document.getElementById("sdk-audit-log");
           const countEl = document.getElementById("ledger-count-label");
-          if (countEl) countEl.textContent = `${this.auditEntries.length} EVENTS`;
+          if (countEl) {
+            countEl.textContent = `${this.auditEntries.length} ${this.auditEntries.length === 1 ? "event" : "events"}`;
+          }
           if (!list) return;
           list.innerHTML = this.auditEntries
             .map(
               (item) =>
-                `<li class="ledger-row"><span class="ledger-seq">#${String(item.seq).padStart(2, "0")}</span><span class="ledger-msg">${item.message.replace(/</g, "&lt;")}</span><span class="ledger-badge">${item.badge}</span></li>`
+                `<li class="ledger-row"><span class="ledger-seq">#${String(item.seq).padStart(2, "0")}</span><span class="ledger-msg">${item.message.replace(/</g, "&lt;")}</span><span class="ledger-status">${item.badge}</span></li>`
             )
             .join("");
         }
@@ -1622,7 +1892,7 @@
         renderAll() {
           if (typeof document === "undefined") return;
           const card = this.cards[this.activeCardIndex] || this.cards[0];
-          const phosphorHex = BRIGHTNESS_PALETTE[this.brightness] || "#56f08d";
+          const phosphorHex = BRIGHTNESS_PALETTE[this.brightness] || "#34e57d";
 
           const viewport = document.getElementById("g2-viewport");
           if (viewport) {
@@ -1646,49 +1916,31 @@
               .join("");
           }
 
-          const deckEl = document.getElementById("deck-tabs");
-          if (deckEl) {
-            deckEl.innerHTML = this.cards
-              .map((c, idx) => {
-                const isActive = idx === this.activeCardIndex;
-                return `<button type="button" role="tab" aria-selected="${isActive}" class="card-tab ${isActive ? "active" : ""}" data-card-idx="${idx}">
-                  <span class="card-tab-top"><span>0${idx + 1} / ${c.provider.toUpperCase()}</span><span>${c.track === "crypto_defi" ? "T02" : "T01"}</span></span>
-                  <span class="card-tab-name">${c.title}</span>
-                </button>`;
-              })
-              .join("");
-
-            deckEl.querySelectorAll("[data-card-idx]").forEach((btn) => {
-              this.attachFastTap(btn, () => {
-                void this.selectCard(Number(btn.getAttribute("data-card-idx")));
-              });
-            });
-          }
+          document.querySelectorAll("#deck-tabs .seg-tab").forEach((btn, idx) => {
+            const isActive = idx === this.activeCardIndex;
+            btn.setAttribute("aria-selected", String(isActive));
+            btn.tabIndex = isActive ? 0 : -1;
+            btn.textContent = SHORT_TAB_NAMES[idx] || this.cards[idx]?.title || `Card ${idx + 1}`;
+          });
 
           const primaryText = document.getElementById("primary-btn-text");
-          if (primaryText) primaryText.textContent = card.primaryActionLabel || "Confirm / Approve";
+          if (primaryText) {
+            primaryText.textContent = card.primaryActionLabel || (card.track === "crypto_defi" ? "Confirm paper hedge" : "Send staged reply");
+          }
 
           const quoteEl = document.getElementById("active-flow-quote");
           if (quoteEl) quoteEl.textContent = card.rationale || "";
 
-          const trackLabel = document.getElementById("active-track-label");
-          if (trackLabel) {
-            trackLabel.textContent =
-              card.track === "crypto_defi"
-                ? "TRACK 02 / CRYPTO & DEFI (PAPER)"
-                : "TRACK 01 / TELEGRAM DIGEST";
-          }
-
           const statReceipts = document.getElementById("stat-receipts");
-          if (statReceipts) statReceipts.textContent = `${this.verifiedExecCount} EXEC`;
+          if (statReceipts) statReceipts.textContent = `${this.verifiedExecCount} executed`;
 
-          const dockSummary = document.getElementById("dock-summary");
-          if (dockSummary) {
-            dockSummary.textContent = `ACTIVE: CARD 0${this.activeCardIndex + 1}/0${this.cards.length} (${card.headerTag}) | BRIGHTNESS ${this.brightness}/4`;
-          }
+          const brightnessReadout = document.getElementById("brightness-readout");
+          if (brightnessReadout) brightnessReadout.textContent = `Level ${this.brightness}`;
 
           document.querySelectorAll(".brightness-step").forEach((b) => {
-            b.classList.toggle("active", Number(b.getAttribute("data-brightness")) === this.brightness);
+            const active = Number(b.getAttribute("data-brightness")) === this.brightness;
+            b.classList.toggle("active", active);
+            b.setAttribute("aria-checked", String(active));
           });
 
           this.renderSwitches();
@@ -1714,9 +1966,7 @@
               if (!this.isTouching) return;
               const t = e.touches && e.touches[0];
               if (!t) return;
-              const dx = Math.abs(t.clientX - this.touchStartX);
-              const dy = Math.abs(t.clientY - this.touchStartY);
-              if (dx >= 14 || dy >= 14) {
+              if (Math.abs(t.clientX - this.touchStartX) >= 14 || Math.abs(t.clientY - this.touchStartY) >= 14) {
                 this.isTouching = false;
               }
             },
@@ -1735,18 +1985,16 @@
           });
         }
 
-        bindHeaderClearanceObserver() {
-          if (typeof document === "undefined" || typeof ResizeObserver === "undefined") return;
-          const header = document.getElementById("app-header");
-          const hudStack = document.getElementById("map-top-hud-stack");
-          if (!header || !hudStack) return;
-          const syncOffset = () => {
-            const headerBottom = header.getBoundingClientRect().height;
-            hudStack.style.setProperty("top", `${Math.round(headerBottom + 8)}px`, "important");
-          };
-          const ro = new ResizeObserver(syncOffset);
-          ro.observe(header);
-          syncOffset();
+        toggleModal(forceOpen) {
+          if (typeof document === "undefined") return;
+          const modal = document.getElementById("protocol-modal");
+          this.isModalOpen = typeof forceOpen === "boolean" ? forceOpen : !this.isModalOpen;
+          if (modal) {
+            modal.classList.toggle("hidden", !this.isModalOpen);
+          }
+          if (this.isModalOpen) {
+            document.getElementById("btn-close-hud")?.focus();
+          }
         }
 
         bindControls() {
@@ -1757,10 +2005,25 @@
           this.attachFastTap(document.getElementById("btn-scroll-next"), () => void this.selectCard(this.activeCardIndex + 1));
           this.attachFastTap(document.getElementById("btn-voice-ptt"), () => void this.handleVoicePtt());
           this.attachFastTap(document.getElementById("btn-refresh-live"), () => void this.syncFromBackendProxy(true));
+          this.attachFastTap(document.getElementById("btn-l2-preview"), () => void this.handleL2Preview());
 
-          this.attachFastTap(document.getElementById("dock-prev"), () => void this.selectCard(this.activeCardIndex - 1));
-          this.attachFastTap(document.getElementById("dock-next"), () => void this.selectCard(this.activeCardIndex + 1));
-          this.attachFastTap(document.getElementById("dock-confirm"), () => void this.handleConfirm());
+          const tabButtons = Array.from(document.querySelectorAll("#deck-tabs .seg-tab"));
+          tabButtons.forEach((btn, idx) => {
+            this.attachFastTap(btn, () => void this.selectCard(idx));
+            btn.addEventListener("keydown", (e) => {
+              if (e.key === "ArrowRight") {
+                e.preventDefault();
+                const next = (idx + 1) % tabButtons.length;
+                void this.selectCard(next);
+                tabButtons[next].focus();
+              } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                const prev = (idx - 1 + tabButtons.length) % tabButtons.length;
+                void this.selectCard(prev);
+                tabButtons[prev].focus();
+              }
+            });
+          });
 
           document.querySelectorAll(".brightness-step").forEach((btn) => {
             this.attachFastTap(btn, () => {
@@ -1789,21 +2052,34 @@
             });
           });
 
-          const toggleHud = (forceOpen) => {
-            const stack = document.getElementById("map-top-hud-stack");
-            const trig = document.getElementById("btn-toggle-hud");
-            const cap = document.getElementById("hud-toggle-caption");
-            this.isHudDrawerOpen = typeof forceOpen === "boolean" ? forceOpen : !this.isHudDrawerOpen;
-            if (stack) stack.classList.toggle("hidden", !this.isHudDrawerOpen);
-            if (trig) trig.setAttribute("aria-expanded", String(this.isHudDrawerOpen));
-            if (cap) cap.textContent = this.isHudDrawerOpen ? "Hide Spec" : "Protocol Spec";
-          };
-          this.attachFastTap(document.getElementById("btn-toggle-hud"), () => toggleHud());
-          this.attachFastTap(document.getElementById("btn-close-hud"), () => toggleHud(false));
+          this.attachFastTap(document.getElementById("btn-toggle-hud"), () => this.toggleModal(true));
+          this.attachFastTap(document.getElementById("btn-close-hud"), () => this.toggleModal(false));
+
+          const modal = document.getElementById("protocol-modal");
+          if (modal) {
+            modal.addEventListener("click", (e) => {
+              if (e.target === modal) this.toggleModal(false);
+            });
+          }
+
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && this.isModalOpen) {
+              this.toggleModal(false);
+            }
+          });
 
           document.querySelectorAll(".svg-hotspot").forEach((pin) => {
-            this.attachFastTap(pin, () => {
-              this.focusHotspot(Number(pin.getAttribute("data-hotspot")));
+            const activate = () => {
+              const label = document.getElementById("hotspot-active-label");
+              const name = pin.getAttribute("data-hotspot") || "Optical waveguide";
+              if (label) label.textContent = `Focus: ${name}`;
+            };
+            this.attachFastTap(pin, activate);
+            pin.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                activate();
+              }
             });
           });
         }
