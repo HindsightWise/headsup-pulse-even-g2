@@ -157,7 +157,7 @@ In compliance with Hackathon `#2477` rules (*"has disclosed in the README any co
 - **Pre-Nov-23 initial repository scaffold (`commits b563869..7d7322e`, `2026-11-21` to `2026-11-22 UTC`):**
   - Initial repository layout (`app.json`, `EventBus` optical/safety invariants, Even Hub SDK `0.0.16` WebView host adapter, `576x288` Dark Studio simulator shell, baseline feeds, and initial demo media) prepared before `2026-11-23T08:00:00Z`.
 - **Nov 23+ (`2026-11-23 UTC` onward) Hackathon Feature Engineering:**
-  - Built live Telegram Bot API `getUpdates` polling (`normalizeTelegramBotUpdates`, `ingestBotApiUpdates`, `pollTelegramUpdates`, `POST /api/telegram/poll` with offset deduplication), Hyperliquid `l2Book` VWAP slippage simulation (`simulateL2OrderBookImpact`, `previewL2OrderImpact`, `POST /api/market/l2-preview`), expanded `7/7` automated tests, upgraded demo walkthrough, and judge-ready documentation.
+  - Added live Telegram `getUpdates` polling (`normalizeTelegramBotUpdates`, `ingestBotApiUpdates`, `pollTelegramUpdates`, `POST /api/telegram/poll`) with offset deduplication. Also built Hyperliquid `l2Book` VWAP slippage simulation (`simulateL2OrderBookImpact`, `previewL2OrderImpact`, `POST /api/market/l2-preview`), `7/7` tests, and upgraded demo docs.
 
 ---
 
