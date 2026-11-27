@@ -10,11 +10,17 @@ Built for **Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub (`#247
 
 ---
 
-## Visual Previews (576x288 Dark Studio Optical Workbench)
+## Visual Previews (576x288 Midnight Exhibition Plinth)
 
 | Desktop Workbench (`1440 x 900`) | Mobile Companion (`428 x 926`) |
 | :--: | :--: |
 | ![HeadsUp Pulse Desktop Workbench](outputs/desktop_1440x900_2x.png) | ![HeadsUp Pulse Mobile Companion](outputs/mobile_428x926_3x.png) |
+
+### Official `@evenrealities/evenhub-simulator@0.9.5` 576x288 Lens Captures
+
+| Official `@evenrealities/evenhub-simulator` 576x288 Lens — Live Hyperliquid BTC Perp | Official Simulator 576x288 Lens — Contextual `menuObject` Overlay |
+| :--: | :--: |
+| ![Official evenhub-simulator 576x288 Lens Live Hyperliquid BTC Perp](outputs/official_evenhub_sim_btc_576x288.png) | ![Official Simulator 576x288 Lens Contextual menuObject Overlay](outputs/official_evenhub_sim_menu_576x288.png) |
 
 ---
 
@@ -24,7 +30,7 @@ Built for **Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub (`#247
 | :-- | :--: | :-- |
 | **Usefulness on G2** | **30%** | Replaces phone-checking during meetings or transit with a 30-second eyes-up loop uniting priority Telegram alerts, Hyperliquid perps, and Polymarket odds. |
 | **Read and write** | **25%** | Pairs 4-line glanceable reads with 1-tap R1 Ring / temple confirmations, push-to-talk voice replies (`audioControl` + `/api/stt/transcribe`), and `l2Book` VWAP paper hedges. |
-| **Technical execution** | **20%** | Enforces zero-sibling vertical slices (`src/app.mjs`), official `@evenrealities/even_hub_sdk@0.0.16` container validation, CORS/safety proxy gates, and `7/7` passing automated tests. |
+| **Technical execution** | **20%** | Enforces zero-sibling vertical slices (`src/app.mjs`), official `@evenrealities/even_hub_sdk@0.0.16` validation, real `web/index.html` Even Hub WebView bridge, official `@evenrealities/evenhub-simulator@0.9.5` verification, and `8/8` passing tests. |
 | **UX for display and voice** | **15%** | Respects `576x288` monochrome green optics (`<= 4` lines, `<= 44` chars/line, `textColor` `0..4`, `menuObject` `<= 32` UTF-8 bytes) plus beamforming glasses mic (`speakerRole: "self"`). |
 | **Business potential and safety** | **10%** | Ships a freemium `.ehpk` Even Hub Catalogue path with strict `PAPER_TRADING_ONLY = true`, HTTP `403` safety locks, zero custody, and zero client secrets. |
 
@@ -89,7 +95,7 @@ flowchart LR
 
 ### Vertical-Slice Code Topology
 
-1. `src/kernel/event_bus.mjs`: Exports `getG2Invariants`, `clampBrightness`, `formatGlanceLines`, `validateG2CardSpec`, `assertPaperTradingSafety`, `TOPICS`, and immutable `EventBus`.
+1. `src/kernel/event_bus.mjs`: Exports `getG2Invariants`, `measureG2TextWidthPx`, `fitsG2Width`, `truncateG2LineByPx`, `clampBrightness`, `formatGlanceLines`, `validateG2CardSpec`, `assertPaperTradingSafety`, `TOPICS`, and immutable `EventBus`.
 2. `src/features/sdk_bridge/index.mjs`: Exports `installMockFlutterWebViewHost`, `loadEvenHubSdk`, `buildEvenG2PageContainer`, `assertStrictPageContainerContract`, and `EvenG2BridgeController` over `@evenrealities/even_hub_sdk@0.0.16`.
 3. `src/features/market_pulse/index.mjs`: Exports `MarketPulseEngine` and `simulateL2OrderBookImpact` for live Hyperliquid `metaAndAssetCtxs`, `allMids`, `l2Book` VWAP slippage previews, and Polymarket Gamma odds.
 4. `src/features/telegram_digest/index.mjs`: Exports `TelegramDigestEngine` and `normalizeTelegramBotUpdates` for allowlist-only Telegram Bot API `getUpdates` ingestion, offset deduplication, and 1-tap AI or voice replies.
@@ -127,7 +133,7 @@ To enable live Telegram Bot API polling and outbound message delivery (optional;
 TELEGRAM_BOT_TOKEN="<your_bot_token>" TELEGRAM_DEFAULT_CHAT_ID="<your_chat_id>" node src/cli.mjs --serve --port 8787
 ```
 
-4. **Run the automated test suite (`7/7` passing):**
+4. **Run the automated test suite (`8/8` passing):**
 ```bash
 npm test
 ```
@@ -138,8 +144,13 @@ Verified suite coverage in `tests/headsup_pulse.test.mjs`:
 - Test 3: Official `@evenrealities/even_hub_sdk@0.0.16` lifecycle, `zOrderIndex` validation, `textColor` `0..4`, microphone PCM frames, and R1 Ring / menu events.
 - Test 4: Dual-track `MarketPulseEngine` and `TelegramDigestEngine` noise filtering, voice reply staging, and paper order receipts.
 - Test 5: Real TCP HTTP proxy, CORS origin rejection (`403`), live-mainnet safety rejection (`403`), BYO-STT, and zero-leak server-side `TELEGRAM_BOT_TOKEN` routing.
-- Test 6: `live_session_bundle.json` container validation, Dark Studio UI artistry gate (`M >= 0.68`), DoraHacks Build preflight (`0` errors / `0` warnings), and prose hygiene.
+- Test 6: `live_session_bundle.json` container validation, Midnight Exhibition Plinth UI artistry gate (`M >= 0.68`), DoraHacks Build preflight (`0` errors / `0` warnings), and prose hygiene.
 - Test 7: Live Telegram `getUpdates` offset deduplication, Hyperliquid Testnet `l2Book` VWAP slippage preview, and `POST /api/market/l2-preview` safety lock (`403`).
+- Test 8: Pixel-exact Even G2 LVGL font metrics (`measureG2TextWidthPx` matching `@evenrealities/pretext@0.1.4`), `paddingLength: 0`, `borderWidth: 0`, zero overflow/clip/bleed, and real `web/index.html` WebView bridge contract.
+
+### Official Even Hub Simulator Verification
+- Verified live inside `@evenrealities/evenhub-simulator@0.9.5` connected to `http://127.0.0.1:8787` via the real `web/index.html` Flutter WebView bridge (`evenAppMessage` + `_listenEvenAppMessage`).
+- All 4 cards, voice reply staging, and the contextual `menuObject` overlay render on the `576x288` lens with zero overflow, zero ragged wrap, and zero edge bleed.
 
 ---
 
@@ -164,7 +175,7 @@ In compliance with Hackathon `#2477` rules (*"has disclosed in the README any co
 - **Pre-existing external open-source packages & fonts:**
   - `@evenrealities/even_hub_sdk@0.0.16` (MIT License, official Even Realities WebView SDK).
   - Node.js built-in modules (`node:http`, `node:test`, `node:assert`, `node:crypto`, `node:fs`).
-  - SIL Open Font License 1.1 web fonts (`Inter`, `Instrument Serif`, `JetBrains Mono`).
+  - SIL Open Font License 1.1 web fonts (`Plus Jakarta Sans`, `JetBrains Mono`).
 - **Pre-existing public APIs:**
   - Hyperliquid Mainnet & Testnet Info HTTP endpoints (`https://api.hyperliquid.xyz/info`, `https://api.hyperliquid-testnet.xyz/info`).
   - Polymarket Gamma Markets REST endpoint (`https://gamma-api.polymarket.com/markets`).
@@ -174,7 +185,7 @@ In compliance with Hackathon `#2477` rules (*"has disclosed in the README any co
 - **Pre-Nov-23 initial repository scaffold (`commits b563869..7d7322e`, `2026-11-21` to `2026-11-22 UTC`):**
   - Initial repository layout (`app.json`, `EventBus` optical/safety invariants, Even Hub SDK `0.0.16` WebView host adapter, `576x288` Dark Studio simulator shell, baseline feeds, and initial demo media) prepared before `2026-11-23T08:00:00Z`.
 - **Nov 23+ (`2026-11-23 UTC` onward) Hackathon Feature Engineering:**
-  - Added live Telegram `getUpdates` polling (`normalizeTelegramBotUpdates`, `ingestBotApiUpdates`, `pollTelegramUpdates`, `POST /api/telegram/poll`) with offset deduplication. Also built Hyperliquid `l2Book` VWAP slippage simulation (`simulateL2OrderBookImpact`, `previewL2OrderImpact`, `POST /api/market/l2-preview`), `7/7` tests, and upgraded demo docs.
+  - Added live Telegram `getUpdates` polling (`POST /api/telegram/poll`), Hyperliquid `l2Book` VWAP slippage (`POST /api/market/l2-preview`), and the redesigned Midnight Exhibition Plinth workbench. Also built pixel-exact G2 LVGL width checks, the real `web/index.html` WebView bridge, official `@evenrealities/evenhub-simulator@0.9.5` verification, and `8/8` tests.
 
 ---
 
@@ -186,7 +197,7 @@ Per organizer `danel` in DoraHacks Q&A `#1562275` (*"Yes, AI-assisted coding is 
 
 ## Five Concrete API Feature Requests for Ecosystem Teams
 
-1. **Even Hub SDK (`@evenrealities/even_hub_sdk`) — Glyph Pixel-Width Helper:** `textContainerUpgrade` accepts UTF-8 strings for `576x288` containers without exposing firmware glyph advance widths, forcing conservative `44`-character caps. Exposing `measureGlassesTextWidth(text, containerWidth)` or a monospace flag on `TextContainerProperty` would prevent unexpected wraps on numeric tickers.
+1. **Even Hub SDK (`@evenrealities/even_hub_sdk`) — Native Glyph Measurement & Monospace Flag:** `@evenrealities/pretext` helps measure `evenroster` widths offline, while `textContainerUpgrade` still lacks firmware-native metrics. Exposing `measureGlassesTextWidth(text, containerWidth)` directly in `@evenrealities/even_hub_sdk` plus a monospace flag on `TextContainerProperty` would keep dense numeric tickers aligned across firmware updates.
 2. **Even Hub SDK (`@evenrealities/even_hub_sdk`) — Optical Confirmation Micro-Pulse:** Even G2 omits speakers, so 1-tap confirmations rely on full text rewrites. Adding a lightweight `flashContainerAck(containerID, durationMs)` primitive would confirm R1 Ring taps in `< 80 ms` with minimal BLE traffic.
 3. **Telegram API — Scoped Read-Only Digest Pairing Token:** Reading followed channels in a WebView currently requires adding a bot per channel or holding a full MTProto user session. A revocable `channels:read_digest` pairing-code token would let wearable companions summarize chosen channels safely without full account privileges.
 4. **Hyperliquid API — Unsigned `/info` Order Impact Endpoint:** Support `{"type": "simulateOrder", "coin": "BTC", "isBuy": false, "sz": "0.01"}` on `/info` without an L1 signature. Returning L2 VWAP fill and fee impact lets smart glasses preview depth before phone signing.

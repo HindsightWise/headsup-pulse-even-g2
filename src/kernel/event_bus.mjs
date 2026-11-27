@@ -7,6 +7,10 @@
 
 export const DISPLAY_WIDTH = 576;
 export const DISPLAY_HEIGHT = 288;
+export const G2_LINE_HEIGHT_PX = 27;
+export const G2_INNER_WIDTH_PX = 544;
+export const G2_HEADER_HEIGHT_PX = 36;
+export const G2_BODY_HEIGHT_PX = 216;
 export const MAX_VISIBLE_LINES = 4;
 export const MAX_LINE_CHARS = 44;
 export const MIN_BRIGHTNESS = 0;
@@ -17,6 +21,88 @@ export const MAX_TEXT_CONTAINERS = 8;
 export const MAX_MENU_ITEMS = 10;
 export const MAX_MENU_ITEM_BYTES = 32;
 export const PAPER_TRADING_ONLY = true;
+
+// Official Even G2 LVGL `evenroster` ASCII 32..126 glyph advance widths in 1/16 px
+// calibrated to `@evenrealities/pretext@0.1.4` (`dist/font_measure.js`).
+const G2_EVENROSTER_ADV_1_16 = Object.freeze({
+  32: 80, 33: 64, 34: 96, 35: 240, 36: 208, 37: 224, 38: 256, 39: 64,
+  40: 112, 41: 112, 42: 128, 43: 160, 44: 80, 45: 160, 46: 80, 47: 128,
+  48: 192, 49: 128, 50: 192, 51: 192, 52: 208, 53: 192, 54: 192, 55: 208,
+  56: 192, 57: 192, 58: 64, 59: 80, 60: 160, 61: 160, 62: 160, 63: 192,
+  64: 272, 65: 224, 66: 192, 67: 192, 68: 192, 69: 176, 70: 176, 71: 192,
+  72: 192, 73: 96, 74: 144, 75: 192, 76: 160, 77: 256, 78: 192, 79: 192,
+  80: 192, 81: 192, 82: 192, 83: 192, 84: 192, 85: 192, 86: 224, 87: 256,
+  88: 224, 89: 224, 90: 208, 91: 112, 92: 128, 93: 112, 94: 160, 95: 144,
+  97: 192, 98: 176, 99: 176, 100: 176, 101: 176, 102: 160, 103: 176, 104: 176,
+  105: 64, 106: 112, 107: 160, 108: 64, 109: 256, 110: 176, 111: 176, 112: 176,
+  113: 176, 114: 128, 115: 176, 116: 128, 117: 192, 118: 192, 119: 256, 120: 192,
+  121: 192, 122: 160, 123: 144, 124: 64, 125: 144, 126: 256,
+});
+
+export function measureG2GlyphWidthPx(codePoint) {
+  if (!Number.isFinite(codePoint) || codePoint < 32) {
+    return 0;
+  }
+  const raw = G2_EVENROSTER_ADV_1_16[codePoint];
+  if (raw !== undefined) {
+    return (raw + 8) >> 4;
+  }
+  // Printable non-ASCII / unmapped glyph fallback matching pretext (4 px default, 16 px wide CJK)
+  return codePoint >= 0x2e80 ? 16 : 4;
+}
+
+export function measureG2TextWidthPx(text) {
+  const str = String(text ?? "");
+  let totalPx = 0;
+  for (const ch of str) {
+    totalPx += measureG2GlyphWidthPx(ch.codePointAt(0));
+  }
+  return totalPx;
+}
+
+export function fitsG2Width(text, maxWidthPx = G2_INNER_WIDTH_PX) {
+  const str = String(text ?? "");
+  const segments = str.split("\n");
+  let maxObservedPx = 0;
+  let wrappedLines = 0;
+  for (const seg of segments) {
+    const w = measureG2TextWidthPx(seg);
+    if (w > maxObservedPx) {
+      maxObservedPx = w;
+    }
+    wrappedLines += Math.max(1, Math.ceil(Math.max(1, w) / Math.max(1, maxWidthPx)));
+  }
+  return {
+    fits: maxObservedPx <= maxWidthPx && wrappedLines === segments.length,
+    widthPx: maxObservedPx,
+    maxWidthPx,
+    lineCount: wrappedLines,
+  };
+}
+
+export function truncateG2LineByPx(
+  rawLine,
+  maxWidthPx = G2_INNER_WIDTH_PX,
+  maxChars = MAX_LINE_CHARS
+) {
+  let candidate = truncateGlanceLine(rawLine, maxChars);
+  if (measureG2TextWidthPx(candidate) <= maxWidthPx) {
+    return candidate;
+  }
+  const tildePx = measureG2GlyphWidthPx(126); // '~'
+  const budget = Math.max(tildePx, maxWidthPx - tildePx);
+  let acc = "";
+  let px = 0;
+  for (const ch of candidate) {
+    const w = measureG2GlyphWidthPx(ch.codePointAt(0));
+    if (px + w > budget) {
+      break;
+    }
+    acc += ch;
+    px += w;
+  }
+  return `${acc.trimEnd()}~`;
+}
 
 export function isCorruptGateControlActive() {
   return (
@@ -143,7 +229,7 @@ export function formatGlanceLines(lines, maxLines = MAX_VISIBLE_LINES, maxChars 
     ]);
   }
   const cleaned = rawList
-    .map((entry) => truncateGlanceLine(entry, maxChars))
+    .map((entry) => truncateG2LineByPx(entry, G2_INNER_WIDTH_PX, maxChars))
     .filter((entry) => entry.length > 0)
     .slice(0, maxLines);
 

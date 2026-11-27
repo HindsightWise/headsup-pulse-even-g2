@@ -12,7 +12,7 @@ Active crypto operators and builders constantly pull out their phones during mee
 
 - **Usefulness on G2 (30%):** Replaces phone-checking during meetings or transit with a 30-second eyes-up loop linking Telegram alerts, Hyperliquid perps, and Polymarket odds.
 - **Read and write (25%):** Combines 4-line glanceable reads with 1-tap R1 Ring confirmations, push-to-talk voice replies (`audioControl` + `/api/stt/transcribe`), and `l2Book` VWAP paper hedges.
-- **Technical execution (20%):** Enforces zero-sibling vertical slices (`src/app.mjs`), official `@evenrealities/even_hub_sdk@0.0.16` validation, CORS/safety gates, and `7/7` passing automated tests.
+- **Technical execution (20%):** Enforces zero-sibling vertical slices (`src/app.mjs`), official `@evenrealities/even_hub_sdk@0.0.16` validation, real `web/index.html` Even Hub bridge, official `@evenrealities/evenhub-simulator@0.9.5` checks, and `8/8` passing tests.
 - **UX for display and voice (15%):** Fits `576 x 288` monochrome optics (`<= 4` lines, `<= 44` chars/line, `textColor` `0..4`, `menuObject` `<= 32` UTF-8 bytes) with beamforming glasses mic capture.
 - **Business potential and safety (10%):** Targets a freemium `.ehpk` Even Hub Catalogue model backed by `PAPER_TRADING_ONLY = true`, HTTP `403` safety locks, zero custody, and zero client secrets.
 
@@ -20,7 +20,7 @@ Active crypto operators and builders constantly pull out their phones during mee
 
 HeadsUp Pulse uses a strict vertical-slice architecture (`Invariants -> Schema -> Ledger -> State Engine -> Pipe -> Paint`) built on official **`@evenrealities/even_hub_sdk@0.0.16`**:
 
-1. **Optical & Safety Kernel (`src/kernel/event_bus.mjs`):** Enforces `576 x 288` bounds, `<= 4` visible lines, `<= 44` chars per line, integer `textColor` brightness `0..4`, and `PAPER_TRADING_ONLY = true` over an immutable `EventBus`.
+1. **Optical & Safety Kernel (`src/kernel/event_bus.mjs`):** Enforces `576 x 288` bounds, pixel-exact LVGL width checks (`measureG2TextWidthPx`, `fitsG2Width`, `paddingLength: 0`, `borderWidth: 0`), `<= 4` lines, `textColor` `0..4`, and `PAPER_TRADING_ONLY = true` over `EventBus`.
 2. **Official Even Hub SDK Bridge (`src/features/sdk_bridge/index.mjs`):** Calls `waitForEvenAppBridge()`, `createStartUpPageContainer()`, `textContainerUpgrade()`, `rebuildPageContainer()`, `audioControl(true, AudioInputSource.Glasses)`, and `onEvenHubEvent()`. Every frame enforces unique `zOrderIndex`, a single `isEventCapture: 1`, `<= 32` UTF-8 byte `menuObject` items, and passes `validateEvenHubPageContainer()`.
 3. **Priority Telegram Digest Slice (`src/features/telegram_digest/index.mjs`):** Parses Telegram `getUpdates` payloads (`normalizeTelegramBotUpdates`, `ingestBotApiUpdates`) and supports 1-tap AI or voice replies. Links `@HyperliquidAlphaDesk` funding alerts one scroll away from the Hyperliquid Testnet hedge.
 4. **Live Hyperliquid & Polymarket Slice (`src/features/market_pulse/index.mjs`):** Queries `https://api.hyperliquid.xyz/info`, `https://api.hyperliquid-testnet.xyz/info` (`metaAndAssetCtxs`, `allMids`, `l2Book` VWAP preview), and `https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=5` with deterministic offline fallback and zero custody.
@@ -28,17 +28,17 @@ HeadsUp Pulse uses a strict vertical-slice architecture (`Invariants -> Schema -
 
 ## Demo Walkthrough & Verification
 
-Run the end-to-end verification suite and interactive `576 x 288` Dark Studio waveguide workbench locally in four commands:
+Run the end-to-end verification suite and interactive `576 x 288` Midnight Exhibition Plinth waveguide workbench locally in four commands:
 
 1. Install dependencies: `npm install`
 2. Fetch live Hyperliquid and Polymarket feeds and validate all four Even G2 SDK containers into `outputs/live_session_bundle.json`: `node src/cli.mjs`
 3. Launch the local proxy and interactive Even G2 + R1 Ring workbench at `http://127.0.0.1:8787`: `node src/cli.mjs --serve --port 8787`
-4. Run unit, AST boundary, CORS, safety-lock, artistry, and SDK container tests (`7/7` passing): `npm test`
+4. Run unit, AST boundary, CORS, safety-lock, artistry, pixel-exact LVGL, and real WebView bridge tests (`8/8` passing): `npm test`
 
 - **Repository:** https://github.com/HindsightWise/headsup-pulse-even-g2
 - **Upgraded Demo Video (H.264 MP4):** https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/demo_walkthrough.mp4
 
-The repository `README.md` documents our **Pre-Nov-23 Open-Source, Scaffold & API Disclosure** (`commits b563869..7d7322e` scaffold vs. Nov 23+ Telegram `getUpdates`, Hyperliquid `l2Book` VWAP, and `7/7` tests). It also includes our **AI-Assisted Coding Disclosure** (organizer `danel`, Q&A `#1562275`), **Money-Safety Notice** (paper/testnet only, HTTP `403` safety lock, zero custody, zero committed keys), and **5 Concrete API Feature Requests**.
+The repository `README.md` documents our **Pre-Nov-23 Open-Source, Scaffold & API Disclosure** (`commits b563869..7d7322e` scaffold vs. Nov 23+ Telegram `getUpdates`, Hyperliquid `l2Book` VWAP, official `@evenrealities/evenhub-simulator@0.9.5` checks, and `8/8` tests). It also includes our **AI-Assisted Coding Disclosure** (organizer `danel`, Q&A `#1562275`), **Money-Safety Notice** (paper/testnet only, HTTP `403` safety lock, zero custody, zero committed keys), and **5 Concrete API Feature Requests**.
 
 ## Business Potential & Roadmap
 

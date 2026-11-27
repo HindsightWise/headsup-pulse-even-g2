@@ -10,6 +10,10 @@ import {
   DISPLAY_HEIGHT,
   DISPLAY_WIDTH,
   EventBus,
+  G2_BODY_HEIGHT_PX,
+  G2_HEADER_HEIGHT_PX,
+  G2_INNER_WIDTH_PX,
+  G2_LINE_HEIGHT_PX,
   MAX_BRIGHTNESS,
   MAX_LINE_CHARS,
   MAX_VISIBLE_LINES,
@@ -17,8 +21,11 @@ import {
   TOPICS,
   assertPaperTradingSafety,
   clampBrightness,
+  fitsG2Width,
   formatGlanceLines,
   getG2Invariants,
+  measureG2TextWidthPx,
+  truncateG2LineByPx,
   validateG2CardSpec,
 } from "../src/kernel/event_bus.mjs";
 import {
@@ -719,4 +726,97 @@ test("7. Nov 23 live Telegram getUpdates polling and Hyperliquid L2 VWAP slippag
     runtime.server.close();
     await runtime.shutdown();
   }
+});
+
+test("8. Pixel-exact Even G2 LVGL font metrics, zero overflow/clip/bleed, and real WebView bridge contract", async () => {
+  const sdk = await loadEvenHubSdk();
+  const bus = new EventBus();
+  const market = new MarketPulseEngine({ eventBus: bus });
+  const telegram = new TelegramDigestEngine({ eventBus: bus });
+
+  await market.refreshFeeds({ forceOffline: true });
+  telegram.stageVoiceReply({
+    cardId: "card-tg-ops-reply",
+    transcript: "Confirmed 15:20 GMT+4 remote slot. Ready.",
+  });
+
+  const marketCards = market.buildGlanceCards();
+  const tgCards = telegram.buildDigestCards();
+  const orderedCards = [tgCards[0], marketCards[0], marketCards[1], tgCards[1]];
+
+  // Verify wide-glyph truncation enforces <= 544px inner width even for all-'W' lines
+  const wideLine = truncateG2LineByPx("W".repeat(44), G2_INNER_WIDTH_PX, MAX_LINE_CHARS);
+  assert.ok(measureG2TextWidthPx(wideLine) <= G2_INNER_WIDTH_PX);
+
+  for (let i = 0; i < orderedCards.length; i += 1) {
+    const card = orderedCards[i];
+    const page = buildEvenG2PageContainer(card, sdk, {
+      cardIndex: i,
+      totalCards: orderedCards.length,
+    });
+    const sdkRes = sdk.validateEvenHubPageContainer(page);
+    assert.equal(sdkRes.valid, true, `SDK validation failed for ${card.id}`);
+
+    const [headerObj, bodyObj] = page.textObject;
+    assert.equal(headerObj.paddingLength, 0);
+    assert.equal(headerObj.borderWidth, 0);
+    assert.equal(headerObj.width, G2_INNER_WIDTH_PX);
+    assert.equal(headerObj.height, G2_HEADER_HEIGHT_PX);
+    assert.ok(headerObj.height >= G2_LINE_HEIGHT_PX);
+
+    const hdrFit = fitsG2Width(headerObj.content, G2_INNER_WIDTH_PX);
+    assert.equal(hdrFit.fits, true, `Header overflow on ${card.id}: ${hdrFit.widthPx}px`);
+    assert.equal(hdrFit.lineCount, 1);
+
+    assert.equal(bodyObj.paddingLength, 0);
+    assert.equal(bodyObj.borderWidth, 0);
+    assert.equal(bodyObj.width, G2_INNER_WIDTH_PX);
+    assert.equal(bodyObj.height, G2_BODY_HEIGHT_PX);
+    assert.ok(bodyObj.height >= MAX_VISIBLE_LINES * G2_LINE_HEIGHT_PX);
+
+    const bodyLines = bodyObj.content.split("\n");
+    assert.ok(bodyLines.length >= 1 && bodyLines.length <= MAX_VISIBLE_LINES);
+    for (const line of bodyLines) {
+      const lineFit = fitsG2Width(line, G2_INNER_WIDTH_PX);
+      assert.equal(lineFit.fits, true, `Body line overflow on ${card.id}: "${line}" (${lineFit.widthPx}px)`);
+      assert.equal(lineFit.lineCount, 1);
+    }
+  }
+
+  // Verify web/index.html sends real official SDK payloads with zero unknown properties
+  const html = await fs.readFile(path.join(PROJECT_ROOT, "web", "index.html"), "utf8");
+  assert.doesNotMatch(html, /zOrderValidated|isEventCaptureCount/);
+  assert.match(html, /paddingLength:\s*0/);
+  assert.match(html, /borderWidth:\s*0/);
+  assert.match(html, /contentOffset:\s*0/);
+  assert.match(html, /contentLength:\s*headerObj\.content\.length/);
+  assert.match(html, /window\._listenEvenAppMessage\s*=/);
+  assert.match(html, /rebuildPageContainer/);
+  assert.match(html, /isProto3DefaultClick/);
+
+  // Regression: exact evenhub-simulator@0.9.5 wire envelopes (proto3 zero-omitted click + textEvent scroll)
+  const simBus = new EventBus();
+  const simController = new EvenG2BridgeController({ eventBus: simBus });
+  await simController.init();
+  const simGestures = [];
+  simBus.subscribe(TOPICS.GLASSES_INPUT_GESTURE, (e) => simGestures.push(e.payload));
+
+  globalThis.window._listenEvenAppMessage({
+    type: "ListenEvenAppData",
+    method: "evenHubEvent",
+    data: ["sysEvent", { eventSource: 1 }],
+  });
+  globalThis.window._listenEvenAppMessage({
+    type: "ListenEvenAppData",
+    method: "evenHubEvent",
+    data: ["textEvent", { containerID: 2, containerName: "hud-body", eventType: 2 }],
+  });
+
+  assert.equal(simGestures.length, 2);
+  assert.equal(simGestures[0].gesture, "TAP_CONFIRM");
+  assert.equal(simGestures[0].source, "GLASSES_R");
+  assert.equal(simGestures[1].gesture, "SCROLL_NEXT");
+
+  await simController.shutdown(0);
+  telegram.dispose();
 });

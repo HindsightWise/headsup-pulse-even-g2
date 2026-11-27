@@ -12,15 +12,21 @@
 import {
   DISPLAY_WIDTH,
   DISPLAY_HEIGHT,
+  G2_BODY_HEIGHT_PX,
+  G2_HEADER_HEIGHT_PX,
+  G2_INNER_WIDTH_PX,
+  G2_LINE_HEIGHT_PX,
   MAX_CONTAINERS_PER_PAGE,
   MAX_TEXT_CONTAINERS,
   MAX_MENU_ITEMS,
   MAX_MENU_ITEM_BYTES,
   TOPICS,
   clampBrightness,
+  fitsG2Width,
   formatGlanceLines,
   isStrictBrightnessInteger,
-  truncateGlanceLine,
+  measureG2TextWidthPx,
+  truncateG2LineByPx,
   utf8ByteCount,
   validateG2CardSpec,
 } from "../../kernel/event_bus.mjs";
@@ -342,10 +348,10 @@ export async function loadEvenHubSdk(targetGlobal = globalThis) {
 }
 
 export function buildCardHeaderLine(card, index = 0, total = 1) {
-  const badge =
-    card?.track === "crypto_defi" ? "PAPER/TESTNET" : "TG PRIORITY";
+  const badge = card?.track === "crypto_defi" ? "PAPER" : "TG";
   const pos = `${index + 1}/${Math.max(1, total)}`;
-  return truncateGlanceLine(`[${pos}] ${badge} | ${card?.headerTag || card?.title || "G2"}`, 44);
+  const rawTag = String(card?.headerTag || card?.title || "G2").replace(/^TG\s+/i, "");
+  return truncateG2LineByPx(`[${pos}] ${badge} | ${rawTag}`, G2_INNER_WIDTH_PX, 40);
 }
 
 export function buildEvenG2PageContainer(card, sdk, options = {}) {
@@ -372,8 +378,10 @@ export function buildEvenG2PageContainer(card, sdk, options = {}) {
     {
       xPosition: 16,
       yPosition: 12,
-      width: 544,
-      height: 36,
+      width: G2_INNER_WIDTH_PX,
+      height: G2_HEADER_HEIGHT_PX,
+      paddingLength: 0,
+      borderWidth: 0,
       containerID: 1,
       containerName: "hud-header",
       zOrderIndex: 1,
@@ -384,8 +392,10 @@ export function buildEvenG2PageContainer(card, sdk, options = {}) {
     {
       xPosition: 16,
       yPosition: 56,
-      width: 544,
-      height: 216,
+      width: G2_INNER_WIDTH_PX,
+      height: G2_BODY_HEIGHT_PX,
+      paddingLength: 0,
+      borderWidth: 0,
       containerID: 2,
       containerName: "hud-body",
       zOrderIndex: 2,
@@ -455,6 +465,23 @@ export function assertStrictPageContainerContract(pageContainer, sdk) {
     }
     if (Number(container.isEventCapture) === 1) {
       captureCount += 1;
+    }
+    if (typeof container.content === "string") {
+      const pad = Number(container.paddingLength ?? 0);
+      const border = Number(container.borderWidth ?? 0);
+      const innerWidth = Math.max(1, w - 2 * (pad + border));
+      const check = fitsG2Width(container.content, innerWidth);
+      if (!check.fits) {
+        throw new Error(
+          `Container '${container.containerName}' text width ${check.widthPx}px overflows innerWidth ${innerWidth}px.`
+        );
+      }
+      const lineCount = container.content.split("\n").length;
+      if (lineCount * G2_LINE_HEIGHT_PX > h) {
+        throw new Error(
+          `Container '${container.containerName}' height ${h}px clips ${lineCount} lines (${lineCount * G2_LINE_HEIGHT_PX}px required).`
+        );
+      }
     }
   }
 
@@ -614,12 +641,16 @@ export class EvenG2BridgeController {
     const headerOk = await this.#bridge.textContainerUpgrade({
       containerID: headerObj.containerID,
       containerName: headerObj.containerName,
+      contentOffset: 0,
+      contentLength: headerObj.content.length,
       content: headerObj.content,
       textColor: headerObj.textColor,
     });
     const bodyOk = await this.#bridge.textContainerUpgrade({
       containerID: bodyObj.containerID,
       containerName: bodyObj.containerName,
+      contentOffset: 0,
+      contentLength: bodyObj.content.length,
       content: bodyObj.content,
       textColor: bodyObj.textColor,
     });
@@ -721,20 +752,29 @@ export class EvenG2BridgeController {
       return;
     }
 
-    if (event?.sysEvent) {
-      const sys = event.sysEvent;
-      const sourceLabel = mapEventSourceLabel(sys.eventSource, EventSourceType);
-      const evType = sys.eventType;
+    const targetEvent = event?.textEvent || event?.sysEvent;
+    if (targetEvent) {
+      const sourceLabel = mapEventSourceLabel(targetEvent.eventSource, EventSourceType);
+      // Proto3 omits default zero `eventType: 0` (CLICK_EVENT) when neither imuData nor exit code is present
+      const evType =
+        targetEvent.eventType ??
+        (!targetEvent.imuData && targetEvent.systemExitReasonCode === undefined
+          ? OsEventTypeList.CLICK_EVENT
+          : undefined);
 
-      if (evType === OsEventTypeList.IMU_DATA_REPORT && sys.imuData) {
+      if (evType === OsEventTypeList.IMU_DATA_REPORT && targetEvent.imuData) {
         this.#eventBus.publish(TOPICS.GLASSES_DEVICE_STATUS, {
           kind: "imuReport",
-          imu: { x: sys.imuData.x, y: sys.imuData.y, z: sys.imuData.z },
+          imu: {
+            x: targetEvent.imuData.x,
+            y: targetEvent.imuData.y,
+            z: targetEvent.imuData.z,
+          },
         });
         return;
       }
 
-      const sysGestureMap = {
+      const gestureMap = {
         [OsEventTypeList.CLICK_EVENT]: "TAP_CONFIRM",
         [OsEventTypeList.DOUBLE_CLICK_EVENT]: "DOUBLE_TAP_DISMISS",
         [OsEventTypeList.SCROLL_BOTTOM_EVENT]: "SCROLL_NEXT",
@@ -742,7 +782,7 @@ export class EvenG2BridgeController {
         [OsEventTypeList.LONG_PRESS_EVENT]: "VOICE_PTT_START",
         [OsEventTypeList.LONG_PRESS_RELEASE_EVENT]: "VOICE_PTT_END",
       };
-      const gesture = sysGestureMap[evType];
+      const gesture = gestureMap[evType];
       if (gesture) {
         this.#eventBus.publish(TOPICS.GLASSES_INPUT_GESTURE, {
           gesture,

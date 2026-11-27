@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T08:53:53.850Z",
+  "generatedAt": "2026-11-27T22:49:21.789Z",
   "hackathon": {
     "id": 2477,
     "title": "Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub",
@@ -62,7 +62,7 @@
     "PAPER_TRADING_ONLY": true
   },
   "marketSnapshot": {
-    "fetchedAt": "2026-11-27T08:53:53.822Z",
+    "fetchedAt": "2026-11-27T22:49:21.639Z",
     "hyperliquidSource": "live",
     "polymarketSource": "live",
     "endpoints": {
@@ -73,30 +73,30 @@
     "hyperliquid": [
       {
         "coin": "BTC",
-        "markPx": 61734,
-        "testnetMidPx": 62674.5,
-        "prevDayPx": 60883,
-        "change24hPct": 1.4,
-        "fundingHourlyPct": 0.00125,
-        "openInterestCoins": 34567.6
+        "markPx": 59798,
+        "testnetMidPx": 60148,
+        "prevDayPx": 60618,
+        "change24hPct": -1.35,
+        "fundingHourlyPct": 0.00064,
+        "openInterestCoins": 35229.84
       },
       {
         "coin": "ETH",
-        "markPx": 1730.9,
-        "testnetMidPx": 1757.45,
-        "prevDayPx": 1700.4,
-        "change24hPct": 1.79,
-        "fundingHourlyPct": 0.00125,
-        "openInterestCoins": 614250.34
+        "markPx": 1658.2,
+        "testnetMidPx": 1651.95,
+        "prevDayPx": 1697.6,
+        "change24hPct": -2.32,
+        "fundingHourlyPct": 0.00084,
+        "openInterestCoins": 594470.31
       },
       {
         "coin": "SOL",
-        "markPx": 73.31,
-        "testnetMidPx": 72.93,
-        "prevDayPx": 71.07,
-        "change24hPct": 3.15,
-        "fundingHourlyPct": 0.00125,
-        "openInterestCoins": 4154696.32
+        "markPx": 71.55,
+        "testnetMidPx": 71.48,
+        "prevDayPx": 71.24,
+        "change24hPct": 0.43,
+        "fundingHourlyPct": -0.00084,
+        "openInterestCoins": 4090060.3
       }
     ],
     "polymarket": [
@@ -106,44 +106,44 @@
         "yesPct": 6,
         "noPct": 94,
         "yesPrice": 0.0605,
-        "volume24hrUsd": 14733.565083999998,
+        "volume24hrUsd": 10897.528933,
         "slug": "will-josh-shapiro-win-the-2028-democratic-presidential-nomination-977"
       },
       {
         "id": "559652",
         "question": "Will Gavin Newsom win the 2028 Democratic presidential nomination?",
-        "yesPct": 9.2,
-        "noPct": 90.8,
-        "yesPrice": 0.0915,
-        "volume24hrUsd": 11035.293808,
+        "yesPct": 9.3,
+        "noPct": 90.6,
+        "yesPrice": 0.0935,
+        "volume24hrUsd": 10667.688662999999,
         "slug": "will-gavin-newsom-win-the-2028-democratic-presidential-nomination-568"
+      },
+      {
+        "id": "559653",
+        "question": "Will Alexandria Ocasio-Cortez win the 2028 Democratic presidential nomination?",
+        "yesPct": 17.2,
+        "noPct": 82.8,
+        "yesPrice": 0.1715,
+        "volume24hrUsd": 10018.964552000001,
+        "slug": "will-alexandria-ocasio-cortez-win-the-2028-democratic-presidential-nomination-653"
       },
       {
         "id": "559654",
         "question": "Will Pete Buttigieg win the 2028 Democratic presidential nomination?",
-        "yesPct": 5.5,
-        "noPct": 94.5,
-        "yesPrice": 0.0555,
-        "volume24hrUsd": 10966.604913,
+        "yesPct": 5.7,
+        "noPct": 94.3,
+        "yesPrice": 0.0565,
+        "volume24hrUsd": 6631.730000000001,
         "slug": "will-pete-buttigieg-win-the-2028-democratic-presidential-nomination-687"
       },
       {
         "id": "559651",
         "question": "Xi Jinping out before 2027?",
-        "yesPct": 1.5,
+        "yesPct": 1.4,
         "noPct": 98.6,
-        "yesPrice": 0.0145,
-        "volume24hrUsd": 8852.547661,
+        "yesPrice": 0.014,
+        "volume24hrUsd": 2523.190994,
         "slug": "xi-jinping-out-before-2027"
-      },
-      {
-        "id": "559653",
-        "question": "Will Alexandria Ocasio-Cortez win the 2028 Democratic presidential nomination?",
-        "yesPct": 17.8,
-        "noPct": 82.3,
-        "yesPrice": 0.1775,
-        "volume24hrUsd": 4544.439792,
-        "slug": "will-alexandria-ocasio-cortez-win-the-2028-democratic-presidential-nomination-653"
       }
     ]
   },
@@ -164,7 +164,7 @@
       "linkedCardId": "card-hl-btc-hedge",
       "lines": [
         "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]",
-        "DeskBot: HL BTC test $62,675 hedge?",
+        "DeskBot: HL BTC test $60,148 hedge?",
         "AI: \"Ack: staging 0.01 BTC paper hedge.\"",
         "TAP Approve | SCRL HL Hedge | 2xTAP Mute"
       ],
@@ -189,9 +189,9 @@
       "safetyMode": "PAPER_TESTNET_ONLY",
       "sourceMode": "live",
       "lines": [
-        "HL BTC $61,734 (+1.4%) TEST $62,675",
-        "FUND +0.0013%/h | OI 34.6K",
-        "PAPER SHORT 0.01 BTC @ $62,675",
+        "HL BTC $59,798 (-1.4%) TEST $60,148",
+        "FUND +0.0006%/h | OI 35.2K",
+        "PAPER SHORT 0.01 BTC @ $60,148",
         "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
       ],
       "primaryActionLabel": "Tap: Confirm Paper SHORT 0.01 BTC",
@@ -202,16 +202,16 @@
         "symbol": "BTC-PERP",
         "side": "SHORT",
         "sizeCoins": 0.01,
-        "referencePriceUsd": 62674.5,
-        "notionalUsd": 626.75,
+        "referencePriceUsd": 60148,
+        "notionalUsd": 601.48,
         "l2Preview": {
           "coin": "BTC",
           "side": "SHORT",
           "sizeCoins": 0.01,
-          "midPx": 62674.5,
-          "vwapFillPx": 62665.1,
+          "midPx": 60148,
+          "vwapFillPx": 60138.98,
           "slippageBps": 1.5,
-          "top5BookDepthUsd": 46983.94,
+          "top5BookDepthUsd": 45089.95,
           "fullyFilled": true,
           "executionMode": "PAPER_TESTNET_ONLY",
           "custodyOfUserFunds": false,
@@ -235,7 +235,7 @@
       "sourceMode": "live",
       "lines": [
         "PM: Will Josh Shapiro win the 2028~",
-        "YES 6.0% | NO 94.0% | 24H $14.7K",
+        "YES 6.0% | NO 94.0% | 24H $10.9K",
         "PAPER YES $25.00 SIM (ZERO CUSTODY)",
         "TAP Confirm Paper | 2xTAP Skip | SCRL Next"
       ],
@@ -321,24 +321,28 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[1/4] TG PRIORITY | TG @HyperliquidAlphaDesk"
+            "content": "[1/4] TG | @HyperliquidAlphaDesk"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $62,675 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,148 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
           }
         ],
         "menuObject": {
@@ -376,24 +380,28 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+            "content": "[2/4] PAPER | HL BTC-PERP"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "HL BTC $61,734 (+1.4%) TEST $62,675\nFUND +0.0013%/h | OI 34.6K\nPAPER SHORT 0.01 BTC @ $62,675\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "HL BTC $59,798 (-1.4%) TEST $60,148\nFUND +0.0006%/h | OI 35.2K\nPAPER SHORT 0.01 BTC @ $60,148\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -431,24 +439,28 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[3/4] PAPER/TESTNET | POLYMARKET ODDS"
+            "content": "[3/4] PAPER | POLYMARKET ODDS"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "PM: Will Josh Shapiro win the 2028~\nYES 6.0% | NO 94.0% | 24H $14.7K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "PM: Will Josh Shapiro win the 2028~\nYES 6.0% | NO 94.0% | 24H $10.9K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -486,18 +498,22 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[4/4] TG PRIORITY | TG @DaosHubDubai"
+            "content": "[4/4] TG | @DaosHubDubai"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
@@ -546,24 +562,28 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[1/4] TG PRIORITY | TG @HyperliquidAlphaDesk"
+            "content": "[1/4] TG | @HyperliquidAlphaDesk"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $62,675 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+            "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,148 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
           }
         ],
         "menuObject": {
@@ -604,24 +624,28 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+            "content": "[2/4] PAPER | HL BTC-PERP"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "HL BTC $61,734 (+1.4%) TEST $62,675\nFUND +0.0013%/h | OI 34.6K\nPAPER SHORT 0.01 BTC @ $62,675\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "HL BTC $59,798 (-1.4%) TEST $60,148\nFUND +0.0006%/h | OI 35.2K\nPAPER SHORT 0.01 BTC @ $60,148\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -662,24 +686,28 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[3/4] PAPER/TESTNET | POLYMARKET ODDS"
+            "content": "[3/4] PAPER | POLYMARKET ODDS"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
             "isEventCapture": 1,
             "textColor": 4,
-            "content": "PM: Will Josh Shapiro win the 2028~\nYES 6.0% | NO 94.0% | 24H $14.7K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+            "content": "PM: Will Josh Shapiro win the 2028~\nYES 6.0% | NO 94.0% | 24H $10.9K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
           }
         ],
         "menuObject": {
@@ -720,18 +748,22 @@
             "yPosition": 12,
             "width": 544,
             "height": 36,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 1,
             "containerName": "hud-header",
             "zOrderIndex": 1,
             "isEventCapture": 0,
             "textColor": 3,
-            "content": "[4/4] TG PRIORITY | TG @DaosHubDubai"
+            "content": "[4/4] TG | @DaosHubDubai"
           },
           {
             "xPosition": 16,
             "yPosition": 56,
             "width": 544,
             "height": 216,
+            "paddingLength": 0,
+            "borderWidth": 0,
             "containerID": 2,
             "containerName": "hud-body",
             "zOrderIndex": 2,
@@ -771,10 +803,10 @@
       "venue": "Hyperliquid Testnet",
       "symbolOrMarket": "BTC-PERP",
       "side": "SHORT",
-      "notionalUsd": 626.75,
-      "referencePriceUsd": 62674.5,
+      "notionalUsd": 601.48,
+      "referencePriceUsd": 60148,
       "gestureSource": "RING",
-      "timestamp": "2026-11-27T08:53:53.849Z",
+      "timestamp": "2026-11-27T22:49:21.785Z",
       "executionMode": "PAPER_TESTNET_ONLY",
       "custodyOfUserFunds": false,
       "financialAdvice": false,
@@ -796,9 +828,9 @@
         "chatHandle": "@DaosHubDubai",
         "replyPreview": "Confirmed 15:20 GMT+4 remote slot. Ready.",
         "receiptHash": "b9ad1849e19e4e17",
-        "timestamp": "2026-11-27T08:53:53.848Z"
+        "timestamp": "2026-11-27T22:49:21.781Z"
       },
-      "timestamp": "2026-11-27T08:53:53.848Z"
+      "timestamp": "2026-11-27T22:49:21.782Z"
     }
   ],
   "hostCallCount": 0,
@@ -806,7 +838,7 @@
   "recentLedger": [
     {
       "seq": 1,
-      "timestamp": "2026-11-27T08:53:53.228Z",
+      "timestamp": "2026-11-27T22:49:20.754Z",
       "topic": "glasses.device.status",
       "payload": {
         "kind": "launchSource",
@@ -815,20 +847,20 @@
     },
     {
       "seq": 2,
-      "timestamp": "2026-11-27T08:53:53.839Z",
+      "timestamp": "2026-11-27T22:49:21.755Z",
       "topic": "market.pulse.updated",
       "payload": {
         "hyperliquidSource": "live",
         "polymarketSource": "live",
         "cardCount": 2,
-        "btcMarkPx": 61734,
-        "btcTestnetMidPx": 62674.5,
+        "btcMarkPx": 59798,
+        "btcTestnetMidPx": 60148,
         "topPolymarketQuestion": "Will Josh Shapiro win the 2028 Democratic presidential nomination?"
       }
     },
     {
       "seq": 3,
-      "timestamp": "2026-11-27T08:53:53.840Z",
+      "timestamp": "2026-11-27T22:49:21.759Z",
       "topic": "telegram.digest.updated",
       "payload": {
         "priorityCardCount": 2,
@@ -842,7 +874,7 @@
     },
     {
       "seq": 4,
-      "timestamp": "2026-11-27T08:53:53.845Z",
+      "timestamp": "2026-11-27T22:49:21.773Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "createStartUpPageContainer",
@@ -860,24 +892,28 @@
               "yPosition": 12,
               "width": 544,
               "height": 36,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 1,
               "containerName": "hud-header",
               "zOrderIndex": 1,
               "isEventCapture": 0,
               "textColor": 3,
-              "content": "[1/4] TG PRIORITY | TG @HyperliquidAlphaDesk"
+              "content": "[1/4] TG | @HyperliquidAlphaDesk"
             },
             {
               "xPosition": 16,
               "yPosition": 56,
               "width": 544,
               "height": 216,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 2,
               "containerName": "hud-body",
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $62,675 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
+              "content": "@HyperliquidAlphaDesk [2 NEW | 30S BRIEF]\nDeskBot: HL BTC test $60,148 hedge?\nAI: \"Ack: staging 0.01 BTC paper hedge.\"\nTAP Approve | SCRL HL Hedge | 2xTAP Mute"
             }
           ],
           "menuObject": {
@@ -905,7 +941,7 @@
     },
     {
       "seq": 5,
-      "timestamp": "2026-11-27T08:53:53.846Z",
+      "timestamp": "2026-11-27T22:49:21.776Z",
       "topic": "glasses.voice.captured",
       "payload": {
         "byteLength": 8,
@@ -926,18 +962,18 @@
     },
     {
       "seq": 6,
-      "timestamp": "2026-11-27T08:53:53.847Z",
+      "timestamp": "2026-11-27T22:49:21.777Z",
       "topic": "telegram.reply.staged",
       "payload": {
         "cardId": "card-tg-ops-reply",
         "replyText": "Confirmed 15:20 GMT+4 remote slot.~",
         "inputMode": "voice_stt",
-        "stagedAt": "2026-11-27T08:53:53.847Z"
+        "stagedAt": "2026-11-27T22:49:21.777Z"
       }
     },
     {
       "seq": 7,
-      "timestamp": "2026-11-27T08:53:53.847Z",
+      "timestamp": "2026-11-27T22:49:21.778Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -955,24 +991,28 @@
               "yPosition": 12,
               "width": 544,
               "height": 36,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 1,
               "containerName": "hud-header",
               "zOrderIndex": 1,
               "isEventCapture": 0,
               "textColor": 3,
-              "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+              "content": "[2/4] PAPER | HL BTC-PERP"
             },
             {
               "xPosition": 16,
               "yPosition": 56,
               "width": 544,
               "height": 216,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 2,
               "containerName": "hud-body",
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "HL BTC $61,734 (+1.4%) TEST $62,675\nFUND +0.0013%/h | OI 34.6K\nPAPER SHORT 0.01 BTC @ $62,675\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+              "content": "HL BTC $59,798 (-1.4%) TEST $60,148\nFUND +0.0006%/h | OI 35.2K\nPAPER SHORT 0.01 BTC @ $60,148\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
             }
           ],
           "menuObject": {
@@ -1000,7 +1040,7 @@
     },
     {
       "seq": 8,
-      "timestamp": "2026-11-27T08:53:53.848Z",
+      "timestamp": "2026-11-27T22:49:21.778Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -1018,24 +1058,28 @@
               "yPosition": 12,
               "width": 544,
               "height": 36,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 1,
               "containerName": "hud-header",
               "zOrderIndex": 1,
               "isEventCapture": 0,
               "textColor": 3,
-              "content": "[3/4] PAPER/TESTNET | POLYMARKET ODDS"
+              "content": "[3/4] PAPER | POLYMARKET ODDS"
             },
             {
               "xPosition": 16,
               "yPosition": 56,
               "width": 544,
               "height": 216,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 2,
               "containerName": "hud-body",
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "PM: Will Josh Shapiro win the 2028~\nYES 6.0% | NO 94.0% | 24H $14.7K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+              "content": "PM: Will Josh Shapiro win the 2028~\nYES 6.0% | NO 94.0% | 24H $10.9K\nPAPER YES $25.00 SIM (ZERO CUSTODY)\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
             }
           ],
           "menuObject": {
@@ -1063,7 +1107,7 @@
     },
     {
       "seq": 9,
-      "timestamp": "2026-11-27T08:53:53.848Z",
+      "timestamp": "2026-11-27T22:49:21.780Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -1081,18 +1125,22 @@
               "yPosition": 12,
               "width": 544,
               "height": 36,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 1,
               "containerName": "hud-header",
               "zOrderIndex": 1,
               "isEventCapture": 0,
               "textColor": 3,
-              "content": "[4/4] TG PRIORITY | TG @DaosHubDubai"
+              "content": "[4/4] TG | @DaosHubDubai"
             },
             {
               "xPosition": 16,
               "yPosition": 56,
               "width": 544,
               "height": 216,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 2,
               "containerName": "hud-body",
               "zOrderIndex": 2,
@@ -1126,7 +1174,7 @@
     },
     {
       "seq": 10,
-      "timestamp": "2026-11-27T08:53:53.848Z",
+      "timestamp": "2026-11-27T22:49:21.782Z",
       "topic": "telegram.digest.updated",
       "payload": {
         "priorityCardCount": 2,
@@ -1140,7 +1188,7 @@
     },
     {
       "seq": 11,
-      "timestamp": "2026-11-27T08:53:53.848Z",
+      "timestamp": "2026-11-27T22:49:21.782Z",
       "topic": "telegram.reply.approved",
       "payload": {
         "status": "APPROVED_AND_DISPATCHED",
@@ -1156,14 +1204,14 @@
           "chatHandle": "@DaosHubDubai",
           "replyPreview": "Confirmed 15:20 GMT+4 remote slot. Ready.",
           "receiptHash": "b9ad1849e19e4e17",
-          "timestamp": "2026-11-27T08:53:53.848Z"
+          "timestamp": "2026-11-27T22:49:21.781Z"
         },
-        "timestamp": "2026-11-27T08:53:53.848Z"
+        "timestamp": "2026-11-27T22:49:21.782Z"
       }
     },
     {
       "seq": 12,
-      "timestamp": "2026-11-27T08:53:53.849Z",
+      "timestamp": "2026-11-27T22:49:21.784Z",
       "topic": "glasses.frame.rendered",
       "payload": {
         "operation": "textContainerUpgrade",
@@ -1181,24 +1229,28 @@
               "yPosition": 12,
               "width": 544,
               "height": 36,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 1,
               "containerName": "hud-header",
               "zOrderIndex": 1,
               "isEventCapture": 0,
               "textColor": 3,
-              "content": "[2/4] PAPER/TESTNET | HL BTC-PERP"
+              "content": "[2/4] PAPER | HL BTC-PERP"
             },
             {
               "xPosition": 16,
               "yPosition": 56,
               "width": 544,
               "height": 216,
+              "paddingLength": 0,
+              "borderWidth": 0,
               "containerID": 2,
               "containerName": "hud-body",
               "zOrderIndex": 2,
               "isEventCapture": 1,
               "textColor": 4,
-              "content": "HL BTC $61,734 (+1.4%) TEST $62,675\nFUND +0.0013%/h | OI 34.6K\nPAPER SHORT 0.01 BTC @ $62,675\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
+              "content": "HL BTC $59,798 (-1.4%) TEST $60,148\nFUND +0.0006%/h | OI 35.2K\nPAPER SHORT 0.01 BTC @ $60,148\nTAP Confirm Paper | 2xTAP Skip | SCRL Next"
             }
           ],
           "menuObject": {
@@ -1226,7 +1278,7 @@
     },
     {
       "seq": 13,
-      "timestamp": "2026-11-27T08:53:53.849Z",
+      "timestamp": "2026-11-27T22:49:21.785Z",
       "topic": "glasses.input.gesture",
       "payload": {
         "gesture": "TAP_CONFIRM",
@@ -1236,7 +1288,7 @@
     },
     {
       "seq": 14,
-      "timestamp": "2026-11-27T08:53:53.849Z",
+      "timestamp": "2026-11-27T22:49:21.785Z",
       "topic": "market.order.confirmed",
       "payload": {
         "receiptId": "paper-exec-1-hl",
@@ -1245,10 +1297,10 @@
         "venue": "Hyperliquid Testnet",
         "symbolOrMarket": "BTC-PERP",
         "side": "SHORT",
-        "notionalUsd": 626.75,
-        "referencePriceUsd": 62674.5,
+        "notionalUsd": 601.48,
+        "referencePriceUsd": 60148,
         "gestureSource": "RING",
-        "timestamp": "2026-11-27T08:53:53.849Z",
+        "timestamp": "2026-11-27T22:49:21.785Z",
         "executionMode": "PAPER_TESTNET_ONLY",
         "custodyOfUserFunds": false,
         "financialAdvice": false,
@@ -1257,7 +1309,7 @@
     },
     {
       "seq": 15,
-      "timestamp": "2026-11-27T08:53:53.849Z",
+      "timestamp": "2026-11-27T22:49:21.786Z",
       "topic": "telegram.digest.updated",
       "payload": {
         "priorityCardCount": 2,
