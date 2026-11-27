@@ -34,7 +34,7 @@ python3 /Users/zerbytheboss/.gemini/config/skills/dorahacks-builder/scripts/dora
 2. Open `http://127.0.0.1:8787` (or load inside `@evenrealities/evenhub-simulator`).
 3. Demonstrate the 4-card read-and-write loop in under 150 seconds:
    - **0:00–0:30:** Show Card 01 (`@HyperliquidAlphaDesk` priority Telegram digest) inside the `576 x 288` monochrome green waveguide while unselected chats stay filtered out.
-   - **0:30–1:10:** Scroll (`SCRL`) to Card 02 (`Hyperliquid BTC-PERP` live price, Testnet mid, and `l2Book` VWAP preview) and Card 03 (`Polymarket` live odds), then press `TAP` (`R1 Ring`) to confirm a paper hedge and inspect the SDK `evenAppMessage` audit log.
+   - **0:30–1:10:** Scroll (`SCRL`) to Card 02 (`Hyperliquid BTC-PERP`, Testnet mid, `l2Book` VWAP) and Card 03 (`Polymarket` odds). Press `TAP` (`R1 Ring`) to confirm a paper hedge and inspect the SDK audit log.
    - **1:10–1:55:** Scroll to Card 04 (`@DaosHubDubai`), trigger `Push-to-Talk Voice` (`audioControl` + `/api/stt/transcribe`), and tap once to approve and dispatch the reply receipt.
    - **1:55–2:20:** Adjust brightness (`textColor` `0..4`), open the contextual `menuObject` overlay, and show `7/7` passing automated tests.
 
