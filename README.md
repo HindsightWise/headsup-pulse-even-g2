@@ -61,7 +61,7 @@ HeadsUp Pulse turns that daily check into a 30-second eyes-up loop:
 | **R1 Ring Tap** | `onEvenHubEvent` -> `CLICK_EVENT` (`TOUCH_EVENT_FROM_RING`) | Publishes `TAP_CONFIRM`; confirms paper hedge or approves staged Telegram reply | `POST /api/action/confirm` or `POST /api/telegram/reply-draft` |
 | **Temple Touch** | `onEvenHubEvent` -> `CLICK_EVENT` / `DOUBLE_CLICK_EVENT` (`TOUCH_EVENT_FROM_GLASSES_R` / `L`) | Single tap confirms; double tap publishes `DOUBLE_TAP_DISMISS` (dismisses ticket or mutes thread 1h) | `POST /api/action/confirm` or `POST /api/telegram/reply-draft` |
 | **Push-to-Talk Voice** | `LONG_PRESS_EVENT` -> `audioControl(true, AudioInputSource.Glasses)` -> `audioEvent` PCM frames | Publishes `TOPICS.GLASSES_VOICE_CAPTURED`; stages voice reply or voice paper order | `POST /api/stt/transcribe` |
-| **Brightness `0..4`** | `clampBrightness(level)` -> `textContainerUpgrade({ textColor })` | Sets integer `textColor` (`0..4`) on `hud-header` and `hud-body` containers | Local WebView + `createHeadsUpPulseRuntime.setBrightness` |
+| **Brightness `0..4`** | `clampBrightness(level)` -> `textContainerUpgrade({ textColor })` | Sets `hud-body` (`containerID: 2`) `textColor` to `0..4` and `hud-header` (`containerID: 1`) stepped contrast `1..3` | Local WebView + `createHeadsUpPulseRuntime.setBrightness` |
 | **Contextual `menuObject`** | `menuObject.menuItems` (`1..4`, `<= 32` UTF-8 bytes) -> `menuItemClickEvent` | Maps item IDs `1..4` to `TAP_CONFIRM`, `DOUBLE_TAP_DISMISS`, `VOICE_PTT_TOGGLE`, `SCROLL_NEXT` | Dispatches active card action endpoint |
 
 ---
@@ -73,12 +73,17 @@ flowchart LR
   G2["Even G2 Glasses (576x288 Green + Mic + Temple)"] <-->|"BLE"| APP["Even App WebView (web/index.html)"]
   R1["Even R1 Smart Ring"] -->|"BLE Tap / Scroll"| APP
   APP <-->|"even_hub_sdk@0.0.16"| BRIDGE["sdk_bridge (EvenG2BridgeController)"]
-  BRIDGE <-->|"EventBus + TOPICS"| KERNEL["kernel/event_bus.mjs"]
-  KERNEL <-->|"Zero Sibling Imports"| MKT["market_pulse (MarketPulseEngine)"]
-  KERNEL <-->|"Zero Sibling Imports"| TG["telegram_digest (TelegramDigestEngine)"]
-  APP <-->|"CORS Allowlist"| PROXY["backend_proxy (createBackendProxyServer :8787)"]
-  PROXY -->|"POST /info"| HL["Hyperliquid Mainnet & Testnet APIs"]
-  PROXY -->|"GET /markets"| PM["Polymarket Gamma API"]
+  APP <-->|"CORS Allowlist (:8787)"| PROXY["backend_proxy (createBackendProxyServer)"]
+  RUNTIME["src/app.mjs (createHeadsUpPulseRuntime)"] -->|"Composes"| BRIDGE
+  RUNTIME -->|"Composes + Route Handlers"| PROXY
+  RUNTIME -->|"Composes"| KERNEL["kernel/event_bus.mjs (EventBus + TOPICS)"]
+  RUNTIME -->|"Composes"| MKT["market_pulse (MarketPulseEngine)"]
+  RUNTIME -->|"Composes"| TG["telegram_digest (TelegramDigestEngine)"]
+  BRIDGE <-->|"EventBus"| KERNEL
+  MKT <-->|"EventBus (Zero Sibling Imports)"| KERNEL
+  TG <-->|"EventBus (Zero Sibling Imports)"| KERNEL
+  MKT -->|"POST /info (metaAndAssetCtxs, allMids, l2Book)"| HL["Hyperliquid Mainnet & Testnet APIs"]
+  MKT -->|"GET /markets"| PM["Polymarket Gamma API"]
   PROXY -->|"pollTelegramUpdates / dispatchTelegramReply"| TGBOT["Telegram Bot API"]
 ```
 
