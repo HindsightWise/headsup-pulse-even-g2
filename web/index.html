@@ -124,6 +124,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      min-height: 28px;
       white-space: nowrap;
       flex-shrink: 0;
     }
@@ -149,6 +150,9 @@
     }
 
     .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
       font-size: var(--text-sm);
       font-weight: 500;
       color: var(--ink-secondary);
@@ -758,6 +762,9 @@
     }
 
     .inline-action {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
       background: transparent;
       border: 0;
       padding: 4px 0;
@@ -944,6 +951,9 @@
     }
 
     .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
       font-size: var(--text-sm);
       font-weight: 500;
       color: var(--ink-primary);
@@ -990,6 +1000,7 @@
 
       .brand-lockup {
         gap: 7px;
+        min-height: 44px;
       }
 
       .brand-wordmark {
@@ -1004,6 +1015,10 @@
         gap: 10px;
       }
 
+      .nav-link {
+        min-height: 44px;
+      }
+
       .nav-link.hide-xs {
         display: none;
       }
@@ -1014,7 +1029,7 @@
       }
 
       .workbench-main {
-        padding: 12px 16px 56px;
+        padding: 12px 12px 56px;
       }
 
       .stage-intro {
@@ -1023,18 +1038,20 @@
       }
 
       .waveguide-plinth {
-        padding: 16px;
+        padding: 12px;
       }
 
       .g2-waveguide-viewport {
-        min-height: 232px;
-        padding: 12px 14px;
+        min-height: 224px;
+        padding: 10px 12px;
       }
 
       .g2-glance-line {
         font-size: var(--text-sm);
-        white-space: normal;
-        word-break: break-word;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .segmented-tabs {
@@ -1044,7 +1061,14 @@
       .seg-tab,
       .ring-strip-btn,
       .brightness-step,
-      .pill-switch {
+      .pill-switch,
+      .inline-action,
+      .footer-links a {
+        min-height: 44px;
+      }
+
+      .voice-select {
+        display: block;
         min-height: 44px;
       }
 
@@ -1294,7 +1318,7 @@
 
         <div class="ledger-well">
           <div class="ledger-well-head">
-            <span>flutter_inappwebview.callHandler('evenAppMessage')</span>
+            <span>evenAppMessage WebView bridge</span>
             <span id="sdk-validation-badge">SDK 0.0.16 valid</span>
           </div>
           <ul class="ledger-list" id="sdk-audit-log" aria-live="polite"></ul>
