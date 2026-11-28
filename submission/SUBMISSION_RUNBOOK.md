@@ -42,8 +42,7 @@ python3 /Users/zerbytheboss/.gemini/config/skills/dorahacks-builder/scripts/dora
 - **BUIDL Title:** `HeadsUp Pulse`
 - **Tracks Selected:** `Messaging & News` (`4795`) + `Crypto & DeFi` (`4799`) + `Best Telegram Integration`
 - **Description Markdown:** Paste `submission/BUIDL_DRAFT.md`
-- **Live Demo URL (`demo_url`):** `https://hindsightwise.github.io/headsup-pulse-even-g2/`
-- **GitHub Repository:** `https://github.com/HindsightWise/headsup-pulse-even-g2` (includes setup, `.ehpk` package, official simulator proof, Pre-Nov-23 disclosure, AI-assisted coding disclosure, Money-Safety Notice, and 5 API feature requests)
+- **GitHub Repository:** `https://github.com/HindsightWise/headsup-pulse-even-g2` (includes setup, `docs/index.html` standalone static preview, `.ehpk` package, official simulator proof, Pre-Nov-23 disclosure, AI-assisted coding disclosure, Money-Safety Notice, and 5 API feature requests)
 - **Demo Video Link:** `https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/demo_walkthrough.mp4` (`<= 3` minutes)
-- **Even Hub Package:** `outputs/headsup-pulse.ehpk` (`package_id: com.hindsightwise.headsuppulse`, `edition: 202601`)
+- **Even Hub Package:** `https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/headsup-pulse.ehpk` (`package_id: com.hindsightwise.headsuppulse`, `edition: 202601`)
 - **Confidentiality Reminder:** Never paste `TELEGRAM_BOT_TOKEN`, wallet private keys, or `.env` values into DoraHacks Build fields, Q&A, or Hackathon AI chat.

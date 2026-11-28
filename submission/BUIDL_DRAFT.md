@@ -35,10 +35,10 @@ Run the end-to-end verification suite and interactive `576 x 288` Midnight Exhib
 3. Launch the local proxy and interactive Even G2 + R1 Ring workbench at `http://127.0.0.1:8787`: `npm run serve`
 4. Run unit, AST boundary, CORS, safety-lock, artistry, pixel-exact LVGL, and real WebView bridge tests (`8/8` passing): `npm test`
 
-- **Live Interactive Demo (0-Install GitHub Pages):** https://hindsightwise.github.io/headsup-pulse-even-g2/
 - **Repository:** https://github.com/HindsightWise/headsup-pulse-even-g2
 - **Demo Video (H.264 MP4 with Official Simulator Proof):** https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/demo_walkthrough.mp4
-- **Verified Even Hub Package (`.ehpk`):** `outputs/headsup-pulse.ehpk` (built with `@evenrealities/evenhub-cli@0.2.0`, `package_id: com.hindsightwise.headsuppulse`, `edition: 202601`)
+- **Verified Even Hub Package (`.ehpk`):** https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/headsup-pulse.ehpk (built with `@evenrealities/evenhub-cli@0.2.0`, `package_id: com.hindsightwise.headsuppulse`, `edition: 202601`)
+- **Zero-Error Static Preview:** Open `docs/index.html` directly in any browser or launch locally with `npm run serve`.
 
 Both `README.md` and `outputs/demo_walkthrough.mp4` include verified `576 x 288` lens proof from official `@evenrealities/evenhub-simulator@0.9.5`. The repository `README.md` also documents our **Pre-Nov-23 Open-Source, Scaffold & API Disclosure** and **AI-Assisted Coding Disclosure** (organizer `danel`, Q&A `#1562275`). It includes our **Money-Safety Notice** (paper/testnet only, HTTP `403` lock, zero custody, zero committed keys) and **5 Concrete API Feature Requests**.
 

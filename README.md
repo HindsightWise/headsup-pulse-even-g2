@@ -6,9 +6,9 @@ Built for **Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub (`#247
 - **Track 01: Messaging & News (`4795`) + Special Prize (`Best Telegram Integration`):** Allowlist-only Telegram digest (`<= 4` short lines) with 1-tap AI draft approval or push-to-talk voice replies.
 - **Track 02: Crypto & DeFi (`4799`):** Live Hyperliquid perpetual pricing, hourly funding, Testnet mids, `l2Book` VWAP slippage previews, and Polymarket Gamma odds with 1-tap paper hedge confirmations.
 
-- **Live Interactive Demo (0-Install GitHub Pages):** [Launch Standalone Workbench](https://hindsightwise.github.io/headsup-pulse-even-g2/)
+- **Standalone Static Preview:** Open [`docs/index.html`](docs/index.html) directly in any browser (zero-error static mode) or run `npm run serve` locally.
 - **Demo Video (`<= 3` min H.264 MP4):** [Watch locally (`outputs/demo_walkthrough.mp4`)](outputs/demo_walkthrough.mp4) | [Direct Raw GitHub Video](https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/demo_walkthrough.mp4)
-- **Even Hub Package (`.ehpk`):** [`outputs/headsup-pulse.ehpk`](outputs/headsup-pulse.ehpk) (`package_id: com.hindsightwise.headsuppulse`, `edition: 202601`)
+- **Even Hub Package (`.ehpk`):** [`outputs/headsup-pulse.ehpk`](outputs/headsup-pulse.ehpk) | [Direct Download](https://raw.githubusercontent.com/HindsightWise/headsup-pulse-even-g2/main/outputs/headsup-pulse.ehpk) (`package_id: com.hindsightwise.headsuppulse`, `edition: 202601`)
 
 ---
 
@@ -128,7 +128,7 @@ node src/cli.mjs
 ```bash
 npm run serve
 ```
-This runs `node src/cli.mjs --serve --port 8787`. Open `http://127.0.0.1:8787` in a browser, launch the [0-install GitHub Pages demo](https://hindsightwise.github.io/headsup-pulse-even-g2/), or point `@evenrealities/evenhub-simulator` at `http://127.0.0.1:8787`.
+This runs `node src/cli.mjs --serve --port 8787`. Open `http://127.0.0.1:8787` in a browser, open [`docs/index.html`](docs/index.html) directly in zero-error static mode, or point `@evenrealities/evenhub-simulator` at `http://127.0.0.1:8787`.
 
 To enable live Telegram Bot API polling and outbound message delivery (optional; defaults to deterministic local paper receipts when unset):
 ```bash
